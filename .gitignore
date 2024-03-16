@@ -1,2 +1,5 @@
-# Archivos de diccionario
+# Diccionarios
 spell/
+
+# Archivos de configuración de Lazyvim
+lazy-lock.json
