@@ -18,18 +18,18 @@ map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = t
 
 -- Moviento de líneas, similares a VSCode. Requiere activación de uso de alt en
 -- MacOS
-map('n', '<A-j>', ':m .+1<CR>==', { noremap = true, silent = true })
-map('n', '<A-k>', ':m .-2<CR>==', { noremap = true, silent = true })
-map('i', '<A-j>', '<Esc>:m .+1<CR>==gi', { noremap = true, silent = true })
-map('i', '<A-k>', '<Esc>:m .-2<CR>==gi', { noremap = true, silent = true })
-map('v', '<A-j>', ':m \'>+1<CR>gv=gv', { noremap = true, silent = true })
-map('v', '<A-k>', ':m \'<-2<CR>gv=gv', { noremap = true, silent = true })
+map("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
+map("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
+map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { noremap = true, silent = true })
+map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { noremap = true, silent = true })
+map("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+map("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 -- Movimiento de cursor entre palabras con <option>
-map('', '<A-h>', 'b', { noremap = true, silent = true })
-map('', '<A-l>', 'e', { noremap = true, silent = true })
-map('i', '<A-h>', '<Esc>bi', { noremap = true, silent = true })
-map('i', '<A-l>', '<Esc>wwi', { noremap = true, silent = true })
+map("", "<A-h>", "b", { noremap = true, silent = true })
+map("", "<A-l>", "e", { noremap = true, silent = true })
+map("i", "<A-h>", "<Esc>bi", { noremap = true, silent = true })
+map("i", "<A-l>", "<Esc>wwi", { noremap = true, silent = true })
 
 -- Movimiento de ventanas usando <ctrl> + hjkl
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
@@ -38,10 +38,10 @@ map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true })
 map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
 
 -- Diagnostic keymaps
-map('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-map('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-map('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Salir del modo terminal
 map("t", "<Esc><Esc>", "<c-\\><c-n>", { desc = "Salir del modo terminal" })
@@ -67,13 +67,10 @@ map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Limpiar búsqueda" })
 -- Abre archivos
 map("n", "<leader>e", "<cmd>Neotree toggle<cr>")
 
--- Abre Lazygit
-map("n", "<leader>gg", ":LazyGit<cr>")
-
 -- Usa Telescope para las sugerencias ortográficas
 map("n", "z=", ":Telescope spell_suggest<cr>")
 
-vim.cmd [[
+vim.cmd([[
 function! NumberToggle()
     if(&number == 1)
         set number!
@@ -86,17 +83,25 @@ function! NumberToggle()
         set number
     endif
 endfunction
-]]
-
+]])
 
 -- Cambios de interfaz de usuario
 -- map("n", "<leader>uz", ":Goyo<cr>", {desc="Modo Zen"})
-map("n", "<leader>un", ":call NumberToggle()<cr>", { noremap = true, silent = true, desc = "Alterna numeros de línea" })
+map(
+	"n",
+	"<leader>un",
+	":call NumberToggle()<cr>",
+	{ noremap = true, silent = true, desc = "Alterna numeros de línea" }
+)
 map("n", "<leader>uw", ":set wrap!<cr>", { noremap = true, silent = true, desc = "Alterna ajuste de línea" })
 map("n", "<leader>ug", ":GitBlameToggle<cr>", { noremap = true, silent = true, desc = "Alterna GitBlame" })
 map("n", "<leader>ut", ":TransparentToggle<cr>", { noremap = true, silent = true, desc = "Alterna fondo transpaente" })
-map("n", "<leader>ui", ":IndentBlanklineToggle!<cr>",
-  { noremap = true, silent = true, desc = "Alterna guias de indentación" })
+map(
+	"n",
+	"<leader>ui",
+	":IndentBlanklineToggle!<cr>",
+	{ noremap = true, silent = true, desc = "Alterna guias de indentación" }
+)
 
 -- Movimientos de terminal
 map("n", "<leader>t", "<cmd>exe v:count1 .. 'ToggleTerm'<cr>", { silent = true })
@@ -105,7 +110,6 @@ map("n", "<leader>tv", "<cmd>exe v:count1 .. 'ToggleTerm direction=vertical size
 map("n", "<leader>tf", "<cmd>exe v:count1 .. 'ToggleTerm direction=float'<cr>", { silent = true })
 map("n", "<leader>tt", "<cmd>exe v:count1 .. 'ToggleTerm direction=tab'<cr>", { silent = true })
 map("n", "<leader>ta", ":ToggleTermToggleAll<cr>", { silent = true })
-
 
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
