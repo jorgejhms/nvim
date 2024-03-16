@@ -14,3 +14,4 @@ vim.g.have_nerd_font = true -- Nerd font
 -- Carga opciones generales
 require("config.options")
 require("config.maps")
+require("config.autocomands")
