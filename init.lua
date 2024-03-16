@@ -1,7 +1,9 @@
 --[[
 
+  ==============================================================================
   Configuración personal Neovim
   autor: jorgejhms
+  ==============================================================================
 
 --]]
 
@@ -15,3 +17,6 @@ vim.g.have_nerd_font = true -- Nerd font
 require("config.options")
 require("config.maps")
 require("config.autocomands")
+
+-- Carga Lazu.nvim para gestión de paquetes
+require("config.lazy")
