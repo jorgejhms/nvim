@@ -64,16 +64,6 @@ map("n", "]b", "<cmd>bnext<cr>", { desc = "Buffer siguiente" })
 -- Limpia busqueda con <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Limpiar búsqueda" })
 
--- Telescope
-map("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
-map("n", "<leader><leader>", "<cmd>Telescope find_files<cr>")
-map("n", "<leader>f/", "<cmd>Telescope live_grep<cr>")
-map("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
-map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
-map("n", "<leader>fc", "<cmd>Telescope commands<cr>")
-map("n", "<leader>fd", "<cmd>Telescope lsp_document_symbols<cr>")
-map("n", "<leader>fD", "<cmd>Telescope lsp_workspace_symbols<cr>")
-
 -- Abre archivos
 map("n", "<leader>e", "<cmd>Neotree toggle<cr>")
 
