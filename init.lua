@@ -23,3 +23,6 @@ require("config.lazy")
 
 -- Selecciona tema de colores
 vim.cmd.colorscheme("catppuccin")
+
+-- Configuraciones vscode
+require("config.vscode")
