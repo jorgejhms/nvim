@@ -135,8 +135,9 @@ return { -- Autocompletion
 				fields = { "abbr", "kind", "menu" },
 				expandable_indicator = true,
 				format = lspkind.cmp_format({
-					mode = "symbol",
-					max_width = 50,
+					-- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+					mode = "symbol_text",
+					-- max_width = 50,
 					symbol_map = { Copilot = "" },
 				}),
 			},
