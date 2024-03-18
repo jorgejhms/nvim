@@ -7,35 +7,43 @@
   Revisar `:help vim.opt` para más información
 ]]
 
--- Establece numeros relativos de línea
-vim.opt.relativenumber = true
-vim.opt.number = true
+-- Oculta command line si no se usa
+vim.opt.cmdheight = 0
+-- Establece <space> como leader
+-- See `:help mapleader`
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
--- Activa mouse
+-- Set to true if you have a Nerd Font installed
+vim.g.have_nerd_font = true
+
+-- Establece números de línea relativos
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+-- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
 
--- No muestra el modo de forma duplicada
+-- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
 
--- Sincroniza con el portapapeles del sistema
--- Revisar `:help clipboard`
-vim.opt.clipboard = "unnamed"
+-- Sync clipboard between OS and Neovim.
+--  Remove this option if you want your OS clipboard to remain independent.
+--  See `:help 'clipboard'`
+vim.opt.clipboard = "unnamedplus"
 
--- Activa breakindent. Preserva indentación en líneas largas
+-- Enable break indent
 vim.opt.breakindent = true
 
--- Preserva historial de deshacer
+-- Save undo history
 vim.opt.undofile = true
 
--- Búsqueda
-vim.opt.hlsearch = true  -- resalta resultados búsqueda
-vim.opt.incsearch = true -- busqueda incremental
--- Ignora mayusculas/minusculas en búsqueda a menos que se use mayuscula o \C
+-- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = "yes"
 
 -- Decrease update time
 vim.opt.updatetime = 250
@@ -52,19 +60,16 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
+vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
-
--- Usar un statusline global.
-vim.opt.laststatus = 3
+vim.opt.scrolloff = 3
 
 -- resalta pares de parentesis
 vim.opt.showmatch = true
@@ -72,34 +77,6 @@ vim.opt.showmatch = true
 -- guia en la columna 80
 vim.opt.colorcolumn = "80"
 
--- no usa archivos temporales
-vim.opt.swapfile = false
-
-vim.opt.termguicolors = true
-
-vim.opt.cursorline = true
-vim.opt.cmdheight = 0
-
 -- tabs & indent
-vim.opt.tabstop = 2        -- 2 espacios como tab
-vim.opt.shiftwidth = 2     -- 2 espacios ancho de tab
-vim.opt.expandtab = true   -- cambia tabs a espacios
-vim.opt.autoindent = true  -- inserta tabs de forma automática
-vim.opt.smartindent = true -- inserta tabs en base a sintaxis
-
--- line wraping
-vim.opt.wrap = true
-vim.opt.linebreak = true
-vim.opt.textwidth = 0
-
--- Corrección ortográfica en archivos markdown
--- vim.cmd [[autocmd BufNewFile,BufRead *.md set spell spelllang=es]]
-
--- Desactiva folds en markdown
--- vim.g.vim_markdown_folding_disabled = 1
--- vim.g.vim_markdown_conceal = 0
--- vim.g.vim_markdown_conceal_code_blocks = 0
--- vim.g['conceallevel'] = 0
-
--- vim.g.gitblame_display_virtual_text = 0 -- Disable virtual text
--- vim.g.transparent_enabled = true
+vim.opt.tabstop = 2 -- 2 espacios como tab
+vim.opt.shiftwidth = 2 -- 2 espacios ancho de tab

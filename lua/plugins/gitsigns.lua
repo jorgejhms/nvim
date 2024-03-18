@@ -1,7 +1,15 @@
--- Gitsigns
--- https://github.com/lewis6991/gitsigns.nvim
+-- Adds git related signs to the gutter, as well as utilities for managing changes
+-- -- See `:help gitsigns` to understand what the configuration keys do
 return {
-  'lewis6991/gitsigns.nvim',
-  opts = {}
-  -- TODO: Definir keymaps
+	"lewis6991/gitsigns.nvim",
+	-- TODO: Revisar
+	opts = {
+		signs = {
+			add = { text = "+" },
+			change = { text = "~" },
+			delete = { text = "_" },
+			topdelete = { text = "‾" },
+			changedelete = { text = "~" },
+		},
+	},
 }

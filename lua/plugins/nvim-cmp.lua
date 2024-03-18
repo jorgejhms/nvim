@@ -2,7 +2,6 @@ return { -- Autocompletion
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
 	dependencies = {
-
 		-- Snippet Engine & its associated nvim-cmp source
 		{
 			"L3MON4D3/LuaSnip",
@@ -27,7 +26,6 @@ return { -- Autocompletion
 				},
 			},
 		},
-
 		"saadparwaiz1/cmp_luasnip",
 
 		-- Adds other completion capabilities.
@@ -35,13 +33,15 @@ return { -- Autocompletion
 		--  into multiple repos for maintenance purposes.
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
+		"hrsh7th/cmp-buffer",
 		"onsails/lspkind-nvim",
 	},
 	config = function()
-		-- See `:help cmp
+		-- See `:help cmp`
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
+
 		luasnip.config.setup({})
 
 		cmp.setup({
@@ -62,28 +62,29 @@ return { -- Autocompletion
 			-- No, but seriously. Please read `:help ins-completion`, it is really good!
 			mapping = cmp.mapping.preset.insert({
 				-- Select the [n]ext item
-				["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+				["<C-n>"] = cmp.mapping.select_next_item(),
 				-- Select the [p]revious item
-				["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+				["<C-p>"] = cmp.mapping.select_prev_item(),
 
 				-- scroll the documentation window [b]ack / [f]orward
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
 
+				-- Accept ([y]es) the completion.
+				--  This will auto-import if your LSP supports it.
+				--  This will expand snippets if the LSP sent a snippet.
+				["<C-y>"] = cmp.mapping.confirm({ select = true }),
+
 				-- Manually trigger a completion from nvim-cmp.
 				--  Generally you don't need this, because nvim-cmp will display
 				--  completions whenever it has completion options available.
-				["<C-Space>"] = cmp.mapping.complete(),
+				["<C-Space>"] = cmp.mapping.complete({}),
+
+				-- Cancela autocompletado
 				["<C-e>"] = cmp.mapping.abort(),
-				["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-				["<S-CR>"] = cmp.mapping.confirm({
-					behavior = cmp.ConfirmBehavior.Replace,
-					select = true,
-				}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-				["<C-CR>"] = function(fallback)
-					cmp.abort()
-					fallback()
-				end,
+
+				-- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+				["<CR>"] = cmp.mapping.confirm({ select = true }),
 
 				-- Think of <c-l> as moving to the right of your snippet expansion.
 				--  So if you have a snippet that's like:
@@ -103,6 +104,7 @@ return { -- Autocompletion
 						luasnip.jump(-1)
 					end
 				end, { "i", "s" }),
+
 				--  Usa tab y S-tab para mover el menu
 				["<Tab>"] = function(fallback)
 					if cmp.visible() then
@@ -113,6 +115,7 @@ return { -- Autocompletion
 						fallback()
 					end
 				end,
+
 				["<S-Tab>"] = function(fallback)
 					if cmp.visible() then
 						cmp.select_prev_item()
@@ -122,6 +125,7 @@ return { -- Autocompletion
 						fallback()
 					end
 				end,
+
 				-- For more advanced luasnip keymaps (e.g. selecting choice nodes, expansion) see:
 				--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
 			}),
@@ -141,6 +145,7 @@ return { -- Autocompletion
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
+				{ name = "buffer" },
 				{ name = "copilot", group_index = 1, priority = 100 },
 			},
 		})

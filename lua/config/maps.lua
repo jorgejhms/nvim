@@ -1,7 +1,7 @@
 --[[
 
   ==============================================================================
-  Mappings
+  Keymaps
   ==============================================================================
 
   Revisar `:help vim.keymap.set()`
@@ -10,13 +10,34 @@
 
 local map = vim.keymap.set
 
+-- Set highlight on search, but clear on pressing <Esc> in normal mode
+vim.opt.hlsearch = true
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+-- Diagnostic keymaps
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+
+-- Usa <Esc><Esc> para salir de la terminal
+map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+-- Keybinds to make split navigation easier.
+--  Use CTRL+<hjkl> to switch between windows
+--  See `:help wincmd` for a list of all window commands
+map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
 -- Ajuste "arriba"/"abajo" para lineas visuales
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- Moviento de líneas, similares a VSCode. Requiere activación de uso de alt en
+-- Movimiento de líneas, similares a VSCode. Requiere activación de uso de alt en
 -- MacOS
 map("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
 map("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
@@ -25,28 +46,8 @@ map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { noremap = true, silent = true })
 map("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 map("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
--- Movimiento de cursor entre palabras con <option>
-map("", "<A-h>", "b", { noremap = true, silent = true })
-map("", "<A-l>", "e", { noremap = true, silent = true })
-map("i", "<A-h>", "<Esc>bi", { noremap = true, silent = true })
-map("i", "<A-l>", "<Esc>wwi", { noremap = true, silent = true })
-
--- Movimiento de ventanas usando <ctrl> + hjkl
-map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
-map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true })
-map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true })
-map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
-
--- Diagnostic keymaps
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
-map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
-
--- Salir del modo terminal
-map("t", "<Esc><Esc>", "<c-\\><c-n>", { desc = "Salir del modo terminal" })
-
 -- Splits
+-- ver `help: split`
 map("n", "<leader>|", ":vsplit<cr>")
 map("n", "<leader>-", ":split<cr>")
 
@@ -59,12 +60,14 @@ map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window w
 -- Movimiento buffers
 map("n", "[b", "<cmd>bprevious<cr>", { desc = "Buffer anterior" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Buffer siguiente" })
---map("n", "<leader>bd", "<cmd>bdelete<cr>", {desc = "Cerrar Buffer"})
+map("n", "<leader>b1", "<cmd>bfirst<cr>", { desc = "Ir al primer buffer" })
+map("n", "<leader>b9", "<cmd>blast<cr>", { desc = "Ir al último buffer" })
+map("n", "<leader>bd", "<cmd>lua MiniBufremove.delete()<cr>", { desc = "Borrar buffer" })
 
 -- Limpia busqueda con <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Limpiar búsqueda" })
 
--- Abre archivos
+-- Abre Neotree
 map("n", "<leader>e", "<cmd>Neotree toggle<cr>")
 
 -- Usa Telescope para las sugerencias ortográficas
@@ -94,22 +97,14 @@ map(
 	{ noremap = true, silent = true, desc = "Alterna numeros de línea" }
 )
 map("n", "<leader>uw", ":set wrap!<cr>", { noremap = true, silent = true, desc = "Alterna ajuste de línea" })
-map("n", "<leader>ug", ":GitBlameToggle<cr>", { noremap = true, silent = true, desc = "Alterna GitBlame" })
-map("n", "<leader>ut", ":TransparentToggle<cr>", { noremap = true, silent = true, desc = "Alterna fondo transpaente" })
-map(
-	"n",
-	"<leader>ui",
-	":IndentBlanklineToggle!<cr>",
-	{ noremap = true, silent = true, desc = "Alterna guias de indentación" }
-)
-
--- Movimientos de terminal
-map("n", "<leader>t", "<cmd>exe v:count1 .. 'ToggleTerm'<cr>", { silent = true })
-map("n", "<leader>th", "<cmd>exe v:count1 .. 'ToggleTerm direction=horizontal'<cr>", { silent = true })
-map("n", "<leader>tv", "<cmd>exe v:count1 .. 'ToggleTerm direction=vertical size=80'<cr>", { silent = true })
-map("n", "<leader>tf", "<cmd>exe v:count1 .. 'ToggleTerm direction=float'<cr>", { silent = true })
-map("n", "<leader>tt", "<cmd>exe v:count1 .. 'ToggleTerm direction=tab'<cr>", { silent = true })
-map("n", "<leader>ta", ":ToggleTermToggleAll<cr>", { silent = true })
+-- map("n", "<leader>ug", ":GitBlameToggle<cr>", { noremap = true, silent = true, desc = "Alterna GitBlame" })
+-- map("n", "<leader>ut", ":TransparentToggle<cr>", { noremap = true, silent = true, desc = "Alterna fondo transpaente" })
+-- map(
+-- 	"n",
+-- 	"<leader>ui",
+-- 	":IndentBlanklineToggle!<cr>",
+-- 	{ noremap = true, silent = true, desc = "Alterna guias de indentación" }
+-- )
 
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
