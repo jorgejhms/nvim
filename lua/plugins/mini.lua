@@ -16,6 +16,7 @@ return { -- Collection of various small independent plugins/modules
 				},
 			},
 		})
+
 		-- Add/delete/replace surroundings (brackets, quotes, etc.)
 		require("mini.surround").setup()
 
@@ -37,5 +38,6 @@ return { -- Collection of various small independent plugins/modules
 		-- Indent lines
 		require("mini.indentscope").setup()
 		require("mini.pairs").setup()
+		require("mini.notify").setup()
 	end,
 }
