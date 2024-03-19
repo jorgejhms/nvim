@@ -137,7 +137,7 @@ return { -- LSP Configuration & Plugins
 			docker_compose_language_service = {},
 			marksman = {},
 
-			-- JSON config
+			-- [[ JSON config ]]
 			jsonls = {
 				-- lazy-load schemastore when needed
 				on_new_config = function(new_config)
@@ -154,7 +154,7 @@ return { -- LSP Configuration & Plugins
 				},
 			},
 
-			-- Lua
+			--[ [  Lua ] ]
 			lua_ls = {
 				-- cmd = {...},
 				-- filetypes { ...},
