@@ -1,6 +1,7 @@
 return { -- Autocompletion
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
+
 	dependencies = {
 		-- Snippet Engine & its associated nvim-cmp source
 		{
@@ -51,6 +52,12 @@ return { -- Autocompletion
 				end,
 			},
 			completion = { completeopt = "menu,menuone,noinsert" },
+
+			-- Añade bordes a las ventanas de autocompletado
+			window = {
+				completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
+			},
 
 			-- Añade texto a autocompletar despues del cursor
 			experimental = {
