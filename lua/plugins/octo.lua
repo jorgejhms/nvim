@@ -10,9 +10,9 @@ return {
       require("octo").setup()
     end,
     keys = {
-      { "<leader>o", ":Octo", desc = "Abrir octo" },
-      { "<leader>p", ":Octo pr", desc = "Pull request" },
-      { "<Leader>i", ":Octo issue", desc = "Issue" },
+      -- { "<leader>o", ":Octo", desc = "Abrir octo" },
+      -- { "<leader>op", ":Octo pr", desc = "Pull request" },
+      { "<Leader>oil", ":Octo issue list<cr>", desc = "Issue" },
     },
   },
 }
