@@ -17,7 +17,7 @@ return {
     keys = {
       { "<leader>cct", ":CopilotChatToggle<cr>", desc = "Toggle CopilotChat window" },
       { "<leader>cce", ":CopilotChatExplain<cr>", desc = "Explain selected code" },
-      { "<leader>cct", "<cmd>CopilotChatTests<cr>", desc = "Generate tests for selected code" },
+      { "<leader>ccT", "<cmd>CopilotChatTests<cr>", desc = "Generate tests for selected code" },
       { "<leader>ccf", "<cmd>CopilotChatFix<cr>", desc = "Fix selected selected code" },
       { "<leader>ccF", "<cmd>CopilotChatFix<cr>", desc = "Assist with current diagnostic" },
       { "<leader>cco", "<cmd>CopilotChatOptimize<cr>", desc = "Optimize selected code" },
