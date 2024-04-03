@@ -1,6 +1,8 @@
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
+    event = "VeryLazy",
+    branch = "canary",
     opts = {
       show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
       debug = false, -- Enable or disable debug mode, the log file will be in ~/.local/state/nvim/CopilotChat.nvim.log
@@ -12,38 +14,15 @@ return {
     build = function()
       vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
     end,
-    event = "VeryLazy",
     keys = {
-      { "<leader>ccb", ":CopilotChatBuffer ", desc = "CopilotChat - Chat with current buffer" },
-      { "<leader>cce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
-      { "<leader>cct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
-      {
-        "<leader>ccT",
-        "<cmd>CopilotChatVsplitToggle<cr>",
-        desc = "CopilotChat - Toggle Vsplit", -- Toggle vertical split
-      },
-      {
-        "<leader>ccv",
-        ":CopilotChatVisual ",
-        mode = "x",
-        desc = "CopilotChat - Open in vertical split",
-      },
-      {
-        "<leader>ccx",
-        ":CopilotChatInPlace<cr>",
-        mode = "x",
-        desc = "CopilotChat - Run in-place code",
-      },
-      {
-        "<leader>ccf",
-        "<cmd>CopilotChatFixDiagnostic<cr>", -- Get a fix for the diagnostic message under the cursor.
-        desc = "CopilotChat - Fix diagnostic",
-      },
-      {
-        "<leader>ccr",
-        "<cmd>CopilotChatReset<cr>", -- Reset chat history and clear buffer.
-        desc = "CopilotChat - Reset chat history and clear buffer",
-      },
+      { "<leader>cct", ":CopilotChatToggle<cr>", desc = "Toggle CopilotChat window" },
+      { "<leader>cce", ":CopilotChatExplain<cr>", desc = "Explain selected code" },
+      { "<leader>cct", "<cmd>CopilotChatTests<cr>", desc = "Generate tests for selected code" },
+      { "<leader>ccf", "<cmd>CopilotChatFix<cr>", desc = "Fix selected selected code" },
+      { "<leader>ccF", "<cmd>CopilotChatFix<cr>", desc = "Assist with current diagnostic" },
+      { "<leader>cco", "<cmd>CopilotChatOptimize<cr>", desc = "Optimize selected code" },
+      { "<leader>ccd", "<cmd>CopilotChatDocs<cr>", desc = "Document selected code" },
+      { "<leader>ccc", "<cmd>CopilotChatCommit<cr>", desc = "Write commit message" },
     },
   },
 }
