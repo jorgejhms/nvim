@@ -19,7 +19,7 @@ return {
       { "<leader>cce", ":CopilotChatExplain<cr>", desc = "Explain selected code" },
       { "<leader>ccT", "<cmd>CopilotChatTests<cr>", desc = "Generate tests for selected code" },
       { "<leader>ccf", "<cmd>CopilotChatFix<cr>", desc = "Fix selected selected code" },
-      { "<leader>ccF", "<cmd>CopilotChatFix<cr>", desc = "Assist with current diagnostic" },
+      { "<leader>ccF", "<cmd>CopilotChatFixDiagnostic<cr>", desc = "Assist with current diagnostic" },
       { "<leader>cco", "<cmd>CopilotChatOptimize<cr>", desc = "Optimize selected code" },
       { "<leader>ccd", "<cmd>CopilotChatDocs<cr>", desc = "Document selected code" },
       { "<leader>ccc", "<cmd>CopilotChatCommit<cr>", desc = "Write commit message" },
