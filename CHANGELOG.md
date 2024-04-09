@@ -1,5 +1,4 @@
 # Changelog
 
-## [0.1.0] - 2024-03-18
-
-Retomando configuración personal.
+# 2024.04.0 - Retomando configuración personal
+* Completando cambios principales
