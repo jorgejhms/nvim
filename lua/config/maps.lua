@@ -68,7 +68,7 @@ map("n", "<leader>bd", "<cmd>lua MiniBufremove.delete()<cr>", { desc = "Borrar b
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Limpiar búsqueda" })
 
 -- Abre Neotree
-map("n", "<leader>e", "<cmd>Neotree toggle<cr>")
+map("n", "<leader>e", "<cmd>Neotree toggle reveal<cr>")
 
 -- Usa Telescope para las sugerencias ortográficas
 map("n", "z=", ":Telescope spell_suggest<cr>")
