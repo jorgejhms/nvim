@@ -26,7 +26,6 @@ return {
 	{ "oxfist/night-owl.nvim" },
 	{ "rafamadriz/neon" },
 	{ "sainnhe/sonokai" },
-	{ "nvimdev/zephyr-nvim" },
 	{ "tanvirtin/monokai.nvim" },
 	{ "projekt0n/github-nvim-theme" },
 	{ "nyngwang/nvimgelion" },
@@ -35,10 +34,6 @@ return {
 	{ "shaunsingh/nord.nvim" },
 	{ "NTBBloodbath/doom-one.nvim" },
 	{ "sontungexpt/witch" },
-	{
-		"glepnir/zephyr-nvim",
-		requires = { "nvim-treesitter/nvim-treesitter", opt = true },
-	},
 	{ "bluz71/vim-moonfly-colors" },
 	{
 		"folke/tokyonight.nvim",
