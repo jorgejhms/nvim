@@ -49,5 +49,12 @@ return { -- Collection of various small independent plugins/modules
 		require("mini.indentscope").setup()
 		require("mini.pairs").setup()
 		require("mini.notify").setup()
+
+		-- Gestiona comentarios
+		require("mini.comment").setup({
+			custom_commentstring = function()
+				return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+			end,
+		})
 	end,
 }
