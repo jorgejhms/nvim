@@ -3,18 +3,6 @@ return {
 	event = "VeryLazy",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
-		{
-			"utilyre/barbecue.nvim",
-			name = "barbecue",
-			version = "*",
-			dependencies = {
-				"SmiteshP/nvim-navic",
-				"nvim-tree/nvim-web-devicons", -- optional dependency
-			},
-			opts = {
-				-- configurations go here
-			},
-		},
 	},
 	opts = {
 		options = {
@@ -24,7 +12,7 @@ return {
 			-- component_separators = { left = '>', right = '<' },
 			-- section_separators = { left = '', right = '' },
 			section_separators = { left = "", right = "" },
-      component_separators = { left = '', right = '' },
+			component_separators = { left = "", right = "" },
 			-- component_separators = { left = "", right = "" },
 			-- section_separators = { left = "", right = "" },
 			disabled_filetypes = {},
