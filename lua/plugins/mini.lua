@@ -31,11 +31,13 @@ return { -- Collection of various small independent plugins/modules
 		})
 
 		-- Simple and easy statusline.
-		-- local statusline = require("mini.statusline")
+		local statusline = require("mini.statusline")
 		-- set use_icons to true if you have a Nerd Font
-		-- statusline.setup({ use_icons = vim.g.have_nerd_font })
+		statusline.setup({ use_icons = vim.g.have_nerd_font })
 
-		-- require("mini.tabline").setup()
+		require("mini.tabline").setup({
+			tabpage_section = "right"
+		})
 
 		-- You can configure sections in the statusline by overriding their
 		-- default behavior. For example, here we set the section for
@@ -49,12 +51,14 @@ return { -- Collection of various small independent plugins/modules
 		require("mini.indentscope").setup()
 		require("mini.pairs").setup()
 		require("mini.notify").setup()
-
-		-- Gestiona comentarios
 		require("mini.comment").setup({
-			custom_commentstring = function()
-				return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-			end,
+			-- Usa ts_context_commentstring para obtener el comentario correcto
+			options = {
+				custom_commentstring = function()
+					return require("ts_context_commentstring.internal").calculate_commentstring()
+						or vim.bo.commentstring
+				end,
+			},
 		})
 	end,
 }
