@@ -4,7 +4,7 @@
   Opciones generales
   ==============================================================================
 
-  Revisar `:help vim.opt` para más información
+  Revisar `:help options` para más información
 ]]
 
 -- Oculta command line si no se usa
@@ -20,6 +20,9 @@ vim.g.have_nerd_font = true
 -- Establece números de línea relativos
 vim.opt.number = true
 vim.opt.relativenumber = true
+
+-- Siempre muestra el tabline
+vim.opt.showtabline = 3
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
