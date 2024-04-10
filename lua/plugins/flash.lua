@@ -1,16 +1,8 @@
--- `flash.nvim` Permite navegar por los resultados de una búsqueda de forma visual.
--- Revisar: h: :h flash.nvim
-return {
-  "folke/flash.nvim",
-  event = "VeryLazy",
-  opts = {},
-  keys = {
-    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    -- Selección de texto usando nodos de Treesitter
-    -- selcción incremental usando ";" y ","
-    { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-    { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-  },
-}
+-- Flash keymaps
+vim.keymap.set({"n", "x", "o"}, "s", "<cmd>lua require('flash').jump() <CR>", {desc = "Flash"})
+vim.keymap.set({"n", "x", "o"}, "S", "<cmd>lua require('flash').treesitter() <CR>", { desc = "Flash Treesitter"})
+vim.keymap.set({"o"}, "r", "<cmd>lua require('flash').remote() <CR>", { desc = "Remote Flash"})
+vim.keymap.set({"o", "x"}, "R", "<cmd>lua require('flash').treesitter_search() <CR>", { desc = "Treesitter Search"})
+vim.keymap.set({"c"}, "<c-s>", "<cmd>lua require('flash').toggle() <CR>", { desc = "Toggle Flash Search"})
+
+

@@ -32,10 +32,10 @@ map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Ajuste "arriba"/"abajo" para lineas visuales
-map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+-- map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+-- map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Movimiento de líneas, similares a VSCode. Requiere activación de uso de alt en
 -- MacOS
@@ -73,9 +73,6 @@ map("n", "<leader>bo", "<cmd>BufOnly<cr>", { desc = "Cerrar todos los buffers" }
 -- Limpia busqueda con <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Limpiar búsqueda" })
 
--- Abre Neotree
-map("n", "<leader>e", "<cmd>Neotree toggle reveal<cr>")
-
 -- Usa Telescope para las sugerencias ortográficas
 map("n", "z=", ":Telescope spell_suggest<cr>")
 
@@ -97,10 +94,10 @@ endfunction
 -- Cambios de interfaz de usuario
 -- map("n", "<leader>uz", ":Goyo<cr>", {desc="Modo Zen"})
 map(
-	"n",
-	"<leader>un",
-	":call NumberToggle()<cr>",
-	{ noremap = true, silent = true, desc = "Alterna numeros de línea" }
+  "n",
+  "<leader>un",
+  ":call NumberToggle()<cr>",
+  { noremap = true, silent = true, desc = "Alterna numeros de línea" }
 )
 map("n", "<leader>uw", ":set wrap!<cr>", { noremap = true, silent = true, desc = "Alterna ajuste de línea" })
 -- map("n", "<leader>ug", ":GitBlameToggle<cr>", { noremap = true, silent = true, desc = "Alterna GitBlame" })
