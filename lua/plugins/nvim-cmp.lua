@@ -54,10 +54,10 @@ return { -- Autocompletion
 			completion = { completeopt = "menu,menuone,noinsert" },
 
 			-- Añade bordes a las ventanas de autocompletado
-			window = {
-				completion = cmp.config.window.bordered(),
-				documentation = cmp.config.window.bordered(),
-			},
+			-- window = {
+			-- 	completion = cmp.config.window.bordered(),
+			-- 	documentation = cmp.config.window.bordered(),
+			-- },
 
 			-- Añade texto a autocompletar despues del cursor
 			experimental = {
