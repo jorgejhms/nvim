@@ -64,6 +64,12 @@ map("n", "<leader>b1", "<cmd>bfirst<cr>", { desc = "Ir al primer buffer" })
 map("n", "<leader>b9", "<cmd>blast<cr>", { desc = "Ir al último buffer" })
 map("n", "<leader>bd", "<cmd>lua MiniBufremove.delete()<cr>", { desc = "Borrar buffer" })
 
+-- Comando para cerrar otros buffers
+vim.cmd([[
+command! BufOnly silent! execute "%bd|e#|bd#"
+]])
+map("n", "<leader>bo", "<cmd>BufOnly<cr>", { desc = "Cerrar todos los buffers" })
+
 -- Limpia busqueda con <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Limpiar búsqueda" })
 
