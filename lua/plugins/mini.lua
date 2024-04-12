@@ -74,6 +74,8 @@ require("mini.pairs").setup()
 require("mini.notify").setup()
 vim.notify = MiniNotify.make_notify()
 
+-- require("mini.hues").setup({ background = "#10262c", foreground = "#c0c8cb" })
+
 -- comments
 require("mini.comment").setup({
   -- Usa ts_context_commentstring para obtener el comentario correcto

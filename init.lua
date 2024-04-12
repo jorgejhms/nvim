@@ -13,8 +13,6 @@ require("config.autocomands") -- autocomands
 require("config.plugins") -- Mini.nvim
 -- require("config.lazy") -- Lazy.nvim
 
-vim.cmd.colorscheme("tokyonight")
-
 -- Plugins config
 require("plugins.colors")
 require("plugins.conform")
@@ -28,3 +26,8 @@ require("plugins.toggleterm")
 require("plugins.transparent")
 require("plugins.trouble")
 require("plugins.nvim-treesitter")
+
+-- Genera una paleta de colores random en cada inicio
+-- Por alguna razón require otra paleta cargada antes
+vim.cmd.colorscheme("tokyonight")
+vim.cmd.colorscheme("randomhue")
