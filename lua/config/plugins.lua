@@ -155,8 +155,6 @@ require("todo-comments").setup({
 })
 add("akinsho/toggleterm.nvim")
 
--- Configuración de transparencias
-
 add("folke/trouble.nvim")
 
 add("lukas-reineke/virt-column.nvim")
