@@ -73,9 +73,6 @@ vim.opt.scrolloff = 5
 -- resalta pares de parentesis
 vim.opt.showmatch = true
 
--- guia en la columna 80
-vim.opt.colorcolumn = "80"
-
 -- tabs & indent
 vim.opt.tabstop = 2 -- 2 espacios como tab
 vim.opt.shiftwidth = 2 -- 2 espacios ancho de tab

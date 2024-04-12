@@ -160,3 +160,7 @@ add("akinsho/toggleterm.nvim")
 add("folke/trouble.nvim")
 
 add("lukas-reineke/virt-column.nvim")
+require("virt-column").setup({
+  char = "╎",
+  virtcolumn = "80",
+})
