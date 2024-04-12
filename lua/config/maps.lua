@@ -1,12 +1,7 @@
---[[
-
-  ==============================================================================
-  Keymaps
-  ==============================================================================
-
-  Revisar `:help vim.keymap.set()`
-
-]]
+--==============================================================================
+-- Keymaps
+-- Revisar `:help vim.keymap.set()`
+--==============================================================================
 
 local map = vim.keymap.set
 
@@ -17,8 +12,8 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- Diagnostic keymaps
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
-map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+map("n", "<leader>de", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Usa <Esc><Esc> para salir de la terminal
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
@@ -60,9 +55,6 @@ vim.cmd([[
 command! BufOnly silent! execute "%bd|e#|bd#"
 ]])
 map("n", "<leader>bo", "<cmd>BufOnly<cr>", { desc = "Cerrar todos los buffers" })
-
--- Limpia busqueda con <esc>
-map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Limpiar búsqueda" })
 
 -- Usa Telescope para las sugerencias ortográficas
 map("n", "z=", ":Telescope spell_suggest<cr>")

@@ -5,6 +5,7 @@
 
 -- Oculta command line si no se usa
 vim.opt.cmdheight = 0
+
 -- Establece <space> como leader
 -- See `:help mapleader`
 vim.g.mapleader = " "
@@ -18,16 +19,15 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Siempre muestra el tabline
-vim.opt.showtabline = 3
+-- vim.opt.showtabline = 3
 
--- Enable mouse mode, can be useful for resizing splits for example!
+-- Activa el soporte del mouse
 vim.opt.mouse = "a"
 
--- Don't show the mode, since it's already in status line
+-- No muestra el modo de edición
 vim.opt.showmode = false
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
+--  Sincroniza el portapapeles con el sistema
 --  See `:help 'clipboard'`
 vim.opt.clipboard = "unnamedplus"
 
@@ -62,13 +62,13 @@ vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = "split"
+-- vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 3
+vim.opt.scrolloff = 5
 
 -- resalta pares de parentesis
 vim.opt.showmatch = true
