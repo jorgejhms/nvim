@@ -151,13 +151,8 @@ require("todo-comments").setup({
   signs = false,
 })
 add("akinsho/toggleterm.nvim")
-add("xiyaowong/transparent.nvim")
 
 -- Configuración de transparencias
-local transparent = require("transparent")
-trasparent.clear_prefix("lualine")
-trasparent.clear_prefix("NeoTree")
-trasparent.clear_prefix("BufferLine")
 
 add("folke/trouble.nvim")
 

@@ -31,7 +31,6 @@ require("plugins.lsp")
 require("plugins.mini")
 require("plugins.telescope")
 require("plugins.toggleterm")
-require("plugins.transparent")
 require("plugins.trouble")
 require("plugins.nvim-treesitter")
 
