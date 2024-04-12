@@ -1,11 +1,11 @@
 local lspconfig = require("lspconfig")
 
 -- LSP Server config
-lspconfig.dockerls.setup {}
-lspconfig.docker_compose_language_service.setup {}
-lspconfig.marksman.setup {}
+lspconfig.dockerls.setup({})
+lspconfig.docker_compose_language_service.setup({})
+lspconfig.marksman.setup({})
 
-lspconfig.jsonls.setup { -- [[ JSON config ]]
+lspconfig.jsonls.setup({ -- [[ JSON config ]]
   -- lazy-load schemastore when needed
   on_new_config = function(new_config)
     new_config.settings.json.schemas = new_config.settings.json.schemas or {}
@@ -19,22 +19,25 @@ lspconfig.jsonls.setup { -- [[ JSON config ]]
       validate = { enable = true },
     },
   },
-}
+})
 
 --[ [  Lua ] ]
-lspconfig.lua_ls.setup {
+lspconfig.lua_ls.setup({
   settings = {
     Lua = {
       completion = {
         callSnippet = "Replace",
       },
+      diagnostics = {
+        globals = { "vim" }, -- Reconoce vim como variable global
+      },
     },
   },
-}
+})
 
 -- Python
-lspconfig.pyright.setup {}
-lspconfig.ruff_lsp.setup {
+lspconfig.pyright.setup({})
+lspconfig.ruff_lsp.setup({
   keys = {
     {
       "<leader>co",
@@ -50,16 +53,16 @@ lspconfig.ruff_lsp.setup {
       desc = "Organize Imports",
     },
   },
-}
+})
 
 -- Taailwind CSS
-lspconfig.tailwindcss.setup {
+lspconfig.tailwindcss.setup({
   filetypes_exclude = { "markdown" },
   filetypes_include = {},
-}
+})
 
 -- typescript
-lspconfig.tsserver.setup {
+lspconfig.tsserver.setup({
   keys = {
     {
       "<leader>co",
@@ -94,10 +97,10 @@ lspconfig.tsserver.setup {
       completeFunctionCalls = true,
     },
   },
-}
+})
 
 -- Yaml
-lspconfig.yamlls.setup {
+lspconfig.yamlls.setup({
   -- Have to add this for yamlls to understand that we support line folding
   capabilities = {
     textDocument = {
@@ -109,11 +112,8 @@ lspconfig.yamlls.setup {
   },
   -- lazy-load schemastore when needed
   on_new_config = function(new_config)
-    new_config.settings.yaml.schemas = vim.tbl_deep_extend(
-      "force",
-      new_config.settings.yaml.schemas or {},
-      require("schemastore").yaml.schemas()
-    )
+    new_config.settings.yaml.schemas =
+      vim.tbl_deep_extend("force", new_config.settings.yaml.schemas or {}, require("schemastore").yaml.schemas())
   end,
   settings = {
     redhat = { telemetry = { enabled = false } },
@@ -132,14 +132,14 @@ lspconfig.yamlls.setup {
       },
     },
   },
-}
+})
 
-lspconfig.eslint.setup {
+lspconfig.eslint.setup({
   settings = {
     -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
     workingDirectories = { mode = "auto" },
   },
-}
+})
 
 -- LSP Attach function
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -308,16 +308,16 @@ cmp.setup({
 --=============================================================================
 
 require("mason").setup()
-require("mason-tool-installer").setup {
+require("mason-tool-installer").setup({
   ensure_installed = {
-    "stylua",     -- Used to format lua code
-    "hadolint",   -- dockerfile
+    "stylua", -- Used to format lua code
+    "hadolint", -- dockerfile
     "markdownlint", -- markdown
     "marksman",
     "js-debug-adapter",
     "prettier",
-  }
-}
+  },
+})
 require("mason-lspconfig").setup({
   -- handlers = {
   -- 	function(server_name)
