@@ -32,7 +32,7 @@ require("mini.bufremove").setup({
 -- })
 --
 -- vim.keymap.set("n", "<leader>ug", "<cmd>lua MiniDiff.toggle_overlay()<CR>", { desc = "Toggle diff overlay" })
-
+require("mini.splitjoin").setup({})
 require("mini.cursorword").setup()
 require("mini.move").setup()
 local miniclue = require("mini.clue")
