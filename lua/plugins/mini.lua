@@ -78,6 +78,12 @@ miniclue.setup({
     miniclue.gen_clues.windows(),
     miniclue.gen_clues.z(),
   },
+
+  window = {
+    config = {
+      width = "auto",
+    },
+  },
 })
 
 -- Add/delete/replace surroundings (brackets, quotes, etc.)
