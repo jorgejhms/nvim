@@ -20,6 +20,9 @@ require("mini.deps").setup({ path = { package = path_package } })
 
 local add = MiniDeps.add
 
+-- Notifications
+require("mini.notify").setup()
+vim.notify = MiniNotify.make_notify()
 --==============================================================================
 -- Plugins instalation
 --==============================================================================

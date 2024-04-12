@@ -114,10 +114,6 @@ require("mini.tabline").setup({
 require("mini.indentscope").setup()
 require("mini.pairs").setup()
 
--- Notifications
-require("mini.notify").setup()
-vim.notify = MiniNotify.make_notify()
-
 -- require("mini.hues").setup({ background = "#10262c", foreground = "#c0c8cb" })
 
 -- comments
