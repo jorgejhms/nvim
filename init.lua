@@ -11,7 +11,6 @@ require("config.options") -- Opciones generales
 require("config.maps") -- Keymaps
 require("config.autocomands") -- autocomands
 require("config.plugins") -- Mini.nvim
--- require("config.lazy") -- Lazy.nvim
 
 -- Plugins config
 require("plugins.colors")
