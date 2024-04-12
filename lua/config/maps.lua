@@ -12,7 +12,7 @@ local map = vim.keymap.set
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
@@ -32,19 +32,10 @@ map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Ajuste "arriba"/"abajo" para lineas visuales
--- map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
--- map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
--- map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
--- map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
--- Movimiento de líneas, similares a VSCode. Requiere activación de uso de alt en
--- MacOS
-map("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
-map("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
-map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { noremap = true, silent = true })
-map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { noremap = true, silent = true })
-map("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-map("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Splits
 -- ver `help: split`
@@ -92,7 +83,6 @@ endfunction
 ]])
 
 -- Cambios de interfaz de usuario
--- map("n", "<leader>uz", ":Goyo<cr>", {desc="Modo Zen"})
 map(
   "n",
   "<leader>un",
@@ -117,6 +107,3 @@ map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
-
--- Lazy
-map("n", "<leader>l", ":Lazy<cr>", { desc = "Abre Lazy.vim" })
