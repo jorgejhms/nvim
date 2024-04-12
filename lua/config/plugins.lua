@@ -117,7 +117,9 @@ add("brenoprata10/nvim-highlight-colors")
 require("nvim-highlight-colors").setup({ enable_tailwind = true })
 
 add("nvim-pack/nvim-spectre")
---    { "<leader>fr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
+vim.keymap.set("n", "<leader>fr", function()
+  require("spectre").open()
+end, { desc = "Replace in files (Spectre)" })
 
 -- [[ Treesitter ]]
 add({
@@ -134,6 +136,7 @@ add("JoosepAlviste/nvim-ts-context-commentstring")
 
 -- Octo
 add("pwntester/octo.nvim")
+require("octo").setup()
 
 add("hiphish/rainbow-delimiters.nvim")
 add("b0o/SchemaStore.nvim")
@@ -144,8 +147,17 @@ add("nvim-telescope/telescope-fzf-native.nvim")
 add("nvim-telescope/telescope-ui-select.nvim")
 
 add("folke/todo-comments.nvim")
+require("todo-comments").setup({
+  signs = false,
+})
 add("akinsho/toggleterm.nvim")
 add("xiyaowong/transparent.nvim")
+
+-- Configuración de transparencias
+local transparent = require("transparent")
+trasparent.clear_prefix("lualine")
+trasparent.clear_prefix("NeoTree")
+trasparent.clear_prefix("BufferLine")
 
 add("folke/trouble.nvim")
 
