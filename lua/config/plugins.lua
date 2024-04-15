@@ -142,6 +142,7 @@ add("pwntester/octo.nvim")
 require("octo").setup()
 
 add("hiphish/rainbow-delimiters.nvim")
+add("mechatroner/rainbow_csv") -- CSV Hightlights
 add("b0o/SchemaStore.nvim")
 
 -- [[ Telescope ]]
