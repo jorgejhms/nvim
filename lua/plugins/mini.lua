@@ -2,6 +2,9 @@
 -- Better Around/Inside textobjects
 require("mini.ai").setup({ n_lines = 500 })
 
+require("mini.starter").setup({})
+require("mini.sessions").setup()
+
 -- Files navigation
 require("mini.files").setup()
 vim.keymap.set("n", "<leader>e", "<cmd>lua MiniFiles.open()<CR>")
@@ -32,6 +35,9 @@ require("mini.bufremove").setup({
 -- })
 --
 -- vim.keymap.set("n", "<leader>ug", "<cmd>lua MiniDiff.toggle_overlay()<CR>", { desc = "Toggle diff overlay" })
+--
+require("mini.animate").setup()
+require("mini.bracketed").setup()
 require("mini.splitjoin").setup({})
 require("mini.cursorword").setup()
 require("mini.move").setup()
