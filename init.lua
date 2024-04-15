@@ -37,4 +37,4 @@ require("plugins.nvim-treesitter")
 -- Genera una paleta de colores random en cada inicio
 -- Por alguna razón require otra paleta cargada antes
 vim.cmd.colorscheme("tokyonight")
-vim.cmd.colorscheme("minicyan")
+vim.cmd.colorscheme("randomhue")
