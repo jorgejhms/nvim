@@ -163,3 +163,11 @@ require("virt-column").setup({
   char = "╎",
   virtcolumn = "80",
 })
+
+-- R language
+add({
+  source = "jalvesaq/Nvim-R",
+  checkout = "stable",
+})
+
+add("vim-pandoc/vim-pandoc-syntax")
