@@ -187,6 +187,7 @@ capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp"
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 local lspkind = require("lspkind")
+require("cmp_r").setup({})
 
 luasnip.config.setup({})
 
@@ -300,6 +301,7 @@ cmp.setup({
     { name = "path" },
     { name = "buffer" },
     { name = "copilot", group_index = 1, priority = 100 },
+    { name = "cmp_r" },
   },
 })
 

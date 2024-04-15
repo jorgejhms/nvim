@@ -165,9 +165,5 @@ require("virt-column").setup({
 })
 
 -- R language
-add({
-  source = "jalvesaq/Nvim-R",
-  checkout = "stable",
-})
-
-add("vim-pandoc/vim-pandoc-syntax")
+add("R-nvim/R.nvim")
+add("R-nvim/cmp-r")

@@ -13,6 +13,8 @@ require("nvim-treesitter.configs").setup({
     "jsonc",
     "markdown",
     "markdown_inline",
+    "r",
+    "rnoweb",
     "ninja",
     "python",
     "rst",
