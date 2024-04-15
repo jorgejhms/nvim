@@ -76,3 +76,7 @@ vim.opt.showmatch = true
 -- tabs & indent
 vim.opt.tabstop = 2 -- 2 espacios como tab
 vim.opt.shiftwidth = 2 -- 2 espacios ancho de tab
+
+-- Spell checking
+vim.opt.spell = true
+vim.opt.spelllang = "es"
