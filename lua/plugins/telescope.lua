@@ -1,6 +1,6 @@
 require("telescope").setup({
   defaults = {
-    path_display = { "smart" },
+    path_display = { "smart" }, -- Acorta los nombres de los archivos
   },
   extensions = {
     ["ui-select"] = {
@@ -59,5 +59,3 @@ vim.keymap.set("n", "z=", function()
     previewer = false,
   }))
 end, { desc = "Abre las sugerencias ortográficas" })
-
---kasa
