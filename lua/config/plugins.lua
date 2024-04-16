@@ -139,8 +139,19 @@ add("windwp/nvim-ts-autotag")
 add("JoosepAlviste/nvim-ts-context-commentstring")
 
 -- Octo
-add("pwntester/octo.nvim")
-require("octo").setup()
+add({
+  source = "pwntester/octo.nvim",
+  depends = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope.nvim",
+    "nvim-tree/nvim-web-devicons",
+  },
+})
+require("octo").setup({
+  suppress_missing_scope = {
+    projects_v2 = true,
+  },
+})
 
 add("hiphish/rainbow-delimiters.nvim")
 add("mechatroner/rainbow_csv") -- CSV Hightlights
@@ -198,7 +209,7 @@ end
 add("lukas-reineke/headlines.nvim")
 require("headlines").setup({
   rmd = {
-    query = vim.treesitter.query.parse_query(
+    query = vim.treesitter.query.parse(
       "markdown",
       [[
                 (atx_heading [
