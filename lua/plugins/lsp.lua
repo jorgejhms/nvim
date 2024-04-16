@@ -141,6 +141,9 @@ lspconfig.eslint.setup({
   },
 })
 
+-- R Language server
+lspconfig.r_language_server.setup({})
+
 -- LSP Attach function
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
@@ -160,6 +163,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
     map("K", vim.lsp.buf.hover, "Hover Documentation")
     map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+    map("<leader>cf", vim.lsp.buf.format, "[C]ode [F]ormat")
     --
     -- When you move your cursor, the highlights will be cleared (the second autocommand).
     local client = vim.lsp.get_client_by_id(event.data.client_id)
