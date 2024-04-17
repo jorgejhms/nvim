@@ -101,3 +101,5 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 map("n", "<Leader>mnh", "<cmd>lua MiniNotify.show_history()<CR>", { desc = "Show notification history" })
 map("n", "<Leader>mna", "<cmd>lua MiniNotify.get_all()<CR>", { desc = "Show all notifications" })
 map("n", "<Leader>mnc", "<cmd>lua MiniNotify.clear()<CR>", { desc = "Clear all notifications" })
+
+-- TODO: Agregar comando para cambiar el fondo
