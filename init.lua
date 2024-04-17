@@ -34,4 +34,5 @@ require("plugins.toggleterm")
 require("plugins.trouble")
 require("plugins.nvim-treesitter")
 
-vim.cmd.colorscheme("tokyonight")
+-- Tema por defecto
+vim.cmd.colorscheme("dracula")
