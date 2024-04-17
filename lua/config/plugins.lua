@@ -20,7 +20,7 @@ require("mini.deps").setup({ path = { package = path_package } })
 
 local add = MiniDeps.add
 
--- Notifications
+-- Notificaciones
 require("mini.notify").setup()
 vim.notify = MiniNotify.make_notify()
 
@@ -237,3 +237,18 @@ require("headlines").setup({
     codeblock_highlight = "CodeBlock",
   },
 })
+--
+-- require("mini.hipatterns").setup({
+--   highlighters = {
+--     code_block = {
+--       -- pattern = "^```.*$([\\s\\S]*?)^```$",
+--       pattern = "```(.-)```",
+--       group = "CursorColumn",
+--     },
+--     needed = {
+--       pattern = "needed",
+--       group = "DiffDelete",
+--     },
+--     -- Add more patterns as needed
+--   },
+-- })
