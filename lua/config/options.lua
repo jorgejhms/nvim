@@ -34,6 +34,15 @@ vim.opt.clipboard = "unnamedplus"
 -- Enable break indent
 vim.opt.breakindent = true
 
+-- Indentación
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.expandtab = true
+
+-- Code folding with treesitter
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
 -- Save undo history
 vim.opt.undofile = true
 
