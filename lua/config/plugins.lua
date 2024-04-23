@@ -78,19 +78,16 @@ add("onsails/lspkind-nvim")
 add("saadparwaiz1/cmp_luasnip")
 add({
   source = "L3MON4D3/LuaSnip",
+  depends = {
+    "rafamadriz/friendly-snippets",
+  },
   hooks = {
-    build = (function()
-      -- Build Step is needed for regex support in snippets
-      -- This step is not supported in many windows environments
-      -- Remove the below condition to re-enable on windows
-      if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-        return
-      end
-      return "make install_jsregexp"
-    end)(),
+    post_checkout = function()
+      vim.notify("Trabajando...")
+      vim.cmd("make install_jsregexp")
+    end,
   },
 })
-add("rafamadriz/friendly-snippets")
 
 -- [[ Formateer ]]
 add("stevearc/conform.nvim")
@@ -102,11 +99,11 @@ add({
   source = "CopilotC-Nvim/CopilotChat.nvim",
   checkout = "canary",
   hooks = {
-    build = {
-      function()
-        vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
-      end,
-    },
+    post_checkout = function()
+      vim.notify(
+        "Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim."
+      )
+    end,
   },
 })
 
@@ -129,9 +126,9 @@ end, { desc = "Replace in files (Spectre)" })
 add({
   source = "nvim-treesitter/nvim-treesitter",
   hooks = {
-    build = {
-      ":TSUpdate",
-    },
+    post_checkout = function()
+      vim.cmd("TSUpdate")
+    end,
   },
 })
 add("nvim-treesitter/nvim-treesitter-context")

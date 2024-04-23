@@ -87,5 +87,11 @@ vim.opt.tabstop = 2 -- 2 espacios como tab
 vim.opt.shiftwidth = 2 -- 2 espacios ancho de tab
 
 -- Spell checking
-vim.opt.spell = true
-vim.opt.spelllang = "es"
+-- vim.opt.spell = true
+-- vim.opt.spelllang = "es"
+--
+-- No wrap por defecto
+vim.opt.wrap = false
+
+-- No usa swapfiles
+vim.opt.swapfile = false

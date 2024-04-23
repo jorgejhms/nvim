@@ -4,6 +4,7 @@ require("mini.ai").setup({ n_lines = 500 })
 
 require("mini.starter").setup({})
 require("mini.sessions").setup()
+require("mini.animate").setup()
 
 -- Navegación de archivos
 require("mini.files").setup({
