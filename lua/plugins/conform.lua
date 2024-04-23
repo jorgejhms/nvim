@@ -1,4 +1,4 @@
-require("conform").setup {
+require("conform").setup({
   notify_on_error = true,
   -- FIXME: Verficar el funcionamiento de este comando
   -- format_on_save = function(bufnr)
@@ -32,6 +32,5 @@ require("conform").setup {
     ["graphql"] = { "prettier" },
     ["handlebars"] = { "prettier" },
     ["astro"] = { "prettier" },
-
-  }
-}
+  },
+})
