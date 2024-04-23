@@ -40,8 +40,8 @@ vim.opt.smartindent = true
 vim.opt.expandtab = true
 
 -- Code folding with treesitter
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Save undo history
 vim.opt.undofile = true
