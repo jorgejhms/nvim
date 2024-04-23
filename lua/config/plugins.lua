@@ -79,6 +79,7 @@ add("saadparwaiz1/cmp_luasnip")
 
 local function make_jsregexp(path)
   vim.notify("Compiling JSRegExp")
+  vim.notify("path")
   vim.cmd("lcd " .. path)
   vim.cmd("!make -s install_jsregexp")
   vim.cmd("lcd -")
@@ -110,9 +111,7 @@ add({
   checkout = "canary",
   hooks = {
     post_checkout = function()
-      vim.notify(
-        "Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim."
-      )
+      vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
     end,
   },
 })
