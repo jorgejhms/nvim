@@ -1,8 +1,8 @@
 # Changelog
 
-# 2024.05.0 - MINIMAL
+## 2024.05.0 - MINIMAL
 
-## BREAKING
+### BREAKING
 
 - Migrando configuración a `Mini.deps`
 - Remplazando `lualine` y `tabline` por `Mini.statusline` y `Mini.tabline`
@@ -10,7 +10,7 @@
 - Remplazando `which-key` por `mini.clue`
 - Remplazando `telescope` por `mini.pick`
 
-## Agregados
+### Agregados
 
 - Nuevo keymap `<Leader>bo` para cerrar otros buffers
 - Agregando `mini.splitjoin`
@@ -19,13 +19,13 @@
 - Agregando `R-nvim`
 - Agregando soporte lenguage Astro
 
-## Cambios
+### Cambios
 
 - Eliminado bordes en ventanas de autocompletado
 - Cambio caracter de `virt-column`
 - Actualizando keymaps de copilot
 
-# 2024.04.1
+## 2024.04.1
 
 - Eliminado colores repetidos.
 - Remplazando Lualine con Mini.statusline y Mini.tabline
@@ -36,6 +36,6 @@
 - Cambiando a tokyonight como tema por defecto.
 - Gitsigns: Agregando keymaps basados en Lazyvim.
 
-# 2024.04.0 - Retomando configuración personal
+## 2024.04.0 - Retomando configuración personal
 
 - Completando cambios principales
