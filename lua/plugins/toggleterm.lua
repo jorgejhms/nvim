@@ -3,6 +3,7 @@ local Terminal = require("toggleterm.terminal").Terminal
 -- Configura Lazygit
 local lazygit = Terminal:new({
   cmd = "lazygit",
+  display_name = "Lazygit",
   hidden = true,
   direction = "float",
   float_opts = {
