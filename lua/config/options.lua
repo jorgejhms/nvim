@@ -43,28 +43,27 @@ vim.opt.expandtab = true
 -- vim.opt.foldmethod = "expr"
 -- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
--- Save undo history
+-- Guarda el historial de "deshacer"
 vim.opt.undofile = true
 
--- Case-insensitive searching UNLESS \C or capital in search
+-- Busqueda insensible a mayúsculas y minúsculas
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Keep signcolumn on by default
+-- Establece columna de signos
 vim.opt.signcolumn = "yes"
 
--- Decrease update time
+-- Reduce el tiempo de actualización
 vim.opt.updatetime = 250
 
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
+-- Reduce el tiempo de espera de secuencias mapeadas
 vim.opt.timeoutlen = 300
 
--- Configure how new splits should be opened
+-- Condigura como se abren los splits
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
--- Sets how neovim will display certain whitespace in the editor.
+-- Define caracteres especiales para mostrar los espacios en blanco
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true

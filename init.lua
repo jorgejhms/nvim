@@ -46,21 +46,12 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 -- stylua: ignore start
 now(function() require("config.options") end) -- Opciones generales
 now(function() require("config.maps") end) -- Keymaps
--- stylua: ignore end
-
--- Notificaciones
-now(function()
-  require("mini.notify").setup()
-  vim.notify = MiniNotify.make_notify()
-end)
-
--- stylua: ignore start
+now(function() require("plugins.mini-notify") end) -- Notificaciones
 now(function() require("mini.starter").setup() end) -- Pantalla inicial
 now(function() require("mini.sessions").setup() end) -- Gestión de sesiones
 now(function() require("plugins.colors") end) -- Temas de colores
 now(function() add("nvim-lua/plenary.nvim") end)
 now(function() add("nvim-tree/nvim-web-devicons") end) -- Iconos
-
 -- stylua: ignore end
 
 now(function()

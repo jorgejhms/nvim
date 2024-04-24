@@ -5,7 +5,7 @@
 
 local map = vim.keymap.set
 
--- Set highlight on search, but clear on pressing <Esc> in normal mode
+-- Establece resaltado durante búsquedas, limpia usando <Esc> en modo normal
 vim.opt.hlsearch = true
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
@@ -16,9 +16,8 @@ map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]u
 -- Usa <Esc><Esc> para salir de la terminal
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---  See `:help wincmd` for a list of all window commands
+--  Usa CTRL+<hjkl> para movimientos entre ventanas (paneles)
+--  Revisar `:help wincmd` para la lista de todos los movimientos posibles
 map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
@@ -41,11 +40,7 @@ map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
--- Movimiento buffers
-map("n", "[b", "<cmd>bprevious<cr>", { desc = "Buffer anterior" })
-map("n", "]b", "<cmd>bnext<cr>", { desc = "Buffer siguiente" })
-map("n", "<leader>b1", "<cmd>bfirst<cr>", { desc = "Ir al primer buffer" })
-map("n", "<leader>b9", "<cmd>blast<cr>", { desc = "Ir al último buffer" })
+-- Buffers
 map("n", "<leader>bd", "<cmd>lua MiniBufremove.delete()<cr>", { desc = "Borrar buffer" })
 
 -- Comando para cerrar otros buffers
@@ -77,16 +72,8 @@ map(
   { noremap = true, silent = true, desc = "Alterna numeros de línea" }
 )
 map("n", "<leader>uw", ":set wrap!<cr>", { noremap = true, silent = true, desc = "Alterna ajuste de línea" })
--- map("n", "<leader>ug", ":GitBlameToggle<cr>", { noremap = true, silent = true, desc = "Alterna GitBlame" })
--- map("n", "<leader>ut", ":TransparentToggle<cr>", { noremap = true, silent = true, desc = "Alterna fondo transpaente" })
--- map(
--- 	"n",
--- 	"<leader>ui",
--- 	":IndentBlanklineToggle!<cr>",
--- 	{ noremap = true, silent = true, desc = "Alterna guias de indentación" }
--- )
 
--- tabs
+-- Tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
