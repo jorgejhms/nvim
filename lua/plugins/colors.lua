@@ -32,4 +32,4 @@ require("dracula").setup({
 })
 
 -- Tema por defecto
-vim.cmd.colorscheme("dracula")
+vim.cmd.colorscheme("catppuccin")
