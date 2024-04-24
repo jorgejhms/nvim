@@ -1,3 +1,4 @@
+require("neodev").setup()
 local lspconfig = require("lspconfig")
 
 -- LSP Server config
