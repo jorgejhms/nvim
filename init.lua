@@ -35,11 +35,12 @@ end
 -- Inicializa mini.nvim
 require("mini.deps").setup({ path = { package = path_package } })
 
--- Agrega helpers
+-- Agrega 'helpers'
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 -- =============================================================================
 -- Carga inicial
+-- revisar h: MiniDeps.now()
 -- =============================================================================
 
 -- stylua: ignore start
@@ -76,6 +77,7 @@ end)
 
 -- =============================================================================
 -- Carga posterior (Lazy)
+-- Revisar h: MiniDeps.later()
 -- =============================================================================
 
 -- stylua: ignore start
