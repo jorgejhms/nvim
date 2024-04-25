@@ -1,5 +1,13 @@
 # Changelog
 
+## 2024.05.01
+
+### Agregados
+
+- Muestra nombre de terminal al abrir `Lazygit`.
+- Muestra símbolos en `todo-comments`.
+- Muestra símbolos de diagnósticos.
+
 ## 2024.05.0 - MINIMAL
 
 ### BREAKING
