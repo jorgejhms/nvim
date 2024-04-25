@@ -9,7 +9,7 @@ vim.keymap.set("n", "<Leader>sc", "<cmd>Pick commands<CR>", { desc = "[S]earch [
 vim.keymap.set("n", "<Leader>sm", "<cmd>Pick marks<CR>", { desc = "[S]earch [M]arks" })
 vim.keymap.set("n", "<Leader>so", "<cmd>Pick options<CR>", { desc = "[S]earch [O]ptions" })
 vim.keymap.set("n", "<Leader>s.", "<cmd>Pick oldfiles<CR>", { desc = "[S]earch [R]ecent files" })
-vim.keymap.set("n", "<Leader>sd", "<cmd>Pick diagnostics<CR>", { desc = "[S]earch [D]iagnostics" })
+vim.keymap.set("n", "<Leader>sd", "<cmd>Pick diagnostic<CR>", { desc = "[S]earch [D]iagnostics" })
 vim.keymap.set("n", "<Leader>sr", "<cmd>Pick resume<CR>", { desc = "[S]earch [R]esume" })
 vim.keymap.set("n", "<Leader>sg", "<cmd>Pick grep_live<CR>", { desc = "[S]earch [G]rep" })
 vim.keymap.set("n", "z=", "<cmd>Pick spellsuggest<CR>", { desc = "Abre las sugerencias ortográficas" })
