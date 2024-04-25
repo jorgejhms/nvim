@@ -221,11 +221,7 @@ later(function()
       "nvim-tree/nvim-web-devicons",
     },
   })
-  require("octo").setup({
-    suppress_missing_scope = {
-      projects_v2 = true,
-    },
-  })
+  require("plugins.octo")
 end)
 
 -- [[ Telescope ]]
@@ -277,3 +273,10 @@ later(function()
   add("lukas-reineke/headlines.nvim")
   require("plugins.headlines")
 end)
+
+-- Config neovide
+if vim.g.neovide then
+  -- Put anything you want to happen only in Neovide here
+  vim.o.guifont = "Input Mono Condensed:h14" -- text below applies for VimScript
+  vim.g.neovide_input_macos_alt_is_meta = true
+end
