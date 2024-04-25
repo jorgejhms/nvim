@@ -1,5 +1,12 @@
 require("neodev").setup()
 local lspconfig = require("lspconfig")
+--
+-- Signos de diagnosticos
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
 -- LSP Server config
 lspconfig.dockerls.setup({})
@@ -11,10 +18,7 @@ lspconfig.jsonls.setup({ -- [[ JSON config ]]
   -- lazy-load schemastore when needed
   on_new_config = function(new_config)
     new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-    vim.list_extend(
-      new_config.settings.json.schemas,
-      require("schemastore").json.schemas()
-    )
+    vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
   end,
   settings = {
     json = {
@@ -117,11 +121,8 @@ lspconfig.yamlls.setup({
   },
   -- lazy-load schemastore when needed
   on_new_config = function(new_config)
-    new_config.settings.yaml.schemas = vim.tbl_deep_extend(
-      "force",
-      new_config.settings.yaml.schemas or {},
-      require("schemastore").yaml.schemas()
-    )
+    new_config.settings.yaml.schemas =
+      vim.tbl_deep_extend("force", new_config.settings.yaml.schemas or {}, require("schemastore").yaml.schemas())
   end,
   settings = {
     redhat = { telemetry = { enabled = false } },
@@ -157,45 +158,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
   callback = function(event)
     local map = function(keys, func, desc)
-      vim.keymap.set(
-        "n",
-        keys,
-        func,
-        { buffer = event.buf, desc = "LSP: " .. desc }
-      )
+      vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
     end
 
     -- Keymaps
-    map(
-      "gd",
-      require("telescope.builtin").lsp_definitions,
-      "[G]oto [D]efinition"
-    )
-    map(
-      "gr",
-      require("telescope.builtin").lsp_references,
-      "[G]oto [R]eferences"
-    )
-    map(
-      "gI",
-      require("telescope.builtin").lsp_implementations,
-      "[G]oto [I]mplementation"
-    )
-    map(
-      "<leader>D",
-      require("telescope.builtin").lsp_type_definitions,
-      "Type [D]efinition"
-    )
-    map(
-      "<leader>ds",
-      require("telescope.builtin").lsp_document_symbols,
-      "[D]ocument [S]ymbols"
-    )
-    map(
-      "<leader>ws",
-      require("telescope.builtin").lsp_dynamic_workspace_symbols,
-      "[W]orkspace [S]ymbols"
-    )
+    map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+    map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+    map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+    map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+    map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+    map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
     map("<leader>cr", vim.lsp.buf.rename, "[R]e[n]ame")
     map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
     map("K", vim.lsp.buf.hover, "Hover Documentation")
@@ -219,11 +191,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend(
-  "force",
-  capabilities,
-  require("cmp_nvim_lsp").default_capabilities()
-)
+capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 --=============================================================================
 -- CMP
