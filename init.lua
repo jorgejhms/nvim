@@ -239,9 +239,7 @@ end)
 -- [[ TODO Comments ]]
 later(function()
   add("folke/todo-comments.nvim")
-  require("todo-comments").setup({
-    signs = false,
-  })
+  require("todo-comments").setup()
 end)
 
 -- [[ toggleterm ]]
