@@ -201,7 +201,6 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 require("cmp_r").setup({})
-
 -- luasnip.config.setup({})
 
 -- Carga friendly-snippets
@@ -251,6 +250,7 @@ cmp.setup({
 
     -- Cancela autocompletado
     ["<C-e>"] = cmp.mapping.abort(),
+    ["<Esc>"] = cmp.mapping.abort(),
 
     -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
