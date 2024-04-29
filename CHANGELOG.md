@@ -1,5 +1,23 @@
 # Changelog
 
+## 2024.05.02
+
+### Agregados
+
+- `Tmux-Nvim-Navigator`: Permite cambiar de paneles con Tmux más rápidamente.
+- `ariake`: Tema de colores.
+- Configuración para Neovide.
+- (Octo.nvim): Combinación de teclas `<Leader>oil` para listar issues propios.
+
+### Cambios
+
+- Establece `<C-c>` para cancelar autocompletado en lugar de `<C-e>`.
+- Uso de `local map` en lugar de `vim.keymap.set`.
+
+### Correcciones
+
+- Corrige comando para llamar `Pick diagnostics`.
+
 ## 2024.05.01
 
 ### Agregados
