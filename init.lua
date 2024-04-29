@@ -274,6 +274,16 @@ later(function()
   require("plugins.headlines")
 end)
 
+-- Nvim-Tmux-Navigator
+later(function()
+  add("alexghergh/nvim-tmux-navigation")
+  require("nvim-tmux-navigation").setup({})
+  vim.keymap.set("n", "<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>", {})
+  vim.keymap.set("n", "<C-j>", "<Cmd>NvimTmuxNavigateDown<CR>", {})
+  vim.keymap.set("n", "<C-k>", "<Cmd>NvimTmuxNavigateUp<CR>", {})
+  vim.keymap.set("n", "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", {})
+end)
+
 -- Config neovide
 if vim.g.neovide then
   -- Put anything you want to happen only in Neovide here
