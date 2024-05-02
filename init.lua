@@ -87,7 +87,6 @@ later(function() require("mini.pairs").setup() end)
 later(function() add("hiphish/rainbow-delimiters.nvim") end) -- Delimitadores arcoiris
 later(function() add("mechatroner/rainbow_csv") end)  -- CSV Hightlights
 later(function() add("b0o/SchemaStore.nvim") end)
-later(function() add("R-nvim/R.nvim") end) -- R language
 
 -- Agregando configuración plugins
 later(function() require("plugins.mini-bufremove") end)
@@ -284,6 +283,14 @@ later(function()
   vim.keymap.set("n", "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", {})
 end)
 
+-- R nvim
+later(function()
+  add("R-nvim/R.nvim")
+  require("r").setup({
+    R_app = "radian",
+    R_cmd = "R",
+  })
+end) -- R language
 -- Config neovide
 if vim.g.neovide then
   -- Put anything you want to happen only in Neovide here
