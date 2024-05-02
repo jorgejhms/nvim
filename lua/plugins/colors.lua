@@ -3,6 +3,7 @@ local add = MiniDeps.add
 add("jim-at-jibba/ariake.nvim")
 add("folke/tokyonight.nvim")
 add("catppuccin/nvim")
+add("eldritch-theme/eldritch.nvim")
 add("binhtran432k/dracula.nvim")
 add("sainnhe/edge")
 add("navarasu/onedark.nvim")
