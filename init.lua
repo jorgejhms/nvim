@@ -291,6 +291,26 @@ later(function()
     R_cmd = "R",
   })
 end) -- R language
+
+-- Python venv selector
+later(function()
+  add({
+    source = "linux-cultist/venv-selector.nvim",
+    depends = {
+      "neovim/nvim-lspconfig",
+      "nvim-telescope/telescope.nvim",
+      "mfussenegger/nvim-dap-python",
+    },
+  })
+  require("venv-selector").setup({
+    auto_refresh = true,
+    search_venv_managers = false,
+    name = { "venv", ".venv" },
+  })
+  vim.keymap.set("n", "<Leader>vs", "<Cmd>VenvSelect<CR>", { desc = "Select Python venv" })
+  vim.keymap.set("n", "<Leader>vc", "<cmd>VenvSelectCached", { desc = "Select Python venv cached" })
+end)
+
 -- Config neovide
 if vim.g.neovide then
   -- Put anything you want to happen only in Neovide here
