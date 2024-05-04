@@ -1,5 +1,16 @@
 # Changelog
 
+## 2024.05.03
+
+### Agregados
+
+- `Python Venv Selector`: Permite seleccionar el Venv de Python del proyecto.
+- `eldrich`: Tema de colores
+
+### Cambios
+
+- Usa `radian` como terminal R.
+
 ## 2024.05.02
 
 ### Agregados
