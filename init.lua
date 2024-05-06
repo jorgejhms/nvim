@@ -55,15 +55,8 @@ now(function() add("nvim-tree/nvim-web-devicons") end) -- Iconos
 -- stylua: ignore end
 
 now(function()
-  require("mini.statusline").setup({
-    use_icons = vim.g.have_nerd_font,
-  })
-end)
-
-now(function()
-  require("mini.tabline").setup({
-    tabpage_section = "right",
-  })
+  add("nvim-lualine/lualine.nvim")
+  require("plugins.lualine")
 end)
 
 -- =============================================================================
