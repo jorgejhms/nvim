@@ -311,6 +311,15 @@ later(function()
   vim.keymap.set("n", "<Leader>vc", "<cmd>VenvSelectCached", { desc = "Select Python venv cached" })
 end)
 
+-- Suporte básico para MDX
+later(function()
+  add({
+    source = "davidmh/mdx.nvim",
+    depends = { "nvim-treesitter/nvim-treesitter" },
+  })
+  require("mdx").setup()
+end)
+
 -- Config neovide
 if vim.g.neovide then
   -- Put anything you want to happen only in Neovide here
