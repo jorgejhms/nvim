@@ -5,11 +5,11 @@ require("lualine").setup({
     theme = "auto",
     -- component_separators = { left = '', right = '' },
     -- component_separators = { left = '>', right = '<' },
-    section_separators = { left = "", right = "" },
+    -- section_separators = { left = "", right = "" },
     -- section_separators = { left = "", right = "" },
     -- component_separators = { left = "", right = "" },
     component_separators = { left = "", right = "" },
-    -- section_separators = { left = "", right = "" },
+    section_separators = { left = "", right = "" },
     disabled_filetypes = {},
     always_divide_middle = true,
     globalstatus = true,
@@ -17,12 +17,25 @@ require("lualine").setup({
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch" },
-    lualine_c = { "diff", "diagnostics" },
+    lualine_c = {
+      "diff",
+      {
+        "diagnostics",
+        -- Simbolos
+        symbols = {
+          error = " ",
+          warn = " ",
+          hint = " ",
+          info = " ",
+        },
+      },
+    },
     lualine_x = {
       "encoding",
       "fileformat",
       "filesize",
-      "progress",
+      "searchcount",
+      "selectioncount",
     },
     lualine_y = { "filetype" },
     lualine_z = { "location" },
@@ -42,8 +55,5 @@ require("lualine").setup({
     lualine_x = {},
     lualine_y = {},
     lualine_z = { "tabs" },
-  },
-  inactive_winbar = {
-    lualine_c = { "filename" },
   },
 })
