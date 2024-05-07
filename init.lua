@@ -73,7 +73,9 @@ later(function() require("mini.bracketed").setup() end) -- Movimientos "[" y "]"
 later(function() require("mini.splitjoin").setup() end) -- Split/Join
 later(function() require("mini.cursorword").setup() end)
 later(function() require("mini.move").setup() end)
-later(function() require("mini.indentscope").setup() end)
+later(function() require("mini.indentscope").setup({
+  symbol = "│",
+}) end)
 later(function() require("mini.pairs").setup() end)
 
 -- Otros plugins simples
