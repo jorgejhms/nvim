@@ -321,6 +321,33 @@ later(function()
   require("mdx").setup()
 end)
 
+-- Indent blankline
+later(function()
+  add("lukas-reineke/indent-blankline.nvim")
+  require("ibl").setup({
+    indent = {
+      char = "│",
+      tab_char = "│",
+    },
+    scope = { enabled = false },
+    exclude = {
+      filetypes = {
+        "help",
+        "alpha",
+        "dashboard",
+        "neo-tree",
+        "Trouble",
+        "trouble",
+        "lazy",
+        "mason",
+        "notify",
+        "toggleterm",
+        "lazyterm",
+      },
+    },
+  })
+end)
+
 -- Config neovide
 if vim.g.neovide then
   -- Put anything you want to happen only in Neovide here
