@@ -1,5 +1,20 @@
 # Changelog
 
+## 2024.05.04
+
+### Agregados
+
+- Soporte básico para archivos `.mdx`.
+- `dressing.nvim`.
+- `indentblankline`.
+
+### Cambios
+
+- Remplazo `mini.statusbar` y `mini.tabline` por `lualine`.
+- Símbolos de `gitsigns` e `mini.indentscope`.
+- Símbolos de diagnóstico en `lualine`.
+- Estilo terminal flotante `lazygit`.
+
 ## 2024.05.03
 
 ### Agregados
