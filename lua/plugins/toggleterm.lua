@@ -7,8 +7,14 @@ local lazygit = Terminal:new({
   hidden = true,
   direction = "float",
   float_opts = {
-    border = "curved",
+    border = "solid",
     title_pos = "center",
+    width = function()
+      return math.floor(vim.o.columns * 0.85)
+    end,
+    height = function()
+      return math.floor(vim.o.lines * 0.85)
+    end,
   },
 })
 
