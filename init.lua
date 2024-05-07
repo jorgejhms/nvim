@@ -189,6 +189,12 @@ later(function()
   require("nvim-highlight-colors").setup({ enable_tailwind = true })
 end)
 
+-- Dressing
+later(function()
+  add("stevearc/dressing.nvim")
+  require("dressing").setup()
+end)
+
 -- [[ Copilot ]]
 later(function()
   add("zbirenbaum/copilot.lua")
