@@ -1,11 +1,11 @@
-require('gitsigns').setup {
+require("gitsigns").setup({
   signs = {
-    add = { text = "+" },
-    change = { text = "~" },
+    add = { text = "▎" },
+    change = { text = "▎" },
     delete = { text = "" },
     topdelete = { text = "" },
-    changedelete = { text = "~" },
-    untracked = { text = "┆" },
+    changedelete = { text = "▎" },
+    untracked = { text = "▎" },
   },
   current_line_blame = true,
   current_line_blame_opts = {
@@ -36,4 +36,4 @@ require('gitsigns').setup {
     map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
     map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
   end,
-}
+})
