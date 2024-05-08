@@ -1,5 +1,11 @@
 # Changelog
 
+## 2024.05.05
+
+### Agregados
+
+- `noice`: Mejoras interfaz.
+
 ## 2024.05.04
 
 ### Agregados
