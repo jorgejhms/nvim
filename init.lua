@@ -329,35 +329,6 @@ later(function()
   require("mdx").setup()
 end)
 
--- Indent blankline
-later(function()
-  add("lukas-reineke/indent-blankline.nvim")
-  -- TODO: Pasar configuración a archivo separado
-  -- TODO: Crear keymaps
-  require("ibl").setup({
-    indent = {
-      char = "│",
-      tab_char = "│",
-    },
-    scope = { enabled = false },
-    exclude = {
-      filetypes = {
-        "help",
-        "alpha",
-        "dashboard",
-        "neo-tree",
-        "Trouble",
-        "trouble",
-        "lazy",
-        "mason",
-        "notify",
-        "toggleterm",
-        "lazyterm",
-      },
-    },
-  })
-end)
-
 -- Noice
 later(function()
   add({ source = "folke/noice.nvim", depends = { "MunifTanjim/nui.nvim" } })
