@@ -120,6 +120,7 @@ end)
 
 -- [[ LSP Plugins ]]
 later(function()
+  -- TODO: Usar depends
   -- CMP
   add("hrsh7th/nvim-cmp")
   add("hrsh7th/cmp-path")
@@ -229,6 +230,7 @@ end)
 -- [[ Telescope ]]
 later(function()
   add("nvim-telescope/telescope.nvim")
+  -- TODO: Usar depends
   add("nvim-telescope/telescope-fzf-native.nvim")
   add("nvim-telescope/telescope-ui-select.nvim")
   require("plugins.telescope")
@@ -254,6 +256,7 @@ end)
 
 later(function()
   add("lukas-reineke/virt-column.nvim")
+  -- TODO: Pasar configuración a archivo separado
   require("virt-column").setup({
     char = "╎",
     virtcolumn = "80",
@@ -280,6 +283,7 @@ end)
 later(function()
   add("alexghergh/nvim-tmux-navigation")
   require("nvim-tmux-navigation").setup({})
+  -- TODO: Pasar configuración a archivo separado
   vim.keymap.set("n", "<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>", {})
   vim.keymap.set("n", "<C-j>", "<Cmd>NvimTmuxNavigateDown<CR>", {})
   vim.keymap.set("n", "<C-k>", "<Cmd>NvimTmuxNavigateUp<CR>", {})
@@ -289,6 +293,7 @@ end)
 -- R nvim
 later(function()
   add("R-nvim/R.nvim")
+  -- TODO: Pasar configuración a archivo separado
   require("r").setup({
     R_app = "radian",
     R_cmd = "R",
@@ -305,6 +310,7 @@ later(function()
       "mfussenegger/nvim-dap-python",
     },
   })
+  -- TODO: Pasar configuración a archivo separado
   require("venv-selector").setup({
     auto_refresh = true,
     search_venv_managers = false,
@@ -326,6 +332,8 @@ end)
 -- Indent blankline
 later(function()
   add("lukas-reineke/indent-blankline.nvim")
+  -- TODO: Pasar configuración a archivo separado
+  -- TODO: Crear keymaps
   require("ibl").setup({
     indent = {
       char = "│",
@@ -350,37 +358,12 @@ later(function()
   })
 end)
 
--- Noice
-later(function()
-  add({ source = "folke/noice.nvim", depends = { "MunifTanjim/nui.nvim" } })
-  require("noice").setup({
-    lsp = {
-      progress = {
-        enabled = false,
-      },
-      -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-      override = {
-        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-        ["vim.lsp.util.stylize_markdown"] = true,
-        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-      },
-    },
-    -- you can enable a preset for easier configuration
-    presets = {
-      bottom_search = true, -- use a classic bottom cmdline for search
-      command_palette = true, -- position the cmdline and popupmenu together
-      -- long_message_to_split = true, -- long messages will be sent to a split
-      inc_rename = false, -- enables an input dialog for inc-rename.nvim
-      lsp_doc_border = false, -- add a border to hover docs and signature help
-    },
-    messages = { enabled = false },
-    notify = { enabled = false },
-  })
-end)
-
+-- TODO: Pasar configuración a archivo separado
 -- Config neovide
 if vim.g.neovide then
   -- Put anything you want to happen only in Neovide here
   vim.o.guifont = "Input Mono Condensed:h14" -- text below applies for VimScript
   vim.g.neovide_input_macos_alt_is_meta = true
 end
+
+-- TODO: Crear configuración Vscode
