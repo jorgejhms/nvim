@@ -358,6 +358,12 @@ later(function()
   })
 end)
 
+-- Noice
+later(function()
+  add({ source = "folke/noice.nvim", depends = { "MunifTanjim/nui.nvim" } })
+  require("plugins.noice")
+end)
+
 -- TODO: Pasar configuración a archivo separado
 -- Config neovide
 if vim.g.neovide then
