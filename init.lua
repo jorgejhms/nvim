@@ -44,12 +44,12 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 -- =============================================================================
 
 -- stylua: ignore start
-now(function() require("config.options") end) -- Opciones generales
-now(function() require("config.maps") end) -- Keymaps
--- now(function() require("plugins.mini-notify") end) -- Notificaciones
-now(function() require("mini.starter").setup() end) -- Pantalla inicial
-now(function() require("mini.sessions").setup() end) -- Gestión de sesiones
-now(function() require("plugins.colors") end) -- Temas de colores
+now(function() require("config.options") end)          -- Opciones generales
+now(function() require("config.maps") end)             -- Keymaps
+now(function() require("plugins.mini-notify") end)     -- Notificaciones
+now(function() require("mini.starter").setup() end)    -- Pantalla inicial
+now(function() require("mini.sessions").setup() end)   -- Gestión de sesiones
+now(function() require("plugins.colors") end)          -- Temas de colores
 now(function() add("nvim-lua/plenary.nvim") end)
 now(function() add("nvim-tree/nvim-web-devicons") end) -- Iconos
 -- stylua: ignore end
@@ -68,19 +68,21 @@ end)
 later(function() require("config.autocomands") end) -- Autocomandos
 
 -- Modulos mini
-later(function() require("mini.animate").setup() end) -- Animaciones
+later(function() require("mini.animate").setup() end)   -- Animaciones
 later(function() require("mini.bracketed").setup() end) -- Movimientos "[" y "]"
 later(function() require("mini.splitjoin").setup() end) -- Split/Join
 later(function() require("mini.cursorword").setup() end)
 later(function() require("mini.move").setup() end)
-later(function() require("mini.indentscope").setup({
-  symbol = "│",
-}) end)
+later(function()
+  require("mini.indentscope").setup({
+    symbol = "│",
+  })
+end)
 later(function() require("mini.pairs").setup() end)
 
 -- Otros plugins simples
 later(function() add("hiphish/rainbow-delimiters.nvim") end) -- Delimitadores arcoiris
-later(function() add("mechatroner/rainbow_csv") end)  -- CSV Hightlights
+later(function() add("mechatroner/rainbow_csv") end)         -- CSV Hightlights
 later(function() add("b0o/SchemaStore.nvim") end)
 
 -- Agregando configuración plugins
@@ -350,9 +352,12 @@ end)
 
 -- Noice
 later(function()
-  add({ source = "folke/noice.nvim", depends = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } })
+  add({ source = "folke/noice.nvim", depends = { "MunifTanjim/nui.nvim" } })
   require("noice").setup({
     lsp = {
+      progress = {
+        enabled = false,
+      },
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -364,24 +369,12 @@ later(function()
     presets = {
       bottom_search = true, -- use a classic bottom cmdline for search
       command_palette = true, -- position the cmdline and popupmenu together
-      long_message_to_split = true, -- long messages will be sent to a split
+      -- long_message_to_split = true, -- long messages will be sent to a split
       inc_rename = false, -- enables an input dialog for inc-rename.nvim
       lsp_doc_border = false, -- add a border to hover docs and signature help
     },
-  })
-  require("notify").setup({
-    fps = 60,
-    stages = "fade",
-    timeout = 3000,
-    max_height = function()
-      return math.floor(vim.o.lines * 0.75)
-    end,
-    max_width = function()
-      return math.floor(vim.o.columns * 0.75)
-    end,
-    on_open = function(win)
-      vim.api.nvim_win_set_config(win, { zindex = 100 })
-    end,
+    messages = { enabled = false },
+    notify = { enabled = false },
   })
 end)
 
