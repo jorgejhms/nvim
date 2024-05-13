@@ -10,7 +10,7 @@
  ╚════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝ ╚════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝
 
   Configuración personal Neovim
-	jorgejhms@gmail.com
+  jorgejhms@gmail.com
   =============================================================================
 
 --]]
@@ -48,16 +48,33 @@ now(function() require("config.options") end)          -- Opciones generales
 now(function() require("config.maps") end)             -- Keymaps
 now(function() require("plugins.mini-notify") end)     -- Notificaciones
 now(function() require("mini.starter").setup() end)    -- Pantalla inicial
-now(function() require("mini.sessions").setup() end)   -- Gestión de sesiones
+
+-- Gestión de sesiones
+now(function() require("mini.sessions").setup({
+  autowrite = true
+}) end)
+
 now(function() require("plugins.colors") end)          -- Temas de colores
 now(function() add("nvim-lua/plenary.nvim") end)
 now(function() add("nvim-tree/nvim-web-devicons") end) -- Iconos
 -- stylua: ignore end
 
 now(function()
-  add("nvim-lualine/lualine.nvim")
-  require("plugins.lualine")
+  require("mini.statusline").setup({
+    use_icons = vim.g.have_nerd_font,
+  })
 end)
+
+now(function()
+  require("mini.tabline").setup({
+    tabpage_section = "right",
+  })
+end)
+
+-- now(function()
+--   add("nvim-lualine/lualine.nvim")
+--   require("plugins.lualine")
+-- end)
 
 -- =============================================================================
 -- Carga posterior (Lazy)
@@ -68,16 +85,11 @@ end)
 later(function() require("config.autocomands") end) -- Autocomandos
 
 -- Modulos mini
-later(function() require("mini.animate").setup() end)   -- Animaciones
 later(function() require("mini.bracketed").setup() end) -- Movimientos "[" y "]"
 later(function() require("mini.splitjoin").setup() end) -- Split/Join
 later(function() require("mini.cursorword").setup() end)
 later(function() require("mini.move").setup() end)
-later(function()
-  require("mini.indentscope").setup({
-    symbol = "│",
-  })
-end)
+later(function() require("mini.indentscope").setup() end)
 later(function() require("mini.pairs").setup() end)
 
 -- Otros plugins simples
@@ -93,6 +105,8 @@ later(function() require("plugins.mini-clue") end)
 later(function() require("plugins.mini-surround") end)
 later(function() require("plugins.mini-pick") end)
 later(function() require("mini.extra").setup() end)
+later(function() require("plugins.mini-animate") end)   -- Animaciones
+later(function() require("plugins.mini-basics") end)
 -- stylua: ignore end
 
 -- Better Around/Inside textobjects
@@ -330,10 +344,10 @@ later(function()
 end)
 
 -- Noice
-later(function()
-  add({ source = "folke/noice.nvim", depends = { "MunifTanjim/nui.nvim" } })
-  require("plugins.noice")
-end)
+-- later(function()
+--   add({ source = "folke/noice.nvim", depends = { "MunifTanjim/nui.nvim" } })
+--   require("plugins.noice")
+-- end)
 
 -- TODO: Pasar configuración a archivo separado
 -- Config neovide
