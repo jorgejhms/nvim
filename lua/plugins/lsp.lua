@@ -13,6 +13,8 @@ lspconfig.dockerls.setup({})
 lspconfig.docker_compose_language_service.setup({})
 lspconfig.marksman.setup({})
 lspconfig.astro.setup({})
+lspconfig.emmet_ls.setup({})
+lspconfig.mdx_analyzer.setup({})
 
 lspconfig.jsonls.setup({ -- [[ JSON config ]]
   -- lazy-load schemastore when needed
@@ -216,8 +218,8 @@ cmp.setup({
 
   -- Añade bordes a las ventanas de autocompletado
   -- window = {
-  -- 	completion = cmp.config.window.bordered(),
-  -- 	documentation = cmp.config.window.bordered(),
+  --   completion = cmp.config.window.bordered(),
+  --   documentation = cmp.config.window.bordered(),
   -- },
 
   -- Añade texto a autocompletar despues del cursor
