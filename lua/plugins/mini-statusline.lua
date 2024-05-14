@@ -25,7 +25,12 @@ end
 -- Verifica si Github Copilot está activo
 -- @return string El estado de Github Copilot, ya sea una cadena vacía o una cadena con el mensaje de estado de Github Copilot.
 local function isCopilotActive()
-  local copilot = require("copilot.api").status.data
+  local status_ok, copilot_api = pcall(require, "copilot.api")
+  if not status_ok then
+    return
+  end
+
+  local copilot = copilot_api.status.data
   return " " .. (copilot.message or "")
 end
 
