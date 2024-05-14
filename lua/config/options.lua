@@ -63,7 +63,7 @@ vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
--- Define caracteres especiales para mostrar los espacios en blanco
+-- Sets how neovim will display certain whitespace in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
@@ -89,8 +89,8 @@ vim.opt.shiftwidth = 2 -- 2 espacios ancho de tab
 -- vim.opt.spell = true
 -- vim.opt.spelllang = "es"
 --
--- No wrap por defecto
-vim.opt.wrap = false
+-- Wrap por defecto
+vim.opt.wrap = true
 
 -- No usa swapfiles
 vim.opt.swapfile = false
