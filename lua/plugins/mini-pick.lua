@@ -3,8 +3,8 @@ local map = vim.keymap.set
 require("mini.pick").setup()
 
 local win_config = function()
-  height = math.floor(0.3 * vim.o.lines)
-  width = math.floor(0.3 * vim.o.columns)
+  local height = math.floor(0.3 * vim.o.lines)
+  local width = math.floor(0.3 * vim.o.columns)
   return {
     anchor = "NW",
     height = height,
@@ -16,7 +16,9 @@ end
 
 -- MiniPick Colorscheme Picker
 local set_colorscheme = function(name)
-  pcall(vim.cmd, "colorscheme " .. name)
+  pcall(function()
+    vim.cmd("colorscheme " .. name)
+  end)
 end
 local pick_colorscheme = function()
   local init_scheme = vim.g.colors_name
@@ -36,7 +38,12 @@ local pick_colorscheme = function()
         char = "<C-p>",
         func = function()
           local item = MiniPick.get_picker_matches()
-          pcall(vim.cmd, "colorscheme " .. item.current)
+          -- pcall(vim.cmd, "colorscheme " .. item.current)
+          if item and item.current then
+            pcall(function()
+              vim.cmd("colorscheme " .. item.current)
+            end)
+          end
         end,
       },
     },
@@ -78,7 +85,6 @@ map("n", "<Leader>s.", "<cmd>Pick oldfiles<CR>", { desc = "[S]earch [R]ecent fil
 map("n", "<Leader>sd", "<cmd>Pick diagnostic<CR>", { desc = "[S]earch [D]iagnostics" })
 map("n", "<Leader>sr", "<cmd>Pick resume<CR>", { desc = "[S]earch [R]esume" })
 map("n", "<Leader>sg", "<cmd>Pick grep_live<CR>", { desc = "[S]earch [G]rep" })
--- map("n", "z=", "<cmd>Pick spellsuggest<CR>", { desc = "Abre las sugerencias ortográficas" })
 map("n", "z=", spellsuggest, { desc = "Abre las sugerencias ortográficas" })
 map("n", "<Leader>/", "<cmd>Pick buf_lines scope='current'<CR>", { desc = "[/] Fuzzily search in current buffer" })
 map("n", "<Leader>s/", "<cmd>Pick buf_lines<CR>", { desc = "[S]earch [/] in Open Files" })
