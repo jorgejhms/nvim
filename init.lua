@@ -60,9 +60,7 @@ now(function() add("nvim-tree/nvim-web-devicons") end) -- Iconos
 -- stylua: ignore end
 
 now(function()
-  require("mini.statusline").setup({
-    use_icons = vim.g.have_nerd_font,
-  })
+  require("plugins.mini-statusline")
 end)
 
 now(function()
@@ -87,6 +85,7 @@ later(function() require("config.autocomands") end) -- Autocomandos
 -- Modulos mini
 later(function() require("mini.bracketed").setup() end) -- Movimientos "[" y "]"
 later(function() require("mini.splitjoin").setup() end) -- Split/Join
+later(function() require("mini.colors").setup() end)
 later(function() require("mini.cursorword").setup() end)
 later(function() require("mini.move").setup() end)
 later(function() require("mini.indentscope").setup() end)
