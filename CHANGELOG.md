@@ -1,5 +1,22 @@
 # Changelog
 
+## 2024.05.06
+
+### Agregados
+
+- Autocomando para reajustar tamaño de paneles al redimensionar la ventana de Nvim.
+- `mini.basic`.
+- Agregando LSP `emmet_ls` y `mdx_analyzer`
+- Agregando `mini.colors`, `mini.base16` y temas de colores.
+- Agrega configuración personalizada de `mini.statusline` con iconos para visualizar el estado de Copilot, corrección ortográfica, ajuste de línea y registro de macros.
+
+### Cambios
+
+- Eliminado `indentblankline`
+- Desactiva animaciones al hacer scroll con el mouse.
+- Eliminando colores no compatibles.
+- Establece ajuste de línea por defecto.
+
 ## 2024.05.05
 
 ### Agregados
