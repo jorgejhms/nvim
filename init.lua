@@ -357,5 +357,5 @@ if vim.g.neovide then
 end
 
 -- Tema por defecto
-vim.cmd.colorscheme("doomscheme")
+vim.cmd.colorscheme("dracula")
 -- TODO: Crear configuración Vscode
