@@ -25,9 +25,6 @@ local pick_colorscheme = function()
   local new_scheme = MiniPick.start({
     source = {
       items = vim.fn.getcompletion("", "color"),
-      preview = function(_, item)
-        set_colorscheme(item)
-      end,
       choose = set_colorscheme,
     },
     mappings = {
@@ -35,10 +32,9 @@ local pick_colorscheme = function()
       move_start = "<C-g>",
       move_up = "<C-p>",
       preview = {
-        char = "<C-p>",
+        char = "<Tab>",
         func = function()
           local item = MiniPick.get_picker_matches()
-          -- pcall(vim.cmd, "colorscheme " .. item.current)
           if item and item.current then
             pcall(function()
               vim.cmd("colorscheme " .. item.current)
