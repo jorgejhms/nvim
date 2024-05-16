@@ -42,6 +42,7 @@ lspconfig.lua_ls.setup({
       diagnostics = {
         globals = { "vim" }, -- Reconoce vim como variable global
       },
+      hint = { enable = true },
     },
   },
 })
@@ -74,6 +75,7 @@ lspconfig.tailwindcss.setup({
 
 -- typescript
 lspconfig.tsserver.setup({
+  hint = { enable = true },
   keys = {
     {
       "<leader>co",
@@ -106,6 +108,31 @@ lspconfig.tsserver.setup({
   settings = {
     completions = {
       completeFunctionCalls = true,
+    },
+    typescript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
+    },
+    javascript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayVariableTypeHints = true,
+
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
     },
   },
 })
