@@ -13,14 +13,6 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("n", "<leader>de", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
--- LSP Inlay hints
-map(
-  "n",
-  "<Leader>uh",
-  "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>",
-  { desc = "Toggle inlay hints" }
-)
-
 -- Usa <Esc><Esc> para salir de la terminal
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
@@ -80,6 +72,14 @@ map(
   { noremap = true, silent = true, desc = "Alterna numeros de línea" }
 )
 map("n", "<leader>uw", ":set wrap!<cr>", { noremap = true, silent = true, desc = "Alterna ajuste de línea" })
+
+-- LSP Inlay hints
+map(
+  "n",
+  "<Leader>uh",
+  "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>",
+  { desc = "Alterna pistas en línea de LSP" }
+)
 
 -- Tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
