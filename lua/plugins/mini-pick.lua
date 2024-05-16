@@ -24,6 +24,7 @@ local pick_colorscheme = function()
   local init_scheme = vim.g.colors_name
   local new_scheme = MiniPick.start({
     source = {
+      name = "Colorscheme",
       items = vim.fn.getcompletion("", "color"),
       choose = set_colorscheme,
     },
