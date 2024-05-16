@@ -5,12 +5,18 @@
 
 local map = vim.keymap.set
 
+-- Guarda el archivo actual con <Cmd-s>
+map({ "n", "x", "i" }, "<D-s>", "<Cmd>w<CR>", { desc = "Guarda el archivo actual" })
+
+-- Cierra la ventana actual con <Leader-w>
+map("n", "<Leader>w", "<Cmd>q<CR>", { desc = "Cierra la ventana actual" })
+
 -- Establece resaltado durante búsquedas, limpia usando <Esc> en modo normal
 vim.opt.hlsearch = true
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
-map("n", "<leader>de", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+-- map("n", "<leader>de", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Usa <Esc><Esc> para salir de la terminal
