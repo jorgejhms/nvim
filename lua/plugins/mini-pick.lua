@@ -17,7 +17,7 @@ end
 -- MiniPick Colorscheme Picker
 local set_colorscheme = function(name)
   pcall(function()
-    vim.cmd("colorscheme " .. name)
+    vim.cmd("Colorscheme " .. name)
   end)
 end
 local pick_colorscheme = function()
