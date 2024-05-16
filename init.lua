@@ -69,11 +69,6 @@ now(function()
   })
 end)
 
--- now(function()
---   add("nvim-lualine/lualine.nvim")
---   require("plugins.lualine")
--- end)
-
 -- =============================================================================
 -- Carga posterior (Lazy)
 -- Revisar h: MiniDeps.later()
