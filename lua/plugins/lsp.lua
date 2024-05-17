@@ -13,7 +13,22 @@ lspconfig.dockerls.setup({})
 lspconfig.docker_compose_language_service.setup({})
 lspconfig.marksman.setup({})
 lspconfig.astro.setup({})
-lspconfig.emmet_ls.setup({})
+lspconfig.emmet_ls.setup({
+  filetypes = {
+    "css",
+    "eruby",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "sass",
+    "scss",
+    "svelte",
+    "pug",
+    "typescriptreact",
+    "vue",
+  },
+})
 lspconfig.mdx_analyzer.setup({})
 
 lspconfig.jsonls.setup({ -- [[ JSON config ]]
