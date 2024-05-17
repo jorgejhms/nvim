@@ -13,7 +13,22 @@ lspconfig.dockerls.setup({})
 lspconfig.docker_compose_language_service.setup({})
 lspconfig.marksman.setup({})
 lspconfig.astro.setup({})
-lspconfig.emmet_ls.setup({})
+lspconfig.emmet_ls.setup({
+  filetypes = {
+    "css",
+    "eruby",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "sass",
+    "scss",
+    "svelte",
+    "pug",
+    "typescriptreact",
+    "vue",
+  },
+})
 lspconfig.mdx_analyzer.setup({})
 
 lspconfig.jsonls.setup({ -- [[ JSON config ]]
@@ -42,6 +57,7 @@ lspconfig.lua_ls.setup({
       diagnostics = {
         globals = { "vim" }, -- Reconoce vim como variable global
       },
+      hint = { enable = true },
     },
   },
 })
@@ -74,6 +90,7 @@ lspconfig.tailwindcss.setup({
 
 -- typescript
 lspconfig.tsserver.setup({
+  hint = { enable = true },
   keys = {
     {
       "<leader>co",
@@ -106,6 +123,31 @@ lspconfig.tsserver.setup({
   settings = {
     completions = {
       completeFunctionCalls = true,
+    },
+    typescript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
+    },
+    javascript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayVariableTypeHints = true,
+
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
     },
   },
 })

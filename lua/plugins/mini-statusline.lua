@@ -34,6 +34,11 @@ local function isCopilotActive()
   return " " .. (copilot.message or "")
 end
 
+local function isLspHintsActive()
+  local hints_enabled = vim.lsp.inlay_hint.is_enabled() and " " or ""
+  return hints_enabled
+end
+
 local statusline = require("mini.statusline")
 
 local active = function()
@@ -48,6 +53,7 @@ local active = function()
   local wrapped = isWrapped()
   local spell = spellOn()
   local copilot = isCopilotActive()
+  local hints_enabled = isLspHintsActive()
 
   return MiniStatusline.combine_groups({
     { hl = mode_hl, strings = { mode } },
@@ -55,7 +61,7 @@ local active = function()
     "%<", -- Mark general truncate point
     { hl = "MiniStatuslineFilename", strings = { filename } },
     "%=", -- End left alignment
-    { strings = { recording, wrapped, spell, copilot } },
+    { strings = { hints_enabled, recording, wrapped, spell, copilot } },
     { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
     { hl = mode_hl, strings = { search, location } },
   })

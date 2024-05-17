@@ -17,13 +17,14 @@ end
 -- MiniPick Colorscheme Picker
 local set_colorscheme = function(name)
   pcall(function()
-    vim.cmd("colorscheme " .. name)
+    vim.cmd("Colorscheme " .. name)
   end)
 end
 local pick_colorscheme = function()
   local init_scheme = vim.g.colors_name
   local new_scheme = MiniPick.start({
     source = {
+      name = "Colorscheme",
       items = vim.fn.getcompletion("", "color"),
       choose = set_colorscheme,
     },
