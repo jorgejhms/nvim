@@ -1,5 +1,29 @@
 # Changelog
 
+## 2024.06.0
+
+### BREAKING:
+
+- Actualizado a Nvim 0.10+
+- Se agrega soporte para pistas en línea (inlay hints) para typescript/javascript y lua.
+- Atajos de teclado para cerrar ventana `<Cmd-w>` y guardar archivos `<Cmd-s>`.
+
+### Agregado
+
+- Colores en base16 para uso de `mini.base16`.
+- Selección incremental usando `<C-Space>`.
+- Archivos soportados en `emmet_ls`.
+
+## Eliminado
+
+- Configuración antigua de `lualine`.
+
+### Correcciones
+
+- Mensajes de error al iniciar nvim por indicador de Copilot.
+- Mensajes de diagnóstico en configuración de `mini.pick`.
+- Combinaciones de teclas faltantes en `mini.pick` para sugerencias ortográficas y selector de Color.
+
 ## 2024.05.06
 
 ### Agregados
