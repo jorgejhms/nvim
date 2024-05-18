@@ -195,9 +195,14 @@ later(function()
 end)
 
 -- [[ Hightlights colors ]]
+-- later(function()
+--   add("brenoprata10/nvim-highlight-colors")
+--   require("nvim-highlight-colors").setup({ enable_tailwind = true })
+-- end)
+
+-- Minimal highlight
 later(function()
-  add("brenoprata10/nvim-highlight-colors")
-  require("nvim-highlight-colors").setup({ enable_tailwind = true })
+  require("dev.minimal-colors-highlighter").setup()
 end)
 
 -- Dressing
