@@ -22,18 +22,21 @@ M.setup = function()
         extmark_opts = { priority = 2000 },
       },
       oklab = {
-        pattern = "oklab%((%d+%.?%d*)%s(%d+%.?%d*)%s(%d+%.?%d*)%)",
+        pattern = "oklab%(%d+%.?%d*%%?%s%-?%d+%.?%d*%s%-?%d+%.?%d*%)",
+        -- group = "Error",
         group = function(_, _, data)
           local match = data.full_match
-          local pattern = "oklab%((%d+%.?%d*)%s(%d+%.?%d*)%s(%d+%.?%d*)%)"
+          local pattern = "oklab%((%d+%.?%d*)%%?%s%-?(%d+%.?%d*)%s%-?(%d+%.?%d*)%)"
           local l, a, b = match:match(pattern)
-          l, a, b = tonumber(l), tonumber(a), tonumber(b)
+          -- TODO: get conversion right
+          l, a, b = tonumber(l * 100), tonumber(a), tonumber(b)
           print(l, a, b)
           local oklab_color = { l = l, a = a, b = b }
           local hex_color = mc.convert(oklab_color, "hex")
+          print(hex_color)
           return hi.compute_hex_color_group(hex_color, "bg")
         end,
-        -- extmark_opts = { priority = 2000 },
+        extmark_opts = { priority = 2000 },
       },
     },
   })
