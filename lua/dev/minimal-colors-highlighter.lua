@@ -1,6 +1,7 @@
 local M = {}
 
 local hi = require("mini.hipatterns")
+local mc = require("mini.colors")
 
 M.setup = function()
   hi.setup({
@@ -19,6 +20,20 @@ M.setup = function()
           return hi.compute_hex_color_group(hex_color, "bg")
         end,
         extmark_opts = { priority = 2000 },
+      },
+      oklab = {
+        pattern = "oklab%((%d+%.?%d*)%s(%d+%.?%d*)%s(%d+%.?%d*)%)",
+        group = function(_, _, data)
+          local match = data.full_match
+          local pattern = "oklab%((%d+%.?%d*)%s(%d+%.?%d*)%s(%d+%.?%d*)%)"
+          local l, a, b = match:match(pattern)
+          l, a, b = tonumber(l), tonumber(a), tonumber(b)
+          print(l, a, b)
+          local oklab_color = { l = l, a = a, b = b }
+          local hex_color = mc.convert(oklab_color, "hex")
+          return hi.compute_hex_color_group(hex_color, "bg")
+        end,
+        -- extmark_opts = { priority = 2000 },
       },
     },
   })
