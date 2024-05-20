@@ -29,7 +29,8 @@ M.setup = function()
           local pattern = "oklab%((%d+%.?%d*)%%?%s%-?(%d+%.?%d*)%s%-?(%d+%.?%d*)%)"
           local l, a, b = match:match(pattern)
           -- TODO: get conversion right
-          l, a, b = tonumber(l * 100), tonumber(a), tonumber(b)
+          -- Numeros negativos
+          l, a, b = tonumber(l * 100), tonumber(a * 100), tonumber(b * 100)
           print(l, a, b)
           local oklab_color = { l = l, a = a, b = b }
           local hex_color = mc.convert(oklab_color, "hex")
