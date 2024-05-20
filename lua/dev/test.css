@@ -35,15 +35,16 @@ color: hwb(0, 0%, 0%); /* white */
 color: hwb(0, 0%, 100%); /* black */
 
 /* Oklab */
-color: oklab(0.5 0.4 0.4); /* red */
-color: oklab(0.9 0 0); /* green */
-color: oklab(0 0.9 0); /* blue */
-color: oklab(0.9 0 0); /* white */
-color: oklab(0 0 0); /* black */
+color: oklab(0.63 0.22 0.13);
+color: oklab(0.52 -0.14 0.11);
+color: oklab(0.45 -0.03 -0.31);
+color: oklab(1 0 0);
+color: oklab(0 0 0);
+
 
 /* Oklch */
-color: oklch(0.5 0.4 0 0); /* red */
-color: oklch(0.9 0 120 0); /* green */
-color: oklch(0 0.9 240 0); /* blue */
-color: oklch(0.9 0 0 0); /* white */
-color: oklch(0 0 0 0); /* black */
+/* color: oklch(0.5 0.4 0 0); /* red */ */
+/* color: oklch(0.9 0 120 0); /* green */ */
+/* color: oklch(0 0.9 240 0); /* blue */ */
+/* color: oklch(0.9 0 0 0); /* white */ */
+/* color: oklch(0 0 0 0); /* black */ */
