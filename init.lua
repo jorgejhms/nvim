@@ -85,7 +85,6 @@ later(function() require("mini.cursorword").setup() end)
 later(function() require("mini.move").setup() end)
 later(function() require("mini.indentscope").setup() end)
 later(function() require("mini.pairs").setup() end)
--- later(function() require("mini.diff").setup() end)
 later(function() require("mini.git").setup() end)
 later(function() require("mini.extra").setup() end)
 
@@ -191,12 +190,6 @@ later(function()
   require("plugins.flash")
 end)
 
--- [[ GIT ]]
--- later(function()
---   add("lewis6991/gitsigns.nvim")
---   require("plugins.gitsigns")
--- end)
-
 -- [[ Hightlights colors ]]
 later(function()
   add("brenoprata10/nvim-highlight-colors")
@@ -225,6 +218,7 @@ later(function()
   require("plugins.copilot")
 end)
 
+-- NOTE: No se está usando
 -- Octo
 later(function()
   add({
@@ -238,11 +232,13 @@ later(function()
   require("plugins.octo")
 end)
 
+-- TODO: Usar Deps
 -- [[ Telescope ]]
 later(function()
   add("nvim-telescope/telescope.nvim")
   -- TODO: Usar depends
   add("nvim-telescope/telescope-fzf-native.nvim")
+  --NOTE: Mini.Pick incluye select
   add("nvim-telescope/telescope-ui-select.nvim")
   require("plugins.telescope")
 end)
