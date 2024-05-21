@@ -85,6 +85,9 @@ later(function() require("mini.cursorword").setup() end)
 later(function() require("mini.move").setup() end)
 later(function() require("mini.indentscope").setup() end)
 later(function() require("mini.pairs").setup() end)
+-- later(function() require("mini.diff").setup() end)
+later(function() require("mini.git").setup() end)
+later(function() require("mini.extra").setup() end)
 
 -- Otros plugins simples
 later(function() add("hiphish/rainbow-delimiters.nvim") end) -- Delimitadores arcoiris
@@ -98,9 +101,9 @@ later(function() require("plugins.mini-files") end)
 later(function() require("plugins.mini-clue") end)
 later(function() require("plugins.mini-surround") end)
 later(function() require("plugins.mini-pick") end)
-later(function() require("mini.extra").setup() end)
 later(function() require("plugins.mini-animate") end)   -- Animaciones
 later(function() require("plugins.mini-basics") end)
+later(function() require("plugins.mini-diff") end)
 -- stylua: ignore end
 
 -- Better Around/Inside textobjects
@@ -189,10 +192,10 @@ later(function()
 end)
 
 -- [[ GIT ]]
-later(function()
-  add("lewis6991/gitsigns.nvim")
-  require("plugins.gitsigns")
-end)
+-- later(function()
+--   add("lewis6991/gitsigns.nvim")
+--   require("plugins.gitsigns")
+-- end)
 
 -- [[ Hightlights colors ]]
 later(function()
