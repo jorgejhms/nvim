@@ -1,5 +1,12 @@
 # Changelog
 
+## 2024.06.01
+
+### Agregado
+
+- `mini.tabline` se oculta cuando solo hay un buffer abierto.
+- `mini.git` y `mini.diff` remplazan a gitsigns.
+
 ## 2024.06.0
 
 ### BREAKING:
