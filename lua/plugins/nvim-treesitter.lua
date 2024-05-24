@@ -23,6 +23,7 @@ require("nvim-treesitter.configs").setup({
     "tsx",
     "yaml",
   },
+  sync_install = true,
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -32,7 +33,6 @@ require("nvim-treesitter.configs").setup({
       node_decremental = "<bs>",
     },
   },
-  -- Autoinstall languages that are not installed
   auto_install = true,
   highlight = {
     enable = true,
@@ -41,10 +41,7 @@ require("nvim-treesitter.configs").setup({
     --  the list of additional_vim_regex_highlighting and disabled languages for indent.
     additional_vim_regex_highlighting = { "ruby" },
   },
-  indent = { enable = true, disable = { "ruby" } },
-  autotag = {
-    enable = true,
-  },
+  indent = { enable = true },
 })
 require("treesitter-context").setup({
   mode = "cursor",
