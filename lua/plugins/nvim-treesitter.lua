@@ -53,3 +53,8 @@ require("treesitter-context").setup({
 require("ts_context_commentstring").setup({
   enable_autocmd = false,
 })
+require("nvim-ts-autotag").setup({
+  enable_close = true,
+  enable_rename = true,
+  enable_colse_on_slash = true,
+})
