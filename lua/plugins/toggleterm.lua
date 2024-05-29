@@ -6,6 +6,7 @@ local lazygit = Terminal:new({
   -- display_name = "Lazygit",
   hidden = true,
   direction = "float",
+  --TODO: Definir highlights
   float_opts = {
     border = "solid",
     title_pos = "center",
