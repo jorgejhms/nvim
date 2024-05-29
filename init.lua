@@ -232,7 +232,6 @@ later(function()
   require("plugins.octo")
 end)
 
--- TODO: Usar Deps
 -- [[ Telescope ]]
 later(function()
   require("plugins.telescope")
@@ -257,12 +256,13 @@ later(function()
 end)
 
 later(function()
-  add("lukas-reineke/virt-column.nvim")
-  -- TODO: Pasar configuración a archivo separado
-  require("virt-column").setup({
-    char = "╎",
-    virtcolumn = "80",
-  })
+  require("plugins.virt-column")
+  -- add("lukas-reineke/virt-column.nvim")
+  -- -- TODO: Pasar configuración a archivo separado
+  -- require("virt-column").setup({
+  --   char = "╎",
+  --   virtcolumn = "80",
+  -- })
 end)
 
 -- Harpoon
