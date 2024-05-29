@@ -282,12 +282,7 @@ end)
 
 -- R nvim
 later(function()
-  add("R-nvim/R.nvim")
-  -- TODO: Pasar configuración a archivo separado
-  require("r").setup({
-    R_app = "radian",
-    R_cmd = "R",
-  })
+  require("plugins.R-nvim")
 end) -- R language
 
 -- Python venv selector
