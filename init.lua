@@ -79,7 +79,6 @@ later(function()
       post_checkout = function() vim.cmd("TSUpdate") end,
     },
   })
-  -- TODO: Usar depends
   add("nvim-treesitter/nvim-treesitter-context")
   add("windwp/nvim-ts-autotag")
   add("JoosepAlviste/nvim-ts-context-commentstring")
@@ -89,16 +88,18 @@ end)
 
 -- [[ LSP Plugins ]]
 later(function()
-  -- TODO: Usar depends
-  -- CMP
-  add("hrsh7th/nvim-cmp")
-  add("hrsh7th/cmp-path")
-  add("hrsh7th/cmp-buffer")
-  add("R-nvim/cmp-r")
-  add("hrsh7th/cmp-cmdline")
-  add("onsails/lspkind-nvim")
-  add("saadparwaiz1/cmp_luasnip")
-  add("hrsh7th/cmp-nvim-lsp")
+  add({
+    source = "hrsh7th/nvim-cmp",
+    depends = {
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-buffer",
+      "R-nvim/cmp-r",
+      "hrsh7th/cmp-cmdline",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp",
+      "onsails/lspkind-nvim",
+    },
+  })
 
   -- Neodev
   add("folke/neodev.nvim")
@@ -244,11 +245,7 @@ later(function()
   require("mdx").setup()
 end)
 
--- Noice
--- later(function()
---   add({ source = "folke/noice.nvim", depends = { "MunifTanjim/nui.nvim" } })
---   require("plugins.noice")
--- end)
+-- later(function() require("plugins.noice") end)
 
 -- TODO: Pasar configuración a archivo separado
 -- Config neovide
