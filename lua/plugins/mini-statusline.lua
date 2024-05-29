@@ -31,7 +31,7 @@ local function isCopilotActive()
   end
 
   local copilot = copilot_api.status.data
-  return " " .. (copilot.message or "")
+  return " " .. (copilot.message or "")
 end
 
 local function isLspHintsActive()
