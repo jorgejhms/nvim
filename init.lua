@@ -235,11 +235,6 @@ end)
 -- TODO: Usar Deps
 -- [[ Telescope ]]
 later(function()
-  add("nvim-telescope/telescope.nvim")
-  -- TODO: Usar depends
-  add("nvim-telescope/telescope-fzf-native.nvim")
-  --NOTE: Mini.Pick incluye select
-  add("nvim-telescope/telescope-ui-select.nvim")
   require("plugins.telescope")
 end)
 
