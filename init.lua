@@ -257,12 +257,6 @@ end)
 
 later(function()
   require("plugins.virt-column")
-  -- add("lukas-reineke/virt-column.nvim")
-  -- -- TODO: Pasar configuración a archivo separado
-  -- require("virt-column").setup({
-  --   char = "╎",
-  --   virtcolumn = "80",
-  -- })
 end)
 
 -- Harpoon
@@ -283,13 +277,7 @@ end)
 
 -- Nvim-Tmux-Navigator
 later(function()
-  add("alexghergh/nvim-tmux-navigation")
-  require("nvim-tmux-navigation").setup({})
-  -- TODO: Pasar configuración a archivo separado
-  vim.keymap.set("n", "<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>", {})
-  vim.keymap.set("n", "<C-j>", "<Cmd>NvimTmuxNavigateDown<CR>", {})
-  vim.keymap.set("n", "<C-k>", "<Cmd>NvimTmuxNavigateUp<CR>", {})
-  vim.keymap.set("n", "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", {})
+  require("plugins.nvim-tmux-navigator")
 end)
 
 -- R nvim
