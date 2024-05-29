@@ -43,38 +43,18 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 -- revisar h: MiniDeps.now()
 -- =============================================================================
 
--- stylua: ignore start
-now(function() require("config.options") end)          -- Opciones generales
-now(function() require("config.maps") end)             -- Keymaps
-now(function() require("plugins.mini-notify") end)     -- Notificaciones
-now(function() require("mini.starter").setup() end)    -- Pantalla inicial
+now(function() require("config.options") end) -- Opciones generales
+now(function() require("config.maps") end) -- Keymaps
+now(function() require("plugins.ui") end)
 
--- Gestión de sesiones
-now(function() require("mini.sessions").setup({
-  autowrite = true
-}) end)
-
-now(function() require("plugins.colors") end)          -- Temas de colores
 now(function() add("nvim-lua/plenary.nvim") end)
 now(function() add("nvim-tree/nvim-web-devicons") end) -- Iconos
--- stylua: ignore end
-
-now(function()
-  require("plugins.mini-statusline")
-end)
-
-now(function()
-  require("mini.tabline").setup({
-    tabpage_section = "right",
-  })
-end)
 
 -- =============================================================================
 -- Carga posterior (Lazy)
 -- Revisar h: MiniDeps.later()
 -- =============================================================================
 
--- stylua: ignore start
 later(function() require("config.autocomands") end) -- Autocomandos
 
 -- Modulos mini
@@ -90,7 +70,7 @@ later(function() require("mini.extra").setup() end)
 
 -- Otros plugins simples
 later(function() add("hiphish/rainbow-delimiters.nvim") end) -- Delimitadores arcoiris
-later(function() add("mechatroner/rainbow_csv") end)         -- CSV Hightlights
+later(function() add("mechatroner/rainbow_csv") end) -- CSV Hightlights
 later(function() add("b0o/SchemaStore.nvim") end)
 
 -- Agregando configuración plugins
@@ -100,24 +80,19 @@ later(function() require("plugins.mini-files") end)
 later(function() require("plugins.mini-clue") end)
 later(function() require("plugins.mini-surround") end)
 later(function() require("plugins.mini-pick") end)
-later(function() require("plugins.mini-animate") end)   -- Animaciones
+later(function() require("plugins.mini-animate") end) -- Animaciones
 later(function() require("plugins.mini-basics") end)
 later(function() require("plugins.mini-diff") end)
--- stylua: ignore end
 
 -- Better Around/Inside textobjects
-later(function()
-  require("mini.ai").setup({ n_lines = 500 })
-end)
+later(function() require("mini.ai").setup({ n_lines = 500 }) end)
 
 -- [[ Treesitter ]]
 later(function()
   add({
     source = "nvim-treesitter/nvim-treesitter",
     hooks = {
-      post_checkout = function()
-        vim.cmd("TSUpdate")
-      end,
+      post_checkout = function() vim.cmd("TSUpdate") end,
     },
   })
   -- TODO: Usar depends
@@ -158,12 +133,8 @@ later(function()
       "rafamadriz/friendly-snippets",
     },
     hooks = {
-      post_install = function(params)
-        make_jsregexp(params.path)
-      end,
-      post_checkout = function(params)
-        make_jsregexp(params.path)
-      end,
+      post_install = function(params) make_jsregexp(params.path) end,
+      post_checkout = function(params) make_jsregexp(params.path) end,
     },
   })
 
@@ -233,9 +204,7 @@ later(function()
 end)
 
 -- [[ Telescope ]]
-later(function()
-  require("plugins.telescope")
-end)
+later(function() require("plugins.telescope") end)
 
 -- [[ TODO Comments ]]
 later(function()
@@ -255,9 +224,7 @@ later(function()
   require("plugins.trouble")
 end)
 
-later(function()
-  require("plugins.virt-column")
-end)
+later(function() require("plugins.virt-column") end)
 
 -- Harpoon
 later(function()
@@ -276,34 +243,13 @@ later(function()
 end)
 
 -- Nvim-Tmux-Navigator
-later(function()
-  require("plugins.nvim-tmux-navigator")
-end)
+later(function() require("plugins.nvim-tmux-navigator") end)
 
 -- R nvim
-later(function()
-  require("plugins.R-nvim")
-end) -- R language
+later(function() require("plugins.R-nvim") end) -- R language
 
 -- Python venv selector
-later(function()
-  add({
-    source = "linux-cultist/venv-selector.nvim",
-    depends = {
-      "neovim/nvim-lspconfig",
-      "nvim-telescope/telescope.nvim",
-      "mfussenegger/nvim-dap-python",
-    },
-  })
-  -- TODO: Pasar configuración a archivo separado
-  require("venv-selector").setup({
-    auto_refresh = true,
-    search_venv_managers = false,
-    name = { "venv", ".venv" },
-  })
-  vim.keymap.set("n", "<Leader>vs", "<Cmd>VenvSelect<CR>", { desc = "Select Python venv" })
-  vim.keymap.set("n", "<Leader>vc", "<cmd>VenvSelectCached", { desc = "Select Python venv cached" })
-end)
+later(function() require("plugins.python-venv-selector") end)
 
 -- Suporte básico para MDX
 later(function()
