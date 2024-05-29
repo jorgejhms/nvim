@@ -3,24 +3,18 @@ local Terminal = require("toggleterm.terminal").Terminal
 -- Configura Lazygit
 local lazygit = Terminal:new({
   cmd = "lazygit",
-  display_name = "Lazygit",
+  -- display_name = "Lazygit",
   hidden = true,
   direction = "float",
   float_opts = {
     border = "solid",
     title_pos = "center",
-    width = function()
-      return math.floor(vim.o.columns * 0.85)
-    end,
-    height = function()
-      return math.floor(vim.o.lines * 0.85)
-    end,
+    width = function() return math.floor(vim.o.columns * 0.9) end,
+    height = function() return math.floor(vim.o.lines * 0.9) end,
   },
 })
 
-function LazygitToggle()
-  lazygit:toggle()
-end
+function LazygitToggle() lazygit:toggle() end
 
 vim.api.nvim_set_keymap(
   "n",
