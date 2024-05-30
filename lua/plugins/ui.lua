@@ -14,7 +14,9 @@ vim.notify = MiniNotify.make_notify()
 require("mini.starter").setup() -- Pantalla inicial
 require("dressing").setup()
 require("plugins.colors") -- Temas de colores
-require("plugins.mini-statusline")
+-- require("plugins.mini-statusline")
+add("nvim-lualine/lualine.nvim")
+require("plugins.lualine")
 
 -- Gestión de sesiones
 require("mini.sessions").setup({
