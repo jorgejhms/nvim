@@ -2,9 +2,7 @@
 -- @return string El estado de la grabación, ya sea una cadena vacía o una cadena con el icono de grabación y el nombre del registro.
 local function isRecording()
   local reg = vim.fn.reg_recording()
-  if reg == "" then
-    return ""
-  end -- not recording
+  if reg == "" then return "" end -- not recording
   return " " .. reg
 end
 
@@ -26,9 +24,7 @@ end
 -- @return string El estado de Github Copilot, ya sea una cadena vacía o una cadena con el mensaje de estado de Github Copilot.
 local function isCopilotActive()
   local status_ok, copilot_api = pcall(require, "copilot.api")
-  if not status_ok then
-    return
-  end
+  if not status_ok then return end
 
   local copilot = copilot_api.status.data
   return " " .. (copilot.message or "")

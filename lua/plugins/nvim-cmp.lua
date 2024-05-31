@@ -14,9 +14,7 @@ require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
   snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
+    expand = function(args) luasnip.lsp_expand(args.body) end,
   },
   completion = { completeopt = "menu,menuone,noinsert" },
 
@@ -69,14 +67,10 @@ cmp.setup({
     -- <c-l> will move you to the right of each of the expansion locations.
     -- <c-h> is similar, except moving you backwards.
     ["<C-l>"] = cmp.mapping(function()
-      if luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      end
+      if luasnip.expand_or_locally_jumpable() then luasnip.expand_or_jump() end
     end, { "i", "s" }),
     ["<C-h>"] = cmp.mapping(function()
-      if luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      end
+      if luasnip.locally_jumpable(-1) then luasnip.jump(-1) end
     end, { "i", "s" }),
 
     --  Usa tab y S-tab para mover el menu
@@ -111,8 +105,8 @@ cmp.setup({
     format = lspkind.cmp_format({
       -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
       mode = "symbol_text",
-      -- max_width = 50,
-      symbol_map = { Copilot = "" },
+      max_width = 50,
+      symbol_map = { Copilot = " ", Codeium = "" },
     }),
   },
 
@@ -121,10 +115,12 @@ cmp.setup({
     { name = "luasnip" },
     { name = "path" },
     { name = "buffer" },
+    -- { name = "copilot" },
+    -- { name = "codeium" },
+    { name = "codeium", group_index = 1, priority = 100 },
     { name = "copilot", group_index = 1, priority = 100 },
     { name = "cmp_r" },
   },
 })
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
