@@ -32,7 +32,6 @@ now(function() require("config.maps") end) -- Keymaps
 now(function() require("plugins.ui") end)
 
 now(function() add("nvim-lua/plenary.nvim") end)
-now(function() add("nvim-tree/nvim-web-devicons") end) -- Iconos
 
 -- =============================================================================
 -- Carga posterior (Lazy)
@@ -51,6 +50,8 @@ later(function() require("mini.indentscope").setup() end)
 later(function() require("mini.pairs").setup() end)
 later(function() require("mini.git").setup() end)
 later(function() require("mini.extra").setup() end)
+later(function() require("mini.icons").setup() end)
+MiniIcons.mock_nvim_web_devicons()
 
 -- Otros plugins simples
 later(function() add("hiphish/rainbow-delimiters.nvim") end) -- Delimitadores arcoiris
@@ -182,7 +183,6 @@ later(function()
     depends = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
-      "nvim-tree/nvim-web-devicons",
     },
   })
   require("plugins.octo")
