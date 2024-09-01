@@ -5,18 +5,16 @@
 -- ]]
 local add = MiniDeps.add
 
-add("stevearc/dressing.nvim")
+-- add("stevearc/dressing.nvim")
 
 -- Notificaciones -------------------------------------------------------------
 require("mini.notify").setup()
 vim.notify = MiniNotify.make_notify()
 
 require("mini.starter").setup() -- Pantalla inicial
-require("dressing").setup()
+-- require("dressing").setup()
 require("plugins.colors") -- Temas de colores
-require("plugins.mini-statusline")
--- add("nvim-lualine/lualine.nvim")
--- require("plugins.lualine")
+require("mini.statusline").setup()
 
 -- Gestión de sesiones
 require("mini.sessions").setup({

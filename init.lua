@@ -15,7 +15,6 @@
 
 --]]
 
--- Carga e inicialización de MiniDeps
 -- Clona mini.nvim si no está instalado
 local path_package = vim.fn.stdpath("data") .. "/site/"
 local mini_path = path_package .. "pack/deps/start/mini.nvim"
@@ -33,6 +32,7 @@ if not vim.loop.fs_stat(mini_path) then
   vim.cmd('echo "Installed `mini.nvim`" | redraw')
 end
 
+require("mini.deps").setup({ path = { package = path_package } })
 -- Agrega 'helpers'
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
@@ -64,13 +64,27 @@ later(function() require("mini.indentscope").setup() end)
 later(function() require("mini.pairs").setup() end)
 later(function() require("mini.git").setup() end)
 later(function() require("mini.extra").setup() end)
-later(function() require("mini.icons").setup() end)
-MiniIcons.mock_nvim_web_devicons()
+later(function()
+  require("mini.icons").setup()
+  MiniIcons.mock_nvim_web_devicons()
+end)
+
+later(function()
+  local map = require("mini.map")
+  require("mini.map").setup({
+    integrations = {
+      map.gen_integration.builtin_search(),
+      map.gen_integration.diff(),
+      map.gen_integration.diagnostic(),
+    },
+  })
+  vim.keymap.set("n", "<Leader>um", function() MiniMap.toggle() end, { desc = "Alterna minimapa" })
+end)
 
 -- Otros plugins simples
 later(function() add("hiphish/rainbow-delimiters.nvim") end) -- Delimitadores arcoiris
 later(function() add("mechatroner/rainbow_csv") end) -- CSV Hightlights
-later(function() add("b0o/SchemaStore.nvim") end)
+-- later(function() add("b0o/SchemaStore.nvim") end)
 
 -- Agregando configuración plugins
 later(function() require("plugins.mini-bufremove") end)
@@ -117,7 +131,7 @@ later(function()
   })
 
   -- Neodev
-  add("folke/neodev.nvim")
+  -- add("folke/neodev.nvim")
 
   local function make_jsregexp(path)
     vim.notify("Compiling JSRegExp")
@@ -168,42 +182,10 @@ later(function()
 end)
 
 -- Dressing
-later(function()
-  add("stevearc/dressing.nvim")
-  require("dressing").setup()
-end)
-
--- [[ Copilot ]]
-later(function()
-  add("zbirenbaum/copilot.lua")
-  add("zbirenbaum/copilot-cmp")
-  add({
-    source = "CopilotC-Nvim/CopilotChat.nvim",
-    checkout = "canary",
-    hooks = {
-      post_checkout = function()
-        vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
-      end,
-    },
-  })
-  require("plugins.copilot")
-end)
-
--- NOTE: No se está usando
--- Octo
-later(function()
-  add({
-    source = "pwntester/octo.nvim",
-    depends = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-  })
-  require("plugins.octo")
-end)
-
--- [[ Telescope ]]
-later(function() require("plugins.telescope") end)
+-- later(function()
+--   add("stevearc/dressing.nvim")
+--   require("dressing").setup()
+-- end)
 
 -- [[ TODO Comments ]]
 later(function()
@@ -242,7 +224,7 @@ later(function()
 end)
 
 -- Nvim-Tmux-Navigator
-later(function() require("plugins.nvim-tmux-navigator") end)
+-- later(function() require("plugins.nvim-tmux-navigator") end)
 
 -- R nvim
 later(function() require("plugins.R-nvim") end) -- R language
