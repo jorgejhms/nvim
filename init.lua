@@ -130,8 +130,6 @@ later(function()
     },
   })
 
-  -- Neodev
-  -- add("folke/neodev.nvim")
 
   local function make_jsregexp(path)
     vim.notify("Compiling JSRegExp")

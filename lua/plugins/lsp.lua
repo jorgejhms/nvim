@@ -1,4 +1,3 @@
-require("neodev").setup()
 local lspconfig = require("lspconfig")
 --
 -- Signos de diagnosticos
