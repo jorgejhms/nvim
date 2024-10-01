@@ -35,7 +35,6 @@ end
 require("mini.deps").setup({ path = { package = path_package } })
 -- Agrega 'helpers'
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
-
 -- =============================================================================
 -- Carga inicial
 -- revisar h: MiniDeps.now()
@@ -65,8 +64,14 @@ later(function() require("mini.pairs").setup() end)
 later(function() require("mini.git").setup() end)
 later(function() require("mini.extra").setup() end)
 later(function()
-  require("mini.icons").setup()
+  require("mini.icons").setup({
+    lsp = {
+      ["codeium"] = { glyph = "󰘦 ", hl = "MiniIconsPurple" }, -- Icono Codeium
+      snippet = { glyph = " " },
+    },
+  })
   MiniIcons.mock_nvim_web_devicons()
+  MiniIcons.tweak_lsp_kind()
 end)
 
 later(function()
@@ -126,7 +131,7 @@ later(function()
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
-      "onsails/lspkind-nvim",
+      "tranzystorekk/cmp-minikind.nvim",
     },
   })
 

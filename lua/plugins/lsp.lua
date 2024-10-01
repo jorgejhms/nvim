@@ -243,7 +243,6 @@ capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp"
 
 local cmp = require("cmp")
 local luasnip = require("luasnip")
-local lspkind = require("lspkind")
 require("cmp_r").setup({})
 
 -- Carga friendly-snippets
@@ -335,16 +334,9 @@ cmp.setup({
     --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
   }),
 
-  -- Añade iconos a menu de autocompletado
+  -- Usa cmp-minikind para mostrar iconos
   formatting = {
-    fields = { "abbr", "kind", "menu" },
-    expandable_indicator = true,
-    format = lspkind.cmp_format({
-      -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-      mode = "symbol_text",
-      -- max_width = 50,
-      symbol_map = { Copilot = "" },
-    }),
+    format = require("cmp-minikind").cmp_format(),
   },
 
   sources = {
@@ -353,7 +345,6 @@ cmp.setup({
     { name = "path" },
     { name = "buffer" },
     { name = "codeium" },
-    -- { name = "copilot", group_index = 1, priority = 100 },
     { name = "cmp_r" },
   },
 })
