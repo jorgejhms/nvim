@@ -1,4 +1,5 @@
 local lspconfig = require("lspconfig")
+require("codeium").setup()
 --
 -- Signos de diagnosticos
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
@@ -244,7 +245,6 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 require("cmp_r").setup({})
--- luasnip.config.setup({})
 
 -- Carga friendly-snippets
 require("luasnip.loaders.from_vscode").lazy_load()
@@ -352,7 +352,8 @@ cmp.setup({
     { name = "luasnip" },
     { name = "path" },
     { name = "buffer" },
-    { name = "copilot", group_index = 1, priority = 100 },
+    { name = "codeium" },
+    -- { name = "copilot", group_index = 1, priority = 100 },
     { name = "cmp_r" },
   },
 })

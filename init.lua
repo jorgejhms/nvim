@@ -130,6 +130,14 @@ later(function()
     },
   })
 
+  -- Codeium
+  add({
+    source = "Exafunction/codeium.nvim",
+    depends = {
+      "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
+    },
+  })
 
   local function make_jsregexp(path)
     vim.notify("Compiling JSRegExp")
