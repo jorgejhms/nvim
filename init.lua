@@ -98,7 +98,7 @@ later(function() require("plugins.mini-files") end)
 later(function() require("plugins.mini-clue") end)
 later(function() require("plugins.mini-surround") end)
 later(function() require("plugins.mini-pick") end)
-later(function() require("plugins.mini-animate") end) -- Animaciones
+-- later(function() require("plugins.mini-animate") end) -- Animaciones
 later(function() require("plugins.mini-basics") end)
 later(function() require("plugins.mini-diff") end)
 
@@ -137,7 +137,8 @@ later(function()
 
   -- Codeium
   add({
-    source = "Exafunction/codeium.nvim",
+    source = "aliaksandr-trush/codeium.nvim",
+    checkout = "update_server_version",
     depends = {
       "nvim-lua/plenary.nvim",
       "hrsh7th/nvim-cmp",
@@ -189,7 +190,9 @@ end)
 -- [[ Hightlights colors ]]
 later(function()
   add("brenoprata10/nvim-highlight-colors")
-  require("nvim-highlight-colors").setup({ enable_tailwind = true })
+  require("nvim-highlight-colors").setup({
+    enable_tailwind = true,
+  })
 end)
 
 -- Dressing
@@ -235,7 +238,7 @@ later(function()
 end)
 
 -- Nvim-Tmux-Navigator
--- later(function() require("plugins.nvim-tmux-navigator") end)
+later(function() require("plugins.nvim-tmux-navigator") end)
 
 -- R nvim
 later(function() require("plugins.R-nvim") end) -- R language
@@ -252,7 +255,31 @@ later(function()
   require("mdx").setup()
 end)
 
--- later(function() require("plugins.noice") end)
+later(function()
+  add("lukas-reineke/indent-blankline.nvim")
+  require("ibl").setup({
+    indent = {
+      char = "╎",
+      tab_char = "╎",
+    },
+    scope = { show_start = false, show_end = false },
+    exclude = {
+      filetypes = {
+        "help",
+        "alpha",
+        "dashboard",
+        "neo-tree",
+        "Trouble",
+        "trouble",
+        "lazy",
+        "mason",
+        "notify",
+        "toggleterm",
+      },
+    },
+  })
+  vim.keymap.set("n", "<Leader>ug", "<cmd>IBLToggle<CR>", { desc = "Toggle Indent Blankline" })
+end)
 
 -- TODO: Pasar configuración a archivo separado
 -- Config neovide

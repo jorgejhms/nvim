@@ -206,16 +206,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     -- Keymaps
-    map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-    map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-    map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-    map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-    map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-    map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+    -- map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+    -- map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+    -- map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+    -- map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+    -- map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+
+    -- map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
     map("<leader>cr", vim.lsp.buf.rename, "[R]e[n]ame")
     map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
     map("K", vim.lsp.buf.hover, "Hover Documentation")
-    map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+    -- map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
     map("<leader>cf", vim.lsp.buf.format, "[C]ode [F]ormat")
     --
     -- When you move your cursor, the highlights will be cleared (the second autocommand).
@@ -234,15 +235,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 --=============================================================================
 -- CMP
 --=============================================================================
 
 local cmp = require("cmp")
-local luasnip = require("luasnip")
 require("cmp_r").setup({})
 
 -- Carga friendly-snippets
@@ -250,9 +250,9 @@ require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
   snippet = {
-    expand = function(args) luasnip.lsp_expand(args.body) end,
+    expand = function(args) require("luasnip").lsp_expand(args.body) end,
   },
-  completion = { completeopt = "menu,menuone,noinsert" },
+  -- completion = { completeopt = "menu,menuone,noinsert" },
 
   -- Añade bordes a las ventanas de autocompletado
   -- window = {
@@ -264,28 +264,16 @@ cmp.setup({
   experimental = {
     ghost_text = true,
   },
-  -- For an understanding of why these mappings were
-  -- chosen, you will need to read `:help ins-completion`
-  --
-  -- No, but seriously. Please read `:help ins-completion`, it is really good!
+
   mapping = cmp.mapping.preset.insert({
-    -- Select the [n]ext item
     ["<C-n>"] = cmp.mapping.select_next_item(),
-    -- Select the [p]revious item
     ["<C-p>"] = cmp.mapping.select_prev_item(),
 
     -- scroll the documentation window [b]ack / [f]orward
     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
 
-    -- Accept ([y]es) the completion.
-    --  This will auto-import if your LSP supports it.
-    --  This will expand snippets if the LSP sent a snippet.
-    ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-
     -- Manually trigger a completion from nvim-cmp.
-    --  Generally you don't need this, because nvim-cmp will display
-    --  completions whenever it has completion options available.
     ["<C-Space>"] = cmp.mapping.complete({}),
 
     -- Cancela autocompletado
@@ -293,50 +281,29 @@ cmp.setup({
 
     -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
-
-    -- Think of <c-l> as moving to the right of your snippet expansion.
-    --  So if you have a snippet that's like:
-    --  function $name($args)
-    --    $body
-    --  end
-    --
-    -- <c-l> will move you to the right of each of the expansion locations.
-    -- <c-h> is similar, except moving you backwards.
-    ["<C-l>"] = cmp.mapping(function()
-      if luasnip.expand_or_locally_jumpable() then luasnip.expand_or_jump() end
-    end, { "i", "s" }),
-    ["<C-h>"] = cmp.mapping(function()
-      if luasnip.locally_jumpable(-1) then luasnip.jump(-1) end
-    end, { "i", "s" }),
-
-    --  Usa tab y S-tab para mover el menu
-    ["<Tab>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end,
-
-    ["<S-Tab>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end,
-
-    -- For more advanced luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-    --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
   }),
 
   -- Usa cmp-minikind para mostrar iconos
+  -- formatting = {
+  --   format = require("cmp-minikind").cmp_format(),
+  -- },
+  -- formatting = {
+  --   format = function(entry, item)
+  --     -- Usa cmp-minikind para mostrar iconos
+  --     item = require("cmp-minikind").cmp_format(entry, item)
+  --     return require("nvim-highlight-colors").format(entry, item)
+  --   end,
+  -- },
   formatting = {
-    format = require("cmp-minikind").cmp_format(),
+    format = function(entry, item)
+      local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
+      item = require("cmp-minikind").cmp_format()(entry, item)
+      if color_item.abbr_hl_group then
+        item.kind_hl_group = color_item.abbr_hl_group
+        item.kind = color_item.abbr
+      end
+      return item
+    end,
   },
 
   sources = {
