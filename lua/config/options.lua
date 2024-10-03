@@ -94,3 +94,5 @@ vim.opt.wrap = true
 
 -- No usa swapfiles
 vim.opt.swapfile = false
+
+vim.opt.pumheight = 10
