@@ -9,6 +9,7 @@ add("sainnhe/edge")
 add("navarasu/onedark.nvim")
 add("EdenEast/nightfox.nvim")
 add("sainnhe/gruvbox-material")
+add({ source = "rose-pine/neovim", name = "rose-pine" })
 -- add("Shatur/neovim-ayu")
 -- add("oxfist/night-owl.nvim")
 -- add("rafamadriz/neon")
@@ -47,6 +48,7 @@ require("cyberdream").setup({
 
 -- catppuccin
 require("catppuccin").setup({
+  transparent_background = false, -- disables setting the background color.
   integrations = {
     mini = {
       enabled = true,
