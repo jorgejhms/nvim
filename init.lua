@@ -120,10 +120,7 @@ end)
 -- LSP
 later(function()
   add("neovim/nvim-lspconfig")
-  add({
-    source = "garymjr/nvim-snippets",
-    depends = { "rafamadriz/friendly-snippets" },
-  })
+
   add({
     source = "hrsh7th/nvim-cmp",
     depends = {
@@ -133,6 +130,9 @@ later(function()
       "hrsh7th/cmp-cmdline", -- Command line source
       "R-nvim/cmp-r", -- Soporte R
       "tranzystorekk/cmp-minikind.nvim", -- Usa mini.icons
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
     },
   })
   add({

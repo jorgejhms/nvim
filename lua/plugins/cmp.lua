@@ -1,12 +1,14 @@
 local cmp = require("cmp")
 require("codeium").setup()
+require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
   snippet = {
-    expend = function(args)
-      require("garymjr/nvim-snippets").expand(args.body) -- Utiliza el plugin para la expansión de snippets
-    end,
+    -- expend = function(args)
+    --   require("garymjr/nvim-snippets").expand(args.body) -- Utiliza el plugin para la expansión de snippets
+    -- end,
     -- expand = function(args) vim.snippet.expand(args.body) end,
+    expand = function(args) require("luasnip").lsp_expand(args.body) end,
   },
 
   window = {
@@ -44,6 +46,7 @@ cmp.setup({
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "buffer" },
+    { name = "luasnip" },
     { name = "codeium" },
     { name = "cmp_r" },
   },
