@@ -1,15 +1,4 @@
-local add = MiniDeps.add
 local map = vim.keymap.set
-
-add({
-  source = "linux-cultist/venv-selector.nvim",
-  checkout = "regexp",
-  depends = {
-    "neovim/nvim-lspconfig",
-    "nvim-telescope/telescope.nvim",
-    "mfussenegger/nvim-dap-python",
-  },
-})
 
 require("venv-selector").setup({
   auto_refresh = true,

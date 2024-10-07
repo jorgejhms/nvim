@@ -35,159 +35,133 @@ end
 require("mini.deps").setup({ path = { package = path_package } })
 -- Agrega 'helpers'
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
--- =============================================================================
--- Carga inicial
--- revisar h: MiniDeps.now()
--- =============================================================================
 
-now(function() require("config.options") end) -- Opciones generales
-now(function() require("config.maps") end) -- Keymaps
-now(function() require("plugins.ui") end)
+-- Configuración básica
+now(function()
+  require("mini.basics").setup({
+    options = {
+      basic = true,
+      extra_ui = true,
+      win_borders = "single",
+    },
+    mappings = {
+      basic = true,
+      option_toggle_prefix = [[<Leader>u]],
+      windows = true,
+      move_with_alt = true,
+    },
+    -- Autocommands. Set to `false` to disable
+    autocommands = {
+      basic = true,
+      relnum_in_visual_mode = false,
+    },
+    silent = false,
+  })
 
-now(function() add("nvim-lua/plenary.nvim") end)
+  vim.opt.cmdheight = 0 -- Oculta línea de comandos
+  vim.opt.clipboard = "unnamedplus" -- Sincroniza el portapapales del sistema
+  vim.opt.tabstop = 2 -- 2 espacios como tab
+  vim.opt.shiftwidth = 2 -- 2 espacios ancho de tab
+  vim.opt.expandtab = true -- Usa espacios en lugar de tabs
+  vim.opt.wrap = true -- Wrap por defecto
+  vim.opt.swapfile = false -- No usa swapfiles
+end)
 
--- =============================================================================
--- Carga posterior (Lazy)
--- Revisar h: MiniDeps.later()
--- =============================================================================
+now(function() require("config.keymaps") end)
+now(function() require("config.autocommands") end)
 
-later(function() require("config.autocomands") end) -- Autocomandos
+-- UI
+now(function()
+  require("mini.notify").setup()
+  vim.notify = MiniNotify.make_notify()
+  require("mini.starter").setup()
+  require("mini.statusline").setup()
 
--- Modulos mini
+  require("mini.sessions").setup({
+    autowrite = true,
+  })
+
+  require("mini.tabline").setup({
+    tabpage_section = "right",
+  })
+end)
+
+later(function() require("mini.ai").setup({ n_lines = 500 }) end)
 later(function() require("mini.bracketed").setup() end) -- Movimientos "[" y "]"
 later(function() require("mini.splitjoin").setup() end) -- Split/Join
 later(function() require("mini.colors").setup() end)
 later(function() require("mini.cursorword").setup() end)
+later(function() require("mini.jump").setup() end)
+later(function() require("mini.jump2d").setup() end)
 later(function() require("mini.move").setup() end)
-later(function() require("mini.indentscope").setup() end)
 later(function() require("mini.pairs").setup() end)
 later(function() require("mini.git").setup() end)
 later(function() require("mini.extra").setup() end)
-later(function()
-  require("mini.icons").setup({
-    lsp = {
-      ["codeium"] = { glyph = "󰘦 ", hl = "MiniIconsPurple" }, -- Icono Codeium
-      snippet = { glyph = " " },
-    },
-  })
-  MiniIcons.mock_nvim_web_devicons()
-  MiniIcons.tweak_lsp_kind()
-end)
+later(function() require("plugins.mini") end)
 
-later(function()
-  local map = require("mini.map")
-  require("mini.map").setup({
-    integrations = {
-      map.gen_integration.builtin_search(),
-      map.gen_integration.diff(),
-      map.gen_integration.diagnostic(),
-    },
-  })
-  vim.keymap.set("n", "<Leader>um", function() MiniMap.toggle() end, { desc = "Alterna minimapa" })
-end)
-
--- Otros plugins simples
-later(function() add("hiphish/rainbow-delimiters.nvim") end) -- Delimitadores arcoiris
-later(function() add("mechatroner/rainbow_csv") end) -- CSV Hightlights
--- later(function() add("b0o/SchemaStore.nvim") end)
-
--- Agregando configuración plugins
-later(function() require("plugins.mini-bufremove") end)
-later(function() require("plugins.mini-comment") end)
-later(function() require("plugins.mini-files") end)
-later(function() require("plugins.mini-clue") end)
-later(function() require("plugins.mini-surround") end)
-later(function() require("plugins.mini-pick") end)
--- later(function() require("plugins.mini-animate") end) -- Animaciones
-later(function() require("plugins.mini-basics") end)
-later(function() require("plugins.mini-diff") end)
-
--- Better Around/Inside textobjects
-later(function() require("mini.ai").setup({ n_lines = 500 }) end)
-
--- [[ Treesitter ]]
+-- Treesitter
 later(function()
   add({
     source = "nvim-treesitter/nvim-treesitter",
+    depends = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    },
     hooks = {
       post_checkout = function() vim.cmd("TSUpdate") end,
     },
   })
-  add("nvim-treesitter/nvim-treesitter-context")
-  add("windwp/nvim-ts-autotag")
-  add("JoosepAlviste/nvim-ts-context-commentstring")
-  -- Carga configuración treesitter
-  require("plugins.nvim-treesitter")
+
+  require("plugins.treesitter")
+  require("ts_context_commentstring").setup({
+    enable_autocmd = false,
+  })
 end)
 
--- [[ LSP Plugins ]]
+-- LSP
 later(function()
+  add("neovim/nvim-lspconfig")
+  add({
+    source = "garymjr/nvim-snippets",
+    depends = { "rafamadriz/friendly-snippets" },
+  })
   add({
     source = "hrsh7th/nvim-cmp",
     depends = {
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-buffer",
-      "R-nvim/cmp-r",
-      "hrsh7th/cmp-cmdline",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "tranzystorekk/cmp-minikind.nvim",
+      "hrsh7th/cmp-nvim-lsp", -- LSP source
+      "hrsh7th/cmp-buffer", -- Buffer source
+      "hrsh7th/cmp-path", -- File path source
+      "hrsh7th/cmp-cmdline", -- Command line source
+      "R-nvim/cmp-r", -- Soporte R
+      "tranzystorekk/cmp-minikind.nvim", -- Usa mini.icons
     },
   })
-
-  -- Codeium
   add({
-    source = "aliaksandr-trush/codeium.nvim",
-    checkout = "update_server_version",
+    source = "Exafunction/codeium.nvim",
     depends = {
       "nvim-lua/plenary.nvim",
       "hrsh7th/nvim-cmp",
     },
   })
 
-  local function make_jsregexp(path)
-    vim.notify("Compiling JSRegExp")
-    vim.notify("path")
-    vim.cmd("lcd " .. path)
-    vim.cmd("!make -s install_jsregexp")
-    vim.cmd("lcd -")
-  end
-
-  add({
-    source = "L3MON4D3/LuaSnip",
-    depends = {
-      "rafamadriz/friendly-snippets",
-    },
-    hooks = {
-      post_install = function(params) make_jsregexp(params.path) end,
-      post_checkout = function(params) make_jsregexp(params.path) end,
-    },
-  })
-
-  add({
-    source = "neovim/nvim-lspconfig",
-    depends = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-    },
-  })
   require("plugins.lsp")
+  require("plugins.cmp")
 end)
 
--- [[ Formateer ]]
+-- Mason
 later(function()
-  add("stevearc/conform.nvim")
-  require("plugins.conform")
+  add({
+    source = "williamboman/mason.nvim",
+    -- depends = {
+    -- 	"williamboman/mason-lspconfig.nvim",
+    -- 	"WhoIsSethDaniel/mason-tool-installer.nvim",
+    -- }
+  })
+  require("mason").setup()
+  -- require("mason-lspconfig").setup()
+  -- require("mason-tool-installer").setup()
 end)
 
--- [[ flash.nvim ]]
-later(function()
-  add("folke/flash.nvim")
-  require("plugins.flash")
-end)
-
--- [[ Hightlights colors ]]
+-- Hightlights colors
 later(function()
   add("brenoprata10/nvim-highlight-colors")
   require("nvim-highlight-colors").setup({
@@ -195,11 +169,14 @@ later(function()
   })
 end)
 
--- Dressing
--- later(function()
---   add("stevearc/dressing.nvim")
---   require("dressing").setup()
--- end)
+later(function() add("hiphish/rainbow-delimiters.nvim") end) -- Delimitadores arcoiris
+later(function() add("mechatroner/rainbow_csv") end) -- CSV Hightlights
+
+-- [[ Formateer ]]
+later(function()
+  add("stevearc/conform.nvim")
+  require("plugins.conform")
+end)
 
 -- [[ TODO Comments ]]
 later(function()
@@ -219,32 +196,37 @@ later(function()
   require("plugins.trouble")
 end)
 
-later(function() require("plugins.virt-column") end)
-
--- Harpoon
 later(function()
-  add({
-    source = "ThePrimeagen/harpoon",
-    checkout = "harpoon2",
-    depends = { "nvim-lua/plenary.nvim" },
-  })
-  require("plugins.harpoon")
-end)
-
--- Headlines (agrega backgroun color a chunks de Rmd)
-later(function()
-  add("lukas-reineke/headlines.nvim")
-  require("plugins.headlines")
+  add("lukas-reineke/virt-column.nvim")
+  require("plugins.virt-column")
 end)
 
 -- Nvim-Tmux-Navigator
-later(function() require("plugins.nvim-tmux-navigator") end)
+later(function()
+  add("alexghergh/nvim-tmux-navigation")
+  require("plugins.nvim-tmux-navigator")
+end)
 
 -- R nvim
-later(function() require("plugins.R-nvim") end) -- R language
+later(function()
+  add("R-nvim/R.nvim")
+  require("plugins.R-nvim")
+end)
 
 -- Python venv selector
-later(function() require("plugins.python-venv-selector") end)
+later(function()
+  add({
+    source = "linux-cultist/venv-selector.nvim",
+    checkout = "regexp",
+    depends = {
+      "neovim/nvim-lspconfig",
+      "nvim-telescope/telescope.nvim",
+      "mfussenegger/nvim-dap-python",
+    },
+  })
+
+  require("plugins.python-venv-selector")
+end)
 
 -- Suporte básico para MDX
 later(function()
@@ -255,40 +237,25 @@ later(function()
   require("mdx").setup()
 end)
 
+-- Colores
 later(function()
-  add("lukas-reineke/indent-blankline.nvim")
-  require("ibl").setup({
-    indent = {
-      char = "╎",
-      tab_char = "╎",
-    },
-    scope = { show_start = false, show_end = false },
-    exclude = {
-      filetypes = {
-        "help",
-        "alpha",
-        "dashboard",
-        "neo-tree",
-        "Trouble",
-        "trouble",
-        "lazy",
-        "mason",
-        "notify",
-        "toggleterm",
-      },
-    },
-  })
-  vim.keymap.set("n", "<Leader>ug", "<cmd>IBLToggle<CR>", { desc = "Toggle Indent Blankline" })
+  add("EdenEast/nightfox.nvim")
+  add("binhtran432k/dracula.nvim")
+  add("bluz71/vim-moonfly-colors")
+  add("catppuccin/nvim")
+  add("eldritch-theme/eldritch.nvim")
+  add("folke/tokyonight.nvim")
+  add("jim-at-jibba/ariake.nvim")
+  add("navarasu/onedark.nvim")
+  add("projekt0n/github-nvim-theme")
+  add("rebelot/kanagawa.nvim")
+  add("sainnhe/edge")
+  add("sainnhe/gruvbox-material")
+  add("sainnhe/sonokai")
+  add("scottmckendry/cyberdream.nvim")
+  add("shaunsingh/nord.nvim")
+  add("tanvirtin/monokai.nvim")
+  add({ source = "rose-pine/neovim", name = "rose-pine" })
+  require("plugins.colors")
+  vim.cmd("colorscheme randomhue")
 end)
-
--- TODO: Pasar configuración a archivo separado
--- Config neovide
-if vim.g.neovide then
-  -- Put anything you want to happen only in Neovide here
-  vim.o.guifont = "Input Mono Condensed:h14" -- text below applies for VimScript
-  vim.g.neovide_input_macos_alt_is_meta = true
-end
-
--- Tema por defecto
-vim.cmd.colorscheme("dracula")
--- TODO: Crear configuración Vscode

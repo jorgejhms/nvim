@@ -1,7 +1,5 @@
 local add = MiniDeps.add
 
-add("alexghergh/nvim-tmux-navigation")
-
 require("nvim-tmux-navigation").setup({})
 
 vim.keymap.set("n", "<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>", {})

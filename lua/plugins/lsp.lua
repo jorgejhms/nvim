@@ -1,345 +1,229 @@
 local lspconfig = require("lspconfig")
-require("codeium").setup()
---
+local capabilities = require'cmp_nvim_lsp'.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 -- Signos de diagnosticos
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
--- LSP Server config
-lspconfig.dockerls.setup({})
-lspconfig.docker_compose_language_service.setup({})
-lspconfig.marksman.setup({})
-lspconfig.astro.setup({})
-lspconfig.emmet_ls.setup({
-  filetypes = {
-    "css",
-    "eruby",
-    "html",
-    "javascript",
-    "javascriptreact",
-    "less",
-    "sass",
-    "scss",
-    "svelte",
-    "pug",
-    "typescriptreact",
-    "vue",
-  },
-})
-lspconfig.mdx_analyzer.setup({})
 
-lspconfig.jsonls.setup({ -- [[ JSON config ]]
-  -- lazy-load schemastore when needed
-  on_new_config = function(new_config)
-    new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-    vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
-  end,
-  settings = {
-    json = {
-      format = {
-        enable = true,
-      },
-      validate = { enable = true },
-    },
-  },
-})
+-- Definiendo función on_attach
+local on_attach = function(client, bufnr)
+	local map = function(keys, func, desc)
+		vim.keymap.set("n", keys, func, { noremap = true, silent = true, buffer = bufnr, desc = desc })
+	end
 
---[ [  Lua ] ]
-lspconfig.lua_ls.setup({
-  settings = {
-    Lua = {
-      completion = {
-        callSnippet = "Replace",
-      },
-      diagnostics = {
-        globals = { "vim" }, -- Reconoce vim como variable global
-      },
-      hint = { enable = true },
-    },
-  },
-})
+	-- Atajos LSP
+	map("gd", function() require("mini.extra").pickers.lsp({ scope = "definition" }) end, "Ir a la definición")
+	map("gD", function() require("mini.extra").pickers.lsp({ scope = "declaration" }) end, "Ir a la declaración")
+	map("gr", function() require("mini.extra").pickers.lsp({ scope = "references" }) end, "Ir a las declaración")
+	map("gI", function() require("mini.extra").pickers.lsp({ scope = "implementation" }) end, "Ir a implemmentación")
+	map("<Leader>D", function() require("mini.extra").pickers.lsp({ scope = "type_definition" }) end,
+		"Ir a definición de tipo")
+	map(
+		"<Leader>ds",
+		function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
+		"Ver los símbolos del docuento"
+	)
+	map(
+		"<Leader>ws",
+		function() require("mini.extra").pickers.lsp({ scope = "workspace_symbol" }) end,
+		"Ver los símbolos del área de trabajo"
+	)
+	map("<leader>cr", vim.lsp.buf.rename, "Renombrar símbolo")
+	map("<leader>ca", vim.lsp.buf.code_action, "Acciones de código")
+	map("K", vim.lsp.buf.hover, "Ver documentación")
+	map("<leader>cf", vim.lsp.buf.format, "Formatear código")
+	map("<leader>cd", vim.diagnostic.open_float, "Mostrar los errores de diagnóstico")
+	map("<leader>dq", vim.diagnostic.setloclist, "Open diagnostic [Q]uickfix list")
+	map(
+		"<Leader>uh",
+		"<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>",
+		"Alterna pistas en línea de LSP"
+	)
 
--- Python
-lspconfig.pyright.setup({})
-lspconfig.ruff_lsp.setup({
-  keys = {
-    {
-      "<leader>co",
-      function()
-        vim.lsp.buf.code_action({
-          apply = true,
-          context = {
-            only = { "source.organizeImports" },
-            diagnostics = {},
-          },
-        })
-      end,
-      desc = "Organize Imports",
-    },
-  },
-})
+	-- Elimina el resaltado tras una búsqueda LSP
+	if client.server_capabilities.documentHighlightProvider then
+		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+			buffer = bufnr,
+			callback = vim.lsp.buf.document_highlight,
+		})
 
--- Taailwind CSS
-lspconfig.tailwindcss.setup({
-  filetypes_exclude = { "markdown" },
-  filetypes_include = {},
-})
+		vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+			buffer = bufnr,
+			callback = vim.lsp.buf.clear_references,
+		})
+	end
+end
+--
+-- Configuración de servidores
+local servers = {
+	astro = {},
+	css_variables = {},
+	cssls = {},
+	cssmodules_ls = {},
+	docker_compose_language_service = {},
+	dockerls = {},
+	emmet_language_server = {},
+	emmet_ls = {},
+	html = {},
+	mdx_analyzer = {},
+	r_language_server = {},
 
--- typescript
-lspconfig.ts_ls.setup({
-  hint = { enable = true },
-  keys = {
-    {
-      "<leader>co",
-      function()
-        vim.lsp.buf.code_action({
-          apply = true,
-          context = {
-            only = { "source.organizeImports.ts" },
-            diagnostics = {},
-          },
-        })
-      end,
-      desc = "Organize Imports",
-    },
-    {
-      "<leader>cR",
-      function()
-        vim.lsp.buf.code_action({
-          apply = true,
-          context = {
-            only = { "source.removeUnused.ts" },
-            diagnostics = {},
-          },
-        })
-      end,
-      desc = "Remove Unused Imports",
-    },
-  },
-  ---@diagnostic disable-next-line: missing-fields
-  settings = {
-    completions = {
-      completeFunctionCalls = true,
-    },
-    typescript = {
-      inlayHints = {
-        includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
-      },
-    },
-    javascript = {
-      inlayHints = {
-        includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        includeInlayVariableTypeHints = true,
+	-- Configuración para Lua
+	lua_ls = {
+		settings = {
+			Lua = {
+				completion = {
+					callSnippet = "Replace",
+				},
+				diagnostics = {
+					globals = { "vim" }, -- Reconoce vim como variable global
+				},
+				hint = { enable = true },
+			},
+		},
+	},
 
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
-      },
-    },
-  },
-})
+	-- Python
+	pyright = {},
+	ruff_lsp = {
+		keys = {
+			{
+				"<leader>co",
+				function()
+					vim.lsp.buf.code_action({
+						apply = true,
+						context = {
+							only = { "source.organizeImports" },
+							diagnostics = {},
+						},
+					})
+				end,
+				desc = "Organize Imports",
+			},
+		},
+	},
 
--- Yaml
-lspconfig.yamlls.setup({
-  -- Have to add this for yamlls to understand that we support line folding
-  capabilities = {
-    textDocument = {
-      foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-      },
-    },
-  },
-  -- lazy-load schemastore when needed
-  on_new_config = function(new_config)
-    new_config.settings.yaml.schemas =
-      vim.tbl_deep_extend("force", new_config.settings.yaml.schemas or {}, require("schemastore").yaml.schemas())
-  end,
-  settings = {
-    redhat = { telemetry = { enabled = false } },
-    yaml = {
-      keyOrdering = false,
-      format = {
-        enable = true,
-      },
-      validate = true,
-      schemaStore = {
-        -- Must disable built-in schemaStore support to use
-        -- schemas from SchemaStore.nvim plugin
-        enable = false,
-        -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-        url = "",
-      },
-    },
-  },
-})
+	-- Taailwind CSS
+	tailwindcss = {
+		filetypes_exclude = { "markdown" },
+		filetypes_include = {},
+	},
 
-lspconfig.eslint.setup({
-  settings = {
-    -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
-    workingDirectories = { mode = "auto" },
-  },
-})
+	-- typescript
+	ts_ls = {
+		hint = { enable = true },
+		keys = {
+			{
+				"<leader>co",
+				function()
+					vim.lsp.buf.code_action({
+						apply = true,
+						context = {
+							only = { "source.organizeImports.ts" },
+							diagnostics = {},
+						},
+					})
+				end,
+				desc = "Organize Imports",
+			},
+			{
+				"<leader>cR",
+				function()
+					vim.lsp.buf.code_action({
+						apply = true,
+						context = {
+							only = { "source.removeUnused.ts" },
+							diagnostics = {},
+						},
+					})
+				end,
+				desc = "Remove Unused Imports",
+			},
+		},
+		---@diagnostic disable-next-line: missing-fields
+		settings = {
+			completions = {
+				completeFunctionCalls = true,
+			},
+			typescript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+			javascript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+					includeInlayVariableTypeHints = true,
 
--- R Language server
-lspconfig.r_language_server.setup({})
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+		},
+	},
+	-- Yaml
+	yamlls = {
+		-- Have to add this for yamlls to understand that we support line folding
+		capabilities = {
+			textDocument = {
+				foldingRange = {
+					dynamicRegistration = false,
+					lineFoldingOnly = true,
+				},
+			},
+		},
+		-- lazy-load schemastore when needed
+		on_new_config = function(new_config)
+			new_config.settings.yaml.schemas =
+					vim.tbl_deep_extend("force", new_config.settings.yaml.schemas or {}, require("schemastore").yaml.schemas())
+		end,
+		settings = {
+			redhat = { telemetry = { enabled = false } },
+			yaml = {
+				keyOrdering = false,
+				format = {
+					enable = true,
+				},
+				validate = true,
+				schemaStore = {
+					-- Must disable built-in schemaStore support to use
+					-- schemas from SchemaStore.nvim plugin
+					enable = false,
+					-- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+					url = "",
+				},
+			},
+		},
+	},
 
--- LSP Attach function
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
-  callback = function(event)
-    local map = function(keys, func, desc)
-      vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-    end
+	eslint = {
+		settings = {
+			-- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
+			workingDirectories = { mode = "auto" },
+		},
+	},
+}
 
-    -- Keymaps
-    -- map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-    -- map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-    -- map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-    -- map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-    -- map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-
-    -- map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-    map("<leader>cr", vim.lsp.buf.rename, "[R]e[n]ame")
-    map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-    map("K", vim.lsp.buf.hover, "Hover Documentation")
-    -- map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-    map("<leader>cf", vim.lsp.buf.format, "[C]ode [F]ormat")
-    --
-    -- When you move your cursor, the highlights will be cleared (the second autocommand).
-    local client = vim.lsp.get_client_by_id(event.data.client_id)
-    if client and client.server_capabilities.documentHighlightProvider then
-      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-        buffer = event.buf,
-        callback = vim.lsp.buf.document_highlight,
-      })
-
-      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-        buffer = event.buf,
-        callback = vim.lsp.buf.clear_references,
-      })
-    end
-  end,
-})
-
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
---=============================================================================
--- CMP
---=============================================================================
-
-local cmp = require("cmp")
-require("cmp_r").setup({})
-
--- Carga friendly-snippets
-require("luasnip.loaders.from_vscode").lazy_load()
-
-cmp.setup({
-  snippet = {
-    expand = function(args) require("luasnip").lsp_expand(args.body) end,
-  },
-  -- completion = { completeopt = "menu,menuone,noinsert" },
-
-  -- Añade bordes a las ventanas de autocompletado
-  -- window = {
-  --   completion = cmp.config.window.bordered(),
-  --   documentation = cmp.config.window.bordered(),
-  -- },
-
-  -- Añade texto a autocompletar despues del cursor
-  experimental = {
-    ghost_text = true,
-  },
-
-  mapping = cmp.mapping.preset.insert({
-    ["<C-n>"] = cmp.mapping.select_next_item(),
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-
-    -- scroll the documentation window [b]ack / [f]orward
-    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-
-    -- Manually trigger a completion from nvim-cmp.
-    ["<C-Space>"] = cmp.mapping.complete({}),
-
-    -- Cancela autocompletado
-    ["<C-c>"] = cmp.mapping.abort(),
-
-    -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),
-  }),
-
-  -- Usa cmp-minikind para mostrar iconos
-  -- formatting = {
-  --   format = require("cmp-minikind").cmp_format(),
-  -- },
-  -- formatting = {
-  --   format = function(entry, item)
-  --     -- Usa cmp-minikind para mostrar iconos
-  --     item = require("cmp-minikind").cmp_format(entry, item)
-  --     return require("nvim-highlight-colors").format(entry, item)
-  --   end,
-  -- },
-  formatting = {
-    format = function(entry, item)
-      local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
-      item = require("cmp-minikind").cmp_format()(entry, item)
-      if color_item.abbr_hl_group then
-        item.kind_hl_group = color_item.abbr_hl_group
-        item.kind = color_item.abbr
-      end
-      return item
-    end,
-  },
-
-  sources = {
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
-    { name = "path" },
-    { name = "buffer" },
-    { name = "codeium" },
-    { name = "cmp_r" },
-  },
-})
-
---=============================================================================
--- Mason
---=============================================================================
-
-require("mason").setup()
-require("mason-tool-installer").setup({
-  ensure_installed = {
-    "stylua", -- Used to format lua code
-    "hadolint", -- dockerfile
-    "markdownlint", -- markdown
-    "marksman",
-    "js-debug-adapter",
-    "prettier",
-  },
-})
-require("mason-lspconfig").setup({
-  -- handlers = {
-  -- 	function(server_name)
-  -- 		local server = servers[server_name] or {}
-  -- 		-- This handles overriding only values explicitly passed
-  -- 		-- by the server configuration above. Useful when disabling
-  -- 		-- certain features of an LSP (for example, turning off formatting for tsserver)
-  -- 		server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-  -- 		require("lspconfig")[server_name].setup(server)
-  -- 	end,
-  -- },
-})
+-- Aplica configuración
+for server, settings in pairs(servers) do
+	lspconfig[server].setup({
+		on_attach = on_attach,
+		capabilities = capabilities,
+		settings = settings,
+	})
+end

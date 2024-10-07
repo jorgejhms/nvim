@@ -2,6 +2,7 @@
     "diagnostics.globals": [
         "vim",
         "MiniNotify",
-        "MiniFiles"
+        "MiniFiles",
+        "MiniDeps"
     ]
 }
