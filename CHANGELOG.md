@@ -1,5 +1,11 @@
 # Changelog
 
+## 2024.10.00 - Cleaner
+
+- Limpieza general de configuración.
+- Eliminando plugins superfluos o innecesarios
+- Basada principalmente en `mini.nvim`
+
 ## 2024.06.01
 
 ### Agregado
