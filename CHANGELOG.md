@@ -1,6 +1,16 @@
 # Changelog
 
-## 2024.10.00 - Cleaner
+## 2024.10.1
+
+### Agregado
+
+- Se agregó `<Leader>co` para organización de importaciones en typescript y `<Leader>cR` para remoción de importaciones innecesarias.
+
+### Cambios
+
+- Se restauró `Luasnip` en lugar de `nvim-snippets` ya que este último no funciona correctamente con `friendly-snippets`.
+
+## 2024.10.0 - Cleaner
 
 - Limpieza general de configuración.
 - Eliminando plugins superfluos o innecesarios
