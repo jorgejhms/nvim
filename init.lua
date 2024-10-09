@@ -237,6 +237,36 @@ later(function()
   require("mdx").setup()
 end)
 
+-- Indent Blankline
+later(function()
+  add("lukas-reineke/indent-blankline.nvim")
+  require("ibl").setup({
+    indent = {
+      char = "│",
+      tab_char = "│",
+    },
+    scope = {
+      show_start = false,
+      show_end = false,
+    },
+    exclude = {
+      filetypes = {
+        "help",
+        "alpha",
+        "dashboard",
+        "neo-tree",
+        "Trouble",
+        "trouble",
+        "lazy",
+        "mason",
+        "notify",
+        "toggleterm",
+        "lazyterm",
+      },
+    },
+  })
+end)
+
 -- Colores
 later(function()
   add("EdenEast/nightfox.nvim")
