@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026.10.1
+
+### Cambios
+
+- Reemplazado `nvim-cmp` (con sus 6 sources y `LuaSnip`) por `mini.completion` + `mini.snippets` con `friendly-snippets`. Matching fuzzy nativo, snippets visibles en el menú vía LSP server in-process, `<CR>` acepta e inicia sesión de snippet, `<C-j>` expande snippets manualmente.
+- La completación de R ahora viene del LSP propio de R.nvim (`rnvimserver`); se quitó `r_language_server` para evitar items duplicados.
+
+### Eliminado
+
+- `codeium.nvim`: ya no se usa autocompletado de IA, solo LSP.
+- Stack completo de `nvim-cmp`: `nvim-cmp`, `cmp-nvim-lsp`, `cmp-buffer`, `cmp-path`, `cmp-cmdline`, `cmp-r`, `cmp-minikind.nvim`, `LuaSnip`, `cmp_luasnip`.
+
 ## 2026.10.0
 
 ### Correcciones
@@ -12,13 +24,6 @@
 - Nueva dependencia: el CLI `tree-sitter` para compilar parsers (`brew install tree-sitter-cli`; la fórmula `tree-sitter` de brew es solo la librería).
 - Se eliminó el parser `jsonc` de la lista porque ya no está soportado upstream (`json5` lo cubre).
 - `incremental_selection` ya no está disponible: fue eliminado upstream en la 1.x.
-- Reemplazado `nvim-cmp` (con sus 6 sources y `LuaSnip`) por `mini.completion` + `mini.snippets` con `friendly-snippets`. Matching fuzzy nativo, snippets visibles en el menú vía LSP server in-process, `<CR>` acepta e inicia sesión de snippet, `<C-j>` expande snippets manualmente.
-- La completación de R ahora viene del LSP propio de R.nvim (`rnvimserver`); se quitó `r_language_server` para evitar items duplicados.
-
-### Eliminado
-
-- `codeium.nvim`: ya no se usa autocompletado de IA, solo LSP.
-- Stack completo de `nvim-cmp`: `nvim-cmp`, `cmp-nvim-lsp`, `cmp-buffer`, `cmp-path`, `cmp-cmdline`, `cmp-r`, `cmp-minikind.nvim`, `LuaSnip`, `cmp_luasnip`.
 
 ## 2024.10.1
 
