@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026.10.0
+
+### Correcciones
+
+- Migrada la configuración de `nvim-treesitter` a la API 1.x: el módulo `nvim-treesitter.configs` fue eliminado upstream y provocaba errores al iniciar. Ahora los parsers se instalan con `require('nvim-treesitter').install()` y el resaltado se activa con `vim.treesitter.start()` mediante un autocmd `FileType`, incluyendo los buffers ya abiertos durante el arranque.
+- La indentación usa el `indentexpr` experimental de la versión 1.x.
+
+### Cambios
+
+- Nueva dependencia: el CLI `tree-sitter` para compilar parsers (`brew install tree-sitter-cli`; la fórmula `tree-sitter` de brew es solo la librería).
+- Se eliminó el parser `jsonc` de la lista porque ya no está soportado upstream (`json5` lo cubre).
+- `incremental_selection` ya no está disponible: fue eliminado upstream en la 1.x.
+
 ## 2024.10.1
 
 ### Agregado
