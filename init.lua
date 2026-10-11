@@ -65,6 +65,7 @@ now(function()
   vim.opt.expandtab = true -- Usa espacios en lugar de tabs
   vim.opt.wrap = true -- Wrap por defecto
   vim.opt.swapfile = false -- No usa swapfiles
+  vim.opt.relativenumber = true -- Líneas relativas (en insert se desactivan, ver config.autocommands)
   vim.o.winborder = "rounded" -- Borde en ventanas flotantes (K, diagnósticos, mini.pick, etc.)
 end)
 
