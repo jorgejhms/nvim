@@ -2,13 +2,13 @@
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- Diagnósticos: iconos en signos y virtual text, severidad ordenada
+-- Diagnósticos: iconos en signos, punto en el virtual text, severidad ordenada
 local severity = vim.diagnostic.severity
 local icons = {
-  [severity.ERROR] = " ",
-  [severity.WARN] = " ",
-  [severity.HINT] = " ",
-  [severity.INFO] = " ",
+  [severity.ERROR] = " ",
+  [severity.WARN] = " ",
+  [severity.HINT] = " ",
+  [severity.INFO] = " ",
 }
 
 vim.diagnostic.config({
@@ -17,7 +17,7 @@ vim.diagnostic.config({
   virtual_text = {
     spacing = 4,
     source = "if_many",
-    prefix = function(diagnostic) return icons[diagnostic.severity] end,
+    prefix = "●",
   },
 })
 
