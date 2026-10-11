@@ -5,4 +5,3 @@ require("venv-selector").setup({
 })
 
 map("n", "<Leader>vs", "<Cmd>VenvSelect<CR>", { desc = "Select Python venv" })
-map("n", "<Leader>vc", "<cmd>VenvSelectCached", { desc = "Select Python venv cached" })
