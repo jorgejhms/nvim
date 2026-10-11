@@ -168,6 +168,30 @@ local win_config = function()
   }
 end
 
+-- Ventana centrada y más ancha para el selector de venv (rutas largas)
+local venv_win_config = function()
+  local height = math.floor(0.4 * vim.o.lines)
+  local width = math.floor(0.6 * vim.o.columns)
+  return {
+    anchor = "NW",
+    height = height,
+    width = width,
+    row = math.floor(0.5 * (vim.o.lines - height)),
+    col = math.floor(0.5 * (vim.o.columns - width)),
+  }
+end
+
+-- venv-selector abre el picker sin opciones de ventana; se aplica al iniciar
+vim.api.nvim_create_autocmd("User", {
+  pattern = "MiniPickStart",
+  desc = "Centra el picker de venv-selector",
+  callback = function()
+    if MiniPick.get_picker_opts().source.name == "Virtual environments" then
+      MiniPick.set_picker_opts({ window = { config = venv_win_config } })
+    end
+  end,
+})
+
 -- MiniPick Colorscheme Picker
 local set_colorscheme = function(name)
   pcall(function() vim.cmd("Colorscheme " .. name) end)
