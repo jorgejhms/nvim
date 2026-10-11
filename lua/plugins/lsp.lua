@@ -1,4 +1,3 @@
-local lspconfig = require("lspconfig")
 -- Capabilities nativas; los snippets los expande mini.snippets
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -31,7 +30,7 @@ local remove_unused_imports_ts = function()
   })
 end
 
--- Definiendo función on_attach
+-- Atajos y comportamiento por buffer al conectarse un servidor
 local on_attach = function(client, bufnr)
   local map = function(keys, func, desc)
     vim.keymap.set("n", keys, func, { noremap = true, silent = true, buffer = bufnr, desc = desc })
@@ -63,15 +62,19 @@ local on_attach = function(client, bufnr)
   map("<leader>cf", vim.lsp.buf.format, "Formatear código")
   map("<leader>cd", vim.diagnostic.open_float, "Mostrar los errores de diagnóstico")
   map("<leader>dq", vim.diagnostic.setloclist, "Open diagnostic [Q]uickfix list")
-  map(
-    "<Leader>uh",
-    "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>",
-    "Alterna pistas en línea de LSP"
-  )
   -- Atajos específicos para 'ts_ls'
   if client.name == "ts_ls" then
     map("<leader>co", organize_imports_ts, "Organizar Imports")
     map("<leader>cR", remove_unused_imports_ts, "Eliminar Imports No Usados")
+  end
+
+  if client.name == "ruff" then
+    map("<leader>co", function()
+      vim.lsp.buf.code_action({
+        apply = true,
+        context = { only = { "source.organizeImports" }, diagnostics = {} },
+      })
+    end, "Organizar Imports")
   end
 
   -- Elimina el resaltado tras una búsqueda LSP
@@ -87,7 +90,14 @@ local on_attach = function(client, bufnr)
     })
   end
 end
---
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("jorgejhms_lsp_attach", { clear = true }),
+  callback = function(args)
+    on_attach(vim.lsp.get_client_by_id(args.data.client_id), args.buf)
+  end,
+})
+
 -- Configuración de servidores
 local servers = {
   astro = {},
@@ -97,7 +107,6 @@ local servers = {
   docker_compose_language_service = {},
   dockerls = {},
   emmet_language_server = {},
-  emmet_ls = {},
   html = {},
   mdx_analyzer = {},
 
@@ -119,34 +128,18 @@ local servers = {
 
   -- Python
   pyright = {},
-  ruff_lsp = {
-    keys = {
-      {
-        "<leader>co",
-        function()
-          vim.lsp.buf.code_action({
-            apply = true,
-            context = {
-              only = { "source.organizeImports" },
-              diagnostics = {},
-            },
-          })
-        end,
-        desc = "Organize Imports",
-      },
-    },
-  },
+  ruff = {},
 
   -- Taailwind CSS
   tailwindcss = {
-    filetypes_exclude = { "markdown" },
-    filetypes_include = {},
+    filetypes = vim.tbl_filter(
+      function(ft) return ft ~= "markdown" end,
+      vim.lsp.config.tailwindcss.filetypes
+    ),
   },
 
   -- typescript
   ts_ls = {
-    hint = { enable = true },
-    ---@diagnostic disable-next-line: missing-fields
     settings = {
       completions = {
         completeFunctionCalls = true,
@@ -189,11 +182,6 @@ local servers = {
         },
       },
     },
-    -- lazy-load schemastore when needed
-    on_new_config = function(new_config)
-      new_config.settings.yaml.schemas =
-        vim.tbl_deep_extend("force", new_config.settings.yaml.schemas or {}, require("schemastore").yaml.schemas())
-    end,
     settings = {
       redhat = { telemetry = { enabled = false } },
       yaml = {
@@ -202,13 +190,6 @@ local servers = {
           enable = true,
         },
         validate = true,
-        schemaStore = {
-          -- Must disable built-in schemaStore support to use
-          -- schemas from SchemaStore.nvim plugin
-          enable = false,
-          -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-          url = "",
-        },
       },
     },
   },
@@ -221,11 +202,9 @@ local servers = {
   },
 }
 
--- Aplica configuración
-for server, settings in pairs(servers) do
-  lspconfig[server].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = settings,
-  })
+-- Aplica configuración (nvim-lspconfig aporta las configs base en lsp/)
+vim.lsp.config("*", { capabilities = capabilities })
+for server, config in pairs(servers) do
+  vim.lsp.config(server, config)
+  vim.lsp.enable(server)
 end
