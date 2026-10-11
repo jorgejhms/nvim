@@ -3,7 +3,7 @@ local map = vim.keymap.set
 -- Recarga configuración
 map("n", "<Leader>rr", function()
 		vim.cmd("source $MYVIMRC")
-		vim.notify("Configuración de NVIM recargada", INFO, { title = "Neovim" })
+		vim.notify("Configuración de NVIM recargada", vim.log.levels.INFO, { title = "Neovim" })
 	end,
 	{ desc = "Recargar configuración NVIM" }
 )
