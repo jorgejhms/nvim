@@ -46,7 +46,7 @@ now(function()
     },
     mappings = {
       basic = true,
-      option_toggle_prefix = [[<Leader>u]],
+      option_toggle_prefix = "", -- Los toggles <Leader>u* están en config.toggles (notifican con vim.notify)
       windows = true,
       move_with_alt = true,
     },
@@ -68,6 +68,7 @@ now(function()
 end)
 
 now(function() require("config.keymaps") end)
+now(function() require("config.toggles") end)
 now(function() require("config.autocommands") end)
 
 -- UI
