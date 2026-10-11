@@ -31,6 +31,6 @@ map("n", "<Leader>ud", function()
 end, { desc = "Alterna diagnósticos" })
 
 map("n", "<Leader>uh", function()
-  vim.v.hlsearch = 1 - vim.v.hlsearch
-  notify_state("hlsearch", vim.v.hlsearch == 1)
-end, { desc = "Alterna resaltado de búsqueda" })
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  notify_state("inlay hints", vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Alterna pistas en línea de LSP" })

@@ -62,11 +62,6 @@ local on_attach = function(client, bufnr)
   map("<leader>cf", vim.lsp.buf.format, "Formatear código")
   map("<leader>cd", vim.diagnostic.open_float, "Mostrar los errores de diagnóstico")
   map("<leader>dq", vim.diagnostic.setloclist, "Open diagnostic [Q]uickfix list")
-  map(
-    "<Leader>uH",
-    function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
-    "Alterna pistas en línea de LSP"
-  )
   -- Atajos específicos para 'ts_ls'
   if client.name == "ts_ls" then
     map("<leader>co", organize_imports_ts, "Organizar Imports")
