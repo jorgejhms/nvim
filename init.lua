@@ -199,7 +199,6 @@ end)
 later(function()
   add({
     source = "linux-cultist/venv-selector.nvim",
-    checkout = "regexp",
     depends = { "neovim/nvim-lspconfig" },
   })
 

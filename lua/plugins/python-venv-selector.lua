@@ -1,9 +1,6 @@
 local map = vim.keymap.set
 
 require("venv-selector").setup({
-  auto_refresh = true,
-  search_venv_managers = false,
-  name = { "venv", ".venv" },
   options = { picker = "mini-pick" },
 })
 
