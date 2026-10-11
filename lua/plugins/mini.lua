@@ -134,7 +134,6 @@ map(
 local MiniIcons = require("mini.icons")
 MiniIcons.setup({
   lsp = {
-    ["codeium"] = { glyph = "󰘦 ", hl = "MiniIconsPurple" }, -- Icono Codeium
     ["function"] = { glyph = "󰊕" },
     snippet = { glyph = " " },
   },

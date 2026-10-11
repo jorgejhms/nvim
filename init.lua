@@ -121,30 +121,11 @@ end)
 later(function()
   add("neovim/nvim-lspconfig")
 
-  add({
-    source = "hrsh7th/nvim-cmp",
-    depends = {
-      "hrsh7th/cmp-nvim-lsp", -- LSP source
-      "hrsh7th/cmp-buffer", -- Buffer source
-      "hrsh7th/cmp-path", -- File path source
-      "hrsh7th/cmp-cmdline", -- Command line source
-      "R-nvim/cmp-r", -- Soporte R
-      "tranzystorekk/cmp-minikind.nvim", -- Usa mini.icons
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets",
-    },
-  })
-  add({
-    source = "Exafunction/codeium.nvim",
-    depends = {
-      "nvim-lua/plenary.nvim",
-      "hrsh7th/nvim-cmp",
-    },
-  })
+  -- Colección de snippets (la carga mini.snippets con gen_loader.from_lang())
+  add("rafamadriz/friendly-snippets")
 
   require("plugins.lsp")
-  require("plugins.cmp")
+  require("plugins.completion")
 end)
 
 -- Mason
@@ -221,6 +202,7 @@ later(function()
     depends = {
       "neovim/nvim-lspconfig",
       "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim", -- Requerido por telescope
       "mfussenegger/nvim-dap-python",
     },
   })

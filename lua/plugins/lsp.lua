@@ -1,5 +1,7 @@
 local lspconfig = require("lspconfig")
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Capabilities nativas; los snippets los expande mini.snippets
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Signos de diagnosticos
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
@@ -98,9 +100,9 @@ local servers = {
   emmet_ls = {},
   html = {},
   mdx_analyzer = {},
-  r_language_server = {},
 
   -- Configuración para Lua
+  -- (R se completa con el LSP propio de R.nvim, no con 'languageserver')
   lua_ls = {
     settings = {
       Lua = {
