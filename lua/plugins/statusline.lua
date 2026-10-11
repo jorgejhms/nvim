@@ -6,7 +6,7 @@ local function section_venv()
 
   local venv = package.loaded["venv-selector"] and require("venv-selector").venv()
   local label = venv and (vim.fn.fnamemodify(venv, ":h:t") .. "/" .. vim.fn.fnamemodify(venv, ":t")) or "sin venv"
-  return "%@v:lua.StatuslineVenvSelect@" .. label .. "%X"
+  return "%@v:lua.StatuslineVenvSelect@󰏗 " .. label .. "%X"
 end
 
 -- Igual que el contenido por defecto de mini.statusline, más section_venv
@@ -27,7 +27,8 @@ local function content_active()
     "%<",
     { hl = "MiniStatuslineFilename", strings = { filename } },
     "%=",
-    { hl = "MiniStatuslineFileinfo", strings = { section_venv(), fileinfo } },
+    { hl = "MiniStatuslineDevinfo", strings = { section_venv() } },
+    { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
     { hl = mode_hl, strings = { search, location } },
   })
 end
