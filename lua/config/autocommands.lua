@@ -27,3 +27,23 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end),
   desc = "Update tabline based on the number of listed buffers",
 })
+
+-- Líneas relativas fuera de insert; en insert vuelven los números absolutos
+local relnum_group = augroup("relnum_insert")
+
+vim.api.nvim_create_autocmd("InsertEnter", {
+  group = relnum_group,
+  callback = function()
+    vim.w.relnum_before_insert = vim.wo.relativenumber
+    vim.wo.relativenumber = false
+  end,
+  desc = "Desactiva relativenumber al entrar a insert",
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+  group = relnum_group,
+  callback = function()
+    if vim.w.relnum_before_insert then vim.wo.relativenumber = true end
+  end,
+  desc = "Restaura relativenumber al salir de insert",
+})
