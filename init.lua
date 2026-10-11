@@ -200,12 +200,7 @@ later(function()
   add({
     source = "linux-cultist/venv-selector.nvim",
     checkout = "regexp",
-    depends = {
-      "neovim/nvim-lspconfig",
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim", -- Requerido por telescope
-      "mfussenegger/nvim-dap-python",
-    },
+    depends = { "neovim/nvim-lspconfig" },
   })
 
   require("plugins.python-venv-selector")

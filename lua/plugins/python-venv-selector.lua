@@ -4,6 +4,7 @@ require("venv-selector").setup({
   auto_refresh = true,
   search_venv_managers = false,
   name = { "venv", ".venv" },
+  options = { picker = "mini-pick" },
 })
 
 map("n", "<Leader>vs", "<Cmd>VenvSelect<CR>", { desc = "Select Python venv" })
