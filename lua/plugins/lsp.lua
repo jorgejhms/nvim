@@ -2,12 +2,38 @@
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- Signos de diagnosticos
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+-- Diagnósticos: iconos en signos y virtual text, severidad ordenada
+local severity = vim.diagnostic.severity
+local icons = {
+  [severity.ERROR] = " ",
+  [severity.WARN] = " ",
+  [severity.HINT] = " ",
+  [severity.INFO] = " ",
+}
+
+vim.diagnostic.config({
+  severity_sort = true,
+  signs = { text = icons },
+  virtual_text = {
+    spacing = 4,
+    source = "if_many",
+    prefix = function(diagnostic) return icons[diagnostic.severity] end,
+  },
+})
+
+-- Subrayado ondulado (conserva el color `sp` del tema); los temas reinician los highlights
+local function curly_underlines()
+  for _, name in ipairs({ "Error", "Warn", "Info", "Hint", "Ok" }) do
+    local group = "DiagnosticUnderline" .. name
+    local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+    vim.api.nvim_set_hl(0, group, { sp = hl.sp, undercurl = true })
+  end
 end
+curly_underlines()
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = vim.api.nvim_create_augroup("jorgejhms_curly_underlines", { clear = true }),
+  callback = curly_underlines,
+})
 
 -- Definiendo funciones para 'ts_ls' por separado
 local organize_imports_ts = function()
