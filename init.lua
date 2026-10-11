@@ -76,7 +76,7 @@ now(function()
   require("mini.notify").setup()
   vim.notify = MiniNotify.make_notify()
   require("mini.starter").setup()
-  require("mini.statusline").setup()
+  require("plugins.statusline")
 
   require("mini.sessions").setup({
     autowrite = true,
