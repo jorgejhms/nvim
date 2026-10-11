@@ -154,7 +154,23 @@ map("n", "<Leader>mr", function() MiniMap.refresh() end, { desc = "Alterna minim
 
 -- Mini Pick
 require("mini.pick").setup()
-vim.ui.select = MiniPick.ui_select
+
+-- Los code actions se muestran bajo el cursor, como las sugerencias ortográficas
+local cursor_win_config = function(n_items)
+  return {
+    relative = "cursor",
+    anchor = "NW",
+    row = 1,
+    col = 0,
+    width = 60,
+    height = math.min(n_items, 10),
+  }
+end
+
+vim.ui.select = function(items, opts, on_choice)
+  local start_opts = opts and opts.kind == "codeaction" and { window = { config = cursor_win_config(#items) } } or nil
+  return MiniPick.ui_select(items, opts, on_choice, start_opts)
+end
 
 local win_config = function()
   local height = math.floor(0.3 * vim.o.lines)
