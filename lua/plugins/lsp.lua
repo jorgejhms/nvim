@@ -127,7 +127,7 @@ local servers = {
   },
 
   -- Python
-  pyright = {},
+  basedpyright = {},
   ruff = {},
 
   -- Taailwind CSS

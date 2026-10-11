@@ -32,7 +32,7 @@ return {
   ["toggleterm.nvim"] = "9a88eae817ef395952e08650b3283726786fb5fb",
   ["tokyonight.nvim"] = "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
   ["trouble.nvim"] = "bd67efe408d4816e25e8491cc5ad4088e708a69a",
-  ["venv-selector.nvim"] = "d2326e7433fdeb10f7d0d1237c18b91b353f9f8b",
+  ["venv-selector.nvim"] = "cc4bb3975de8835291f9bb45889e96c6b2795fc4",
   ["vim-moonfly-colors"] = "2c883835f5b7b380a0a9e80695c420f7efebdfe4",
   ["virt-column.nvim"] = "b87e3e0864211a32724a2ebf3be37e24e9e2fa99"
 }

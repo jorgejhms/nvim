@@ -65,6 +65,7 @@ miniclue.setup({
     { mode = "n", keys = "<Leader>gh", desc = "+Git Hunks" },
     { mode = "n", keys = "<Leader>s", desc = "+Search" },
     { mode = "n", keys = "<Leader>u", desc = "+UI" },
+    { mode = "n", keys = "<Leader>v", desc = "+Venv" },
     { mode = "n", keys = "<Leader>x", desc = "+Trouble" },
     -- TODO: Completar mappings
 
