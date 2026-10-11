@@ -66,7 +66,7 @@ now(function()
   vim.opt.wrap = true -- Wrap por defecto
   vim.opt.swapfile = false -- No usa swapfiles
   vim.opt.relativenumber = true -- Líneas relativas (en insert se desactivan, ver config.autocommands)
-  vim.o.winborder = "single" -- Borde en ventanas flotantes (K, diagnósticos, etc.)
+  vim.o.winborder = "rounded" -- Borde en ventanas flotantes (K, diagnósticos, mini.pick, etc.)
 end)
 
 now(function() require("config.keymaps") end)
