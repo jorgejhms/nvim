@@ -2,7 +2,11 @@
 
 -- Fuzzy matching nativo en el popup (si se define antes del setup,
 -- mini.completion no lo sobreescribe con su "menuone,noselect")
-vim.o.completeopt = "menuone,noselect,fuzzy"
+vim.o.completeopt = "menuone,noselect,fuzzy,nosort"
+vim.o.complete = ".,w,b,kspell" -- Menos fuentes de completado nativo
+vim.o.completetimeout = 100 -- Limita la espera de las fuentes (ms)
+vim.o.pumborder = "rounded" -- Borde del menú, igual que 'winborder'
+vim.o.pummaxwidth = 100 -- Menú no demasiado ancho
 
 -- Completado LSP asíncrono con fallback a palabras del buffer.
 -- Por defecto: <C-Space> fuerza completado, <C-f>/<C-b> scrollean docs,
