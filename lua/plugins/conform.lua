@@ -17,7 +17,6 @@ require("conform").setup({
     ["jsonc"] = { "prettier" },
     ["yaml"] = { "prettier" },
     ["markdown"] = { "prettier" },
-    ["markdown.mdx"] = { "prettier" },
     ["graphql"] = { "prettier" },
     ["handlebars"] = { "prettier" },
     ["astro"] = { "prettier" },
