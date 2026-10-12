@@ -143,6 +143,7 @@ require("mini.indentscope").setup({
 -- Mini Map
 local minimap = require("mini.map")
 require("mini.map").setup({
+  symbols = { encode = minimap.gen_encode_symbols.dot("4x2") },
   integrations = {
     minimap.gen_integration.builtin_search(),
     minimap.gen_integration.diff(),
