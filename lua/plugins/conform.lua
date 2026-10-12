@@ -1,6 +1,7 @@
 require("conform").setup({
   notify_on_error = true,
-  format_on_save = true,
+  -- Sin formateador propio (p. ej. Python) se usa el LSP (ruff)
+  format_on_save = { timeout_ms = 1000, lsp_format = "fallback" },
   formatters_by_ft = {
     lua = { "stylua" },
     ["javascript"] = { "prettier" },
