@@ -33,26 +33,79 @@ local function localized(section, title, empty_text)
   end
 end
 
-local function action(name, fn) return { name = name, action = fn, section = "Acciones" } end
+-- Menú de acciones al estilo del dashboard de LazyVim: icono a la izquierda y tecla a la derecha
+local actions = {
+  { key = "f", icon = "\u{f002}", name = "Buscar archivos", run = function() vim.cmd("Pick files") end },
+  { key = "n", icon = "\u{f15b}", name = "Archivo nuevo", run = function() vim.cmd("enew") end },
+  { key = "g", icon = "\u{f031}", name = "Buscar texto", run = function() vim.cmd("Pick grep_live") end },
+  { key = "r", icon = "\u{f017}", name = "Archivos recientes", run = function() vim.cmd("Pick oldfiles") end },
+  { key = "c", icon = "\u{f013}", name = "Configuración", run = function() MiniFiles.open(vim.fn.stdpath("config")) end },
+  { key = "u", icon = "\u{f03d7}", name = "Actualizar plugins", run = function() vim.cmd("DepsUpdate") end },
+  { key = "q", icon = "\u{f011}", name = "Salir", run = function() vim.cmd("qa") end },
+}
+
+local action_items = vim.tbl_map(
+  function(a) return { name = a.name, action = a.run, section = "Acciones", icon = a.icon, key = a.key } end,
+  actions
+)
+
+-- Las teclas de las acciones dejan de filtrar la lista; el resto de letras y los números siguen igual
+local reserved = table.concat(vim.tbl_map(function(a) return a.key end, actions))
+local query_updaters = ("abcdefghijklmnopqrstuvwxyz0123456789_-."):gsub("[" .. reserved .. "]", "")
+
+-- Icono en lugar de la viñeta, tecla alineada a la derecha y sin el título de la sección de acciones
+local function doom_style(content)
+  local width = 0
+  for _, line in ipairs(content) do
+    for _, unit in ipairs(line) do
+      if unit.type == "item" and unit.item.key then width = math.max(width, vim.fn.strdisplaywidth(unit.string)) end
+    end
+  end
+
+  local result = {}
+  for _, line in ipairs(content) do
+    local is_actions_title = false
+    for i, unit in ipairs(line) do
+      if unit.type == "section" and unit.string == "Acciones" then is_actions_title = true end
+      if unit.type == "item" and unit.item.key then
+        local icon = { type = "item_bullet", string = unit.item.icon .. "  ", hl = "MiniStarterItemBullet" }
+        if line[i - 1] and line[i - 1].type == "item_bullet" then line[i - 1] = icon else table.insert(line, i, icon) end
+        local padding = string.rep(" ", width - vim.fn.strdisplaywidth(unit.string) + 4)
+        table.insert(line, { type = "item_bullet", string = padding .. unit.item.key, hl = "Comment" })
+        break
+      end
+    end
+    if not is_actions_title then table.insert(result, line) end
+  end
+  return result
+end
 
 starter.setup({
   header = banner,
   items = {
-    localized(starter.sections.recent_files(6, true, false), "Archivos recientes", "No hay archivos recientes aquí"),
-    localized(starter.sections.sessions(5, true), "Sesiones", "No hay sesiones guardadas"),
-    action("Buscar archivos", function() vim.cmd("Pick files") end),
-    action("Buscar texto", function() vim.cmd("Pick grep_live") end),
-    action("Editar la configuración", function() MiniFiles.open(vim.fn.stdpath("config")) end),
-    action("Actualizar plugins", function() vim.cmd("DepsUpdate") end),
-    action("Nuevo buffer", function() vim.cmd("enew") end),
-    action("Salir de Neovim", function() vim.cmd("qa") end),
+    action_items,
+    localized(starter.sections.recent_files(6, true, false), "Archivos recientes (carpeta actual)", "No hay archivos recientes aquí"),
   },
   content_hooks = {
     starter.gen_hook.adding_bullet("» "),
     starter.gen_hook.indexing("all", { "Acciones" }),
+    doom_style,
     starter.gen_hook.aligning("center", "center"),
   },
+  query_updaters = query_updaters,
   footer = function() return under_banner("Neovim " .. tostring(vim.version())) end,
+})
+
+-- Las teclas de las acciones se mapean en el buffer del inicio
+vim.api.nvim_create_autocmd("User", {
+  pattern = "MiniStarterOpened",
+  group = vim.api.nvim_create_augroup("jorgejhms_starter_atajos", { clear = true }),
+  desc = "Atajos de una tecla en el inicio",
+  callback = function(args)
+    for _, a in ipairs(actions) do
+      vim.keymap.set("n", a.key, a.run, { buffer = args.buf, nowait = true, desc = a.name })
+    end
+  end,
 })
 
 -- Sin barra de estado mientras el inicio está en pantalla (se restaura al salir del buffer)
