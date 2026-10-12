@@ -277,6 +277,29 @@ local spellsuggest = function()
   MiniExtra.pickers.spellsuggest(local_opts, opts)
 end
 
+-- Historial de mini.notify en un picker (lo más reciente primero).
+-- <Tab> muestra el mensaje completo; <CR> lo copia al portapapeles.
+local pick_notifications = function()
+  local notifs = vim.tbl_values(MiniNotify.get_all())
+  table.sort(notifs, function(a, b) return a.ts_update > b.ts_update end)
+  local items = vim.tbl_map(function(notif)
+    local time = vim.fn.strftime("%H:%M:%S", math.floor(notif.ts_update))
+    local first_line = vim.split(notif.msg, "\n")[1]
+    return { text = string.format("%s │ %-5s │ %s", time, notif.level, first_line), notif = notif }
+  end, notifs)
+
+  MiniPick.start({
+    source = {
+      name = "Notificaciones",
+      items = items,
+      preview = function(buf_id, item)
+        vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, vim.split(item.notif.msg, "\n"))
+      end,
+      choose = function(item) vim.fn.setreg("+", item.notif.msg) end,
+    },
+  })
+end
+
 -- TODO: Cambiar a lua
 -- Keymaps
 map("n", "<Leader><Leader>", "<cmd>Pick files<CR>", { desc = "[P]ick [F]iles" })
@@ -296,6 +319,7 @@ map("n", "<Leader>/", "<cmd>Pick buf_lines scope='current'<CR>", { desc = "[/] F
 map("n", "<Leader>s/", "<cmd>Pick buf_lines<CR>", { desc = "[S]earch [/] in Open Files" })
 map("n", "<leader>fc", pick_colorscheme, { noremap = true, silent = true, desc = "Change Colorscheme" })
 map("n", "<Leader>sr", function() MiniExtra.pickers.registers() end, { desc = "Buscar registros" })
+map("n", "<Leader>sn", pick_notifications, { desc = "Buscar notificaciones" })
 
 -- Surround
 require("mini.surround").setup({
