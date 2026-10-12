@@ -88,15 +88,12 @@ local function center_blocks(content, buf_id)
   return vim.list_extend(top_lines, content)
 end
 
+-- Ancho del menú de acciones: la tecla de cada acción se alinea en esta columna para que
+-- el menú no se vea angosto bajo el banner (icono + 3 espacios + nombre + relleno + tecla)
+local menu_width = 52
+
 -- Icono en lugar de la viñeta, tecla alineada a la derecha y sin el título de la sección de acciones
 local function doom_style(content)
-  local width = 0
-  for _, line in ipairs(content) do
-    for _, unit in ipairs(line) do
-      if unit.type == "item" and unit.item.key then width = math.max(width, vim.fn.strdisplaywidth(unit.string)) end
-    end
-  end
-
   local result = {}
   for _, line in ipairs(content) do
     local is_actions_title = false
@@ -105,9 +102,8 @@ local function doom_style(content)
       if unit.type == "item" and unit.item.key then
         local icon = { type = "item_bullet", string = unit.item.icon .. "   ", hl = "MiniStarterItemBullet" }
         if line[i - 1] and line[i - 1].type == "item_bullet" then line[i - 1] = icon else table.insert(line, i, icon) end
-        -- Tecla en una columna fija, con aire entre el texto y la tecla
-        local padding = string.rep(" ", width - vim.fn.strdisplaywidth(unit.string) + 10)
-        table.insert(line, { type = "item_bullet", string = padding .. unit.item.key, hl = "Comment" })
+        local pad = menu_width - 5 - vim.fn.strdisplaywidth(unit.string)
+        table.insert(line, { type = "item_bullet", string = string.rep(" ", pad) .. unit.item.key, hl = "Comment" })
         break
       end
     end
@@ -142,6 +138,14 @@ vim.api.nvim_create_autocmd("User", {
       vim.keymap.set("n", a.key, a.run, { buffer = args.buf, nowait = true, desc = a.name })
     end
   end,
+})
+
+-- Sin guía de indentación (mini.indentscope) en el inicio: las líneas son relleno de centrado
+vim.api.nvim_create_autocmd("User", {
+  pattern = "MiniStarterOpened",
+  group = vim.api.nvim_create_augroup("jorgejhms_starter_sin_indent", { clear = true }),
+  desc = "Desactiva mini.indentscope en el inicio",
+  callback = function(args) vim.b[args.buf].miniindentscope_disable = true end,
 })
 
 -- Sin barra de estado mientras el inicio está en pantalla (se restaura al salir del buffer)
