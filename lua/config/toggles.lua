@@ -40,3 +40,8 @@ map("n", "<Leader>um", function()
 end, { desc = "Alterna el minimapa" })
 
 map("n", "<Leader>uM", function() MiniMap.toggle_focus() end, { desc = "Enfoca el minimapa" })
+
+map("n", "<Leader>uo", function()
+  vim.wo.conceallevel = vim.wo.conceallevel == 0 and 2 or 0
+  notify_state("conceal", vim.wo.conceallevel > 0)
+end, { desc = "Alterna ocultar sintaxis (conceal)" })
