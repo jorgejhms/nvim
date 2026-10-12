@@ -36,7 +36,7 @@ end
 local function action(name, fn) return { name = name, action = fn, section = "Acciones" } end
 
 starter.setup({
-  header = function() return banner .. "\n\n" .. under_banner("Configuración personal Neovim") end,
+  header = banner,
   items = {
     localized(starter.sections.recent_files(6, true, false), "Archivos recientes", "No hay archivos recientes aquí"),
     localized(starter.sections.sessions(5, true), "Sesiones", "No hay sesiones guardadas"),
