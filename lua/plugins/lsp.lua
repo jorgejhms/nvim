@@ -175,7 +175,6 @@ local servers = {
   dockerls = {},
   emmet_language_server = {},
   html = {},
-  mdx_analyzer = {},
 
   -- Configuración para Lua
   -- (R se completa con el LSP propio de R.nvim, no con 'languageserver')
