@@ -70,6 +70,12 @@ now(function()
   vim.o.breakindentopt = "list:-1" -- Sangría extra al continuar líneas de listas (con wrap)
   vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limita el archivo ShaDa (arranque más rápido)
   vim.o.mousescroll = "ver:25,hor:6" -- Líneas por paso de scroll con el mouse
+
+  -- Folds: nada plegado por defecto, texto del fold con su resaltado
+  vim.o.foldmethod = "indent"
+  vim.o.foldlevel = 10
+  vim.o.foldnestmax = 10
+  vim.o.foldtext = ""
 end)
 
 now(function() require("config.keymaps") end)
