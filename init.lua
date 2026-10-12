@@ -276,3 +276,6 @@ later(function()
   add({ source = "rose-pine/neovim", name = "rose-pine" })
   require("plugins.colors")
 end)
+
+-- Gestión de plugins: indicador de novedades y atajos <Leader>p (va al final: lee la sesión completa)
+later(function() require("config.deps").setup() end)
