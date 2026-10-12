@@ -54,3 +54,28 @@ starter.setup({
   },
   footer = function() return under_banner("Neovim " .. tostring(vim.version())) end,
 })
+
+-- Sin barra de estado mientras el inicio está en pantalla (se restaura al salir del buffer)
+vim.api.nvim_create_autocmd("User", {
+  pattern = "MiniStarterOpened",
+  group = vim.api.nvim_create_augroup("jorgejhms_starter_sin_statusline", { clear = true }),
+  desc = "Oculta la barra de estado en el inicio",
+  callback = function(args)
+    local buf = args.buf
+    local saved = vim.o.laststatus
+    vim.o.laststatus = 0
+    starter.refresh(buf) -- recentra con la altura nueva
+
+    local group = vim.api.nvim_create_augroup("jorgejhms_starter_laststatus_" .. buf, { clear = true })
+    vim.api.nvim_create_autocmd("BufLeave", {
+      group = group,
+      buffer = buf,
+      callback = function() vim.o.laststatus = saved end,
+    })
+    vim.api.nvim_create_autocmd("BufEnter", {
+      group = group,
+      buffer = buf,
+      callback = function() vim.o.laststatus = 0 end,
+    })
+  end,
+})
