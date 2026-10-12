@@ -49,9 +49,6 @@ local function new_side(position, main)
   wo.number, wo.relativenumber, wo.cursorline, wo.list = false, false, false, false
   wo.signcolumn, wo.foldcolumn, wo.colorcolumn = "no", "0", ""
   wo.fillchars = "eob: ,vert: "
-  -- Barra de estado y separador invisibles: solo se ve la de la ventana principal
-  wo.statusline = " "
-  wo.winhighlight = "StatusLine:Normal,StatusLineNC:Normal"
   return win
 end
 
