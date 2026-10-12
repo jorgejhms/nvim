@@ -98,6 +98,15 @@ now(function()
   })
 end)
 
+-- Raíz del proyecto como cwd, cursor restaurado y fondo de la terminal sincronizado.
+-- En now() porque el cambio de raíz se engancha a BufEnter; en later() se perdería el del primer archivo.
+now(function()
+  local misc = require("mini.misc")
+  misc.setup_auto_root()
+  misc.setup_restore_cursor()
+  misc.setup_termbg_sync()
+end)
+
 later(function() require("mini.ai").setup({ n_lines = 500 }) end)
 later(function() require("mini.bracketed").setup() end) -- Movimientos "[" y "]"
 later(function() require("mini.splitjoin").setup() end) -- Split/Join
