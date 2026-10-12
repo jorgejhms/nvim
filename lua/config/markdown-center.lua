@@ -8,7 +8,6 @@ local MIN_SIDE = 4 -- ancho mínimo de cada lateral; si no cabe, no se centra
 local SEPARATORS = 2 -- una columna de separador por cada lateral
 
 local updating = false
-local saved_laststatus -- 'laststatus' original mientras haya alguna pestaña centrada
 
 local function is_centerable(win)
   local buf = vim.api.nvim_win_get_buf(win)
@@ -26,17 +25,6 @@ local function tab_windows(tab)
   return normal, sides
 end
 
--- Con laterales se usa una sola barra de estado global, de ancho completo
-local function restore_laststatus()
-  if saved_laststatus == nil then return end
-  for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
-    local _, sides = tab_windows(tab)
-    if #sides > 0 then return end
-  end
-  vim.o.laststatus = saved_laststatus
-  saved_laststatus = nil
-end
-
 local function close_sides(sides)
   for _, side in ipairs(sides) do
     local main = vim.w[side].markdown_center_main
@@ -47,7 +35,6 @@ local function close_sides(sides)
     end
     pcall(vim.api.nvim_win_close, side, true)
   end
-  restore_laststatus()
 end
 
 local function new_side(position, main)
@@ -95,8 +82,6 @@ local function update_tab()
       vim.w[main].markdown_center_fillchars = vim.api.nvim_get_option_value("fillchars", { win = main, scope = "local" })
     end
     vim.wo[main].fillchars = vim.go.fillchars .. ",vert: "
-    if saved_laststatus == nil then saved_laststatus = vim.o.laststatus end
-    vim.o.laststatus = 3
     local left = new_side("left", main)
     local right = new_side("right", main)
     sides = { left, right }
