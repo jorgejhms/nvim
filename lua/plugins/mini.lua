@@ -143,13 +143,29 @@ require("mini.indentscope").setup({
 -- Mini Map
 local minimap = require("mini.map")
 require("mini.map").setup({
+  symbols = { encode = minimap.gen_encode_symbols.dot("4x2") },
   integrations = {
     minimap.gen_integration.builtin_search(),
     minimap.gen_integration.diff(),
     minimap.gen_integration.diagnostic(),
   },
 })
-MiniMap.open() -- Abierto por defecto (<Leader>um lo alterna)
+
+-- Abierto por defecto en archivos normales: no en la pantalla de inicio ni en buffers especiales.
+-- Si no se abre al arrancar, se abre en el primer archivo normal que se visite.
+if vim.bo.buftype == "" then
+  MiniMap.open()
+else
+  vim.api.nvim_create_autocmd("BufEnter", {
+    group = vim.api.nvim_create_augroup("jorgejhms_minimap_open", { clear = true }),
+    callback = function()
+      if vim.bo.buftype ~= "" then return end
+      MiniMap.open()
+      return true -- elimina el autocmd: <Leader>um decide desde aquí
+    end,
+    desc = "Abre el minimapa en el primer archivo normal",
+  })
+end
 
 -- Mini Pick
 require("mini.pick").setup()
