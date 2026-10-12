@@ -68,6 +68,7 @@ now(function()
   vim.opt.relativenumber = true -- Líneas relativas (en insert se desactivan, ver config.autocommands)
   vim.o.winborder = "rounded" -- Borde en ventanas flotantes (K, diagnósticos, mini.pick, etc.)
   vim.o.breakindentopt = "list:-1" -- Sangría extra al continuar líneas de listas (con wrap)
+  vim.o.laststatus = 3 -- Una sola barra de estado global, de ancho completo
   vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limita el archivo ShaDa (arranque más rápido)
   vim.o.mousescroll = "ver:25,hor:6" -- Líneas por paso de scroll con el mouse
 
