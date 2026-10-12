@@ -148,6 +148,7 @@ require("mini.map").setup({
     minimap.gen_integration.diagnostic(),
   },
 })
+MiniMap.open() -- Abierto por defecto (<Leader>um lo alterna)
 
 -- Mini Pick
 require("mini.pick").setup()
