@@ -91,6 +91,14 @@ now(function()
 
   require("mini.sessions").setup({
     autowrite = true,
+    hooks = {
+      pre = {
+        -- Las ventanas laterales del centrado markdown no deben quedar guardadas en la sesión
+        write = function()
+          if package.loaded["config.markdown-center"] then require("config.markdown-center").close_all() end
+        end,
+      },
+    },
   })
 
   require("mini.tabline").setup({
