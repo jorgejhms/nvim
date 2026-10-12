@@ -148,9 +148,6 @@ require("mini.map").setup({
     minimap.gen_integration.diagnostic(),
   },
 })
-map("n", "<Leader>mt", function() MiniMap.toggle() end, { desc = "Alterna minimapa" })
-map("n", "<Leader>mf", function() MiniMap.toggle_focus() end, { desc = "Alterna minimapa" })
-map("n", "<Leader>mr", function() MiniMap.refresh() end, { desc = "Alterna minimapa" })
 
 -- Mini Pick
 require("mini.pick").setup()

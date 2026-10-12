@@ -12,7 +12,6 @@ local function toggle_option(key, option, scope)
 end
 
 toggle_option("c", "cursorline", vim.wo)
-toggle_option("C", "cursorcolumn", vim.wo)
 toggle_option("i", "ignorecase", vim.o)
 toggle_option("l", "list", vim.wo)
 toggle_option("n", "number", vim.wo)
@@ -34,3 +33,10 @@ map("n", "<Leader>uh", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   notify_state("inlay hints", vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Alterna pistas en línea de LSP" })
+
+map("n", "<Leader>um", function()
+  MiniMap.toggle()
+  notify_state("minimapa", MiniMap.current.win_data[vim.api.nvim_get_current_tabpage()] ~= nil)
+end, { desc = "Alterna el minimapa" })
+
+map("n", "<Leader>uM", function() MiniMap.toggle_focus() end, { desc = "Enfoca el minimapa" })
