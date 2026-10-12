@@ -87,7 +87,7 @@ now(function() require("config.autocommands") end)
 now(function()
   require("mini.notify").setup()
   vim.notify = MiniNotify.make_notify()
-  require("mini.starter").setup()
+  require("config.starter")
   require("plugins.statusline")
 
   require("mini.sessions").setup({
