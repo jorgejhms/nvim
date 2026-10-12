@@ -32,8 +32,8 @@ require("catppuccin").setup({
 })
 
 -- El esquema sigue a 'background': Neovim lo actualiza según el tema de la terminal
--- (y lo cambia <Leader>ub), igual que Zed con Dracula / Catppuccin Latte.
-local scheme_by_background = { dark = "dracula", light = "catppuccin-latte" }
+-- (y lo cambia <Leader>ub): Catppuccin Mocha en oscuro y Latte en claro.
+local scheme_by_background = { dark = "catppuccin-mocha", light = "catppuccin-latte" }
 
 local function apply_scheme()
   local scheme = scheme_by_background[vim.o.background]
