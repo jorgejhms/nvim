@@ -314,7 +314,7 @@ map("n", "<Leader>sg", "<cmd>Pick grep_live<CR>", { desc = "[S]earch [G]rep" })
 map("n", "z=", spellsuggest, { desc = "Abre las sugerencias ortográficas" })
 map("n", "<Leader>/", "<cmd>Pick buf_lines scope='current'<CR>", { desc = "[/] Fuzzily search in current buffer" })
 map("n", "<Leader>s/", "<cmd>Pick buf_lines<CR>", { desc = "[S]earch [/] in Open Files" })
-map("n", "<leader>fc", pick_colorscheme, { noremap = true, silent = true, desc = "Change Colorscheme" })
+map("n", "<Leader>uC", pick_colorscheme, { desc = "Cambia el colorscheme" })
 map("n", "<Leader>sr", function() MiniExtra.pickers.registers() end, { desc = "Buscar registros" })
 map("n", "<Leader>sn", pick_notifications, { desc = "Buscar notificaciones" })
 
