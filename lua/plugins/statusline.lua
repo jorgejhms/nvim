@@ -1,5 +1,6 @@
 -- Entorno Python activo según venv-selector; clic izquierdo abre el selector
 function StatuslineVenvSelect() vim.cmd("VenvSelect") end
+function StatuslineDepsUpdate() vim.cmd("DepsUpdate") end
 
 local function section_venv()
   if vim.bo.filetype ~= "python" then return "" end
@@ -9,7 +10,14 @@ local function section_venv()
   return "%@v:lua.StatuslineVenvSelect@󱔎 " .. label .. "%X"
 end
 
--- Igual que el contenido por defecto de mini.statusline, más section_venv
+-- Plugins con novedades (config.deps); clic izquierdo abre el changelog de :DepsUpdate
+local function section_deps()
+  local count = #require("config.deps").outdated
+  if count == 0 then return "" end
+  return string.format("%%@v:lua.StatuslineDepsUpdate@%%#StatuslineDepsOutdated#󰏗 %d", count)
+end
+
+-- Igual que el contenido por defecto de mini.statusline, más section_venv y section_deps
 local function content_active()
   local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
   local git = MiniStatusline.section_git({ trunc_width = 40 })
@@ -27,10 +35,22 @@ local function content_active()
     "%<",
     { hl = "MiniStatuslineFilename", strings = { filename } },
     "%=",
-    { hl = "MiniStatuslineDevinfo", strings = { section_venv() } },
+    { hl = "MiniStatuslineDevinfo", strings = { section_venv(), section_deps() } },
     { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
     { hl = mode_hl, strings = { search, location } },
   })
 end
 
 require("mini.statusline").setup({ content = { active = content_active } })
+
+-- Color de aviso (fg de DiagnosticWarn sobre el fondo del grupo); se reaplica al cambiar de tema
+local function deps_highlight()
+  local warn = vim.api.nvim_get_hl(0, { name = "DiagnosticWarn", link = false })
+  local devinfo = vim.api.nvim_get_hl(0, { name = "MiniStatuslineDevinfo", link = false })
+  vim.api.nvim_set_hl(0, "StatuslineDepsOutdated", { fg = warn.fg, bg = devinfo.bg })
+end
+deps_highlight()
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = vim.api.nvim_create_augroup("jorgejhms_deps_highlight", { clear = true }),
+  callback = deps_highlight,
+})
