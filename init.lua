@@ -216,15 +216,6 @@ later(function()
   require("plugins.python-venv-selector")
 end)
 
--- Suporte básico para MDX
-later(function()
-  add({
-    source = "davidmh/mdx.nvim",
-    depends = { "nvim-treesitter/nvim-treesitter" },
-  })
-  require("mdx").setup()
-end)
-
 -- Indent Blankline
 later(function()
   add("lukas-reineke/indent-blankline.nvim")
