@@ -169,6 +169,9 @@ local servers = {
       function(ft) return ft ~= "markdown" end,
       vim.lsp.config.tailwindcss.filetypes
     ),
+    settings = {
+      tailwindCSS = { classFunctions = { "cva", "cx" } },
+    },
   },
 
   -- typescript
