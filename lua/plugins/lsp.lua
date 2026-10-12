@@ -103,6 +103,13 @@ local on_attach = function(client, bufnr)
     end, "Organizar Imports")
   end
 
+  -- Plegado por LSP cuando el servidor lo soporta (si no, queda foldmethod=indent)
+  if client:supports_method("textDocument/foldingRange") then
+    local win = vim.api.nvim_get_current_win()
+    vim.wo[win][0].foldmethod = "expr"
+    vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+  end
+
   -- Elimina el resaltado tras una búsqueda LSP
   if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
