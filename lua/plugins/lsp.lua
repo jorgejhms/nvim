@@ -103,6 +103,13 @@ local on_attach = function(client, bufnr)
     end, "Organizar Imports")
   end
 
+  -- Plegado por LSP cuando el servidor lo soporta (si no, queda foldmethod=indent)
+  if client:supports_method("textDocument/foldingRange") then
+    local win = vim.api.nvim_get_current_win()
+    vim.wo[win][0].foldmethod = "expr"
+    vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+  end
+
   -- Elimina el resaltado tras una búsqueda LSP
   if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -121,6 +128,40 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("jorgejhms_lsp_attach", { clear = true }),
   callback = function(args)
     on_attach(vim.lsp.get_client_by_id(args.data.client_id), args.buf)
+  end,
+})
+
+-- Agrega los imports que faltan y los ordena al guardar TS/TSX (como Zed).
+-- Es síncrono para que ocurra antes de escribir; se registra antes que el autocmd de
+-- conform para que prettier formatee el resultado.
+local apply_source_action = function(bufnr, client, kind)
+  local params = {
+    textDocument = vim.lsp.util.make_text_document_params(bufnr),
+    range = {
+      start = { line = 0, character = 0 },
+      ["end"] = { line = vim.api.nvim_buf_line_count(bufnr), character = 0 },
+    },
+    context = { only = { kind }, diagnostics = {} },
+  }
+  local response = client:request_sync("textDocument/codeAction", params, 1000, bufnr)
+  for _, action in ipairs(response and response.result or {}) do
+    if action.edit then
+      vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
+    elseif action.command then
+      client:exec_cmd(action.command, { bufnr = bufnr })
+    end
+  end
+end
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("jorgejhms_ts_source_actions", { clear = true }),
+  pattern = { "*.ts", "*.tsx" },
+  desc = "Agrega y ordena imports de TypeScript al guardar",
+  callback = function(args)
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = args.buf, method = "textDocument/codeAction" })) do
+      apply_source_action(args.buf, client, "source.addMissingImports")
+      apply_source_action(args.buf, client, "source.sortImports")
+    end
   end,
 })
 
@@ -162,6 +203,9 @@ local servers = {
       function(ft) return ft ~= "markdown" end,
       vim.lsp.config.tailwindcss.filetypes
     ),
+    settings = {
+      tailwindCSS = { classFunctions = { "cva", "cx" } },
+    },
   },
 
   -- typescript
